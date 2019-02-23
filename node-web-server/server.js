@@ -3,6 +3,9 @@ const express = require('express');
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public/src/app'));
+app.use(express.static(__dirname + '/public/src'));
+
 
 app.get('/', (req, res) => {
     res.end('<h1>hello express!</h1>');
@@ -16,6 +19,10 @@ app.get('/bad', (req, res) => {
     res.send({
         error: "error handling request"
     });
+});
+
+app.get('/angular', (req, res) => {
+    res.sendfile('./public/src/app/app.component.html');
 });
 
 /*
