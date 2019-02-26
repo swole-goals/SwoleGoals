@@ -17,7 +17,7 @@ export class GithubService {
                 map((item: any) => item.map(p => <GitRepoInfo>
                     {
                         user: p.author.login,
-                        name: "a",
+                        url: p.author.html_url,
                         commits: p.total
                     })));            
     }
