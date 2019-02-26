@@ -1,0 +1,25 @@
+1. Open command prompt.
+Type:
+	"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\MySQL\MySQL Server 8.0\MySQL 8.0 Command Line Client.lnk" --user=root --password swolegoals --local_infile
+
+	"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\MySQL\MySQL Server 8.0\MySQL 8.0 Command Line Client.lnk" -u root -p --host 35.184.39.160 --local_infile
+
+2. Load file with data.
+	LOAD DATA LOCAL INFILE 'C:/Users/Vivian/Documents/swolegoals/users.txt' INTO TABLE user;
+
+3. Run server. Navigate to 'C:\Users\Vivian\Documents\swolegoals' and type in:
+	node index.js
+
+MISC.
+#Exercises (100)
+  #Type (100)
+  #Muscles (100)
+  #Equipment (100)
+  #Level (varchar) (100)
+  #images (varchar) (100)
+  #Review/Rating (varchar) (100)
+  #Instructions (varchar) (5000)
+  #Caution (5000)
+  #Variations (varchar) (5000)
+
+mysql> CREATE TABLE bodybuilding_exercises (name VARCHAR(100), type VARCHAR(100), muscles VARCHAR(100), equipment VARCHAR(100), level VARCHAR(100), images VARCHAR(200), review VARCHAR(100), instructions VARCHAR(5000), caution VARCHAR(5000), variations VARCHAR(5000));

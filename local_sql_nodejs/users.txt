@@ -1,0 +1,6 @@
+Kaibo	22	150	Male	kaibo@gmail.com
+Michael	22	150	Male	michael@gmail.com
+Nick	22	150	Male	nick@gmail.com
+Nicole	22	150	Female	nicole@gmail.com	
+Rohan	22	150	Male	rohan@gmail.com
+Vivian	22	150	Female	vivian@gmail.com
