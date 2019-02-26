@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Splash Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+	.navbar{
+		margin-bottom: 0;
+		border-radius: 0;
+		background-color: #5E4485;
+		color: #FFF;
+		padding: 1% 0;
+		font-size: 1.2em;
+		boarder: 0;
+	}
+	.navbar-brand{
+		float: left;
+		max-height: 55px;
+		padding: 0px 15px 15px;
+	}
+	.navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover{
+		color: #FFF;
+		background-color: #5E4485;
+	}
+	.navbar-inverse .navbar-nav li a{
+		color:#D5D5D5;
+	}
+	
+	.nav-tabs{
+		padding: 5% 5% 0% 5%;
+		width: 45%
+	}
+	.tab-content{
+		padding-left : 10%;
+		width:45%;
+		
+	}
+	.nav-2{
+		left: 0;
+		width 45%;
+	}
+	
+	
+	.button{
+		position: absolute;
+		top: 10%;
+		right: 0%;
+		background-color: #5E4485;
+	
+	}
+	.table{
+		position: absolute;
+		bottom: 0px;
+		padding-top: 10px;
+		border: 3px solid #5E4485;
+	}
+  </style>
+</head>
+<body>
+	<nav class= "navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"><img src="img/Swole_Icon.png" width="100" height="50"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-right">
+					<li class = "active"><a href="#">Profile</a></li>
+					<li><a href="#">Friends</a></li>
+					<li><a href="#">Games</a></li>
+					<li><a href="#">Leaderboards</a></li>
+					<li><a href="#">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="button">
+		<a href="#" class="btn btn-info" role="button">Start Workout</a>
+	</div>
+	
+	<ul class="nav nav-tabs">
+	  <li class="active"><a data-toggle="tab" href="#home">Personal Data</a></li>
+	  <li><a data-toggle="tab" href="#menu1">Friends</a></li>
+	  <li><a data-toggle="tab" href="#menu2">Groups</a></li>
+	</ul>
+
+	<div class="tab-content">
+	  <div id="home" class="tab-pane fade in active">
+		<h3>Personal Data</h3>
+		<p>Some content.</p>
+	  </div>
+	  <div id="Friends" class="tab-pane fade">
+		<h3>Friends</h3>
+		<p>Some content in menu 1.</p>
+	  </div>
+	  <div id="menu2" class="tab-pane fade">
+		<h3>Groups</h3>
+		<p>Some content in menu 2.</p>
+	  </div>
+	</div>
+	
+	<div id="tableOfChallenges">
+		<table class="table table-hover table-dark">
+			<thead>
+			<tr>
+				<th scope="col">Name (Groups)</th>
+				<th scope="col">Date Joined</th>
+				<th scope="col">Progress</th>
+				<th scope="col">Ranking</th>
+			</tr>
+			</thead>
+				<tbody>
+					<tr>
+					  <th scope="row">Running (Burgendy)</th>
+					  <td>5/18/17</td>
+					  <td>50%</td>
+					  <td>3</td>
+					</tr>
+					<tr>
+					  <th scope="row">Cycling (Burgendy)</th>
+					  <td>08/17/17</td>
+					  <td>34%</td>
+					  <td>4</td>
+					</tr>
+					<tr>
+					  <th scope="row">Push Ups (Burgendy)</th>
+					  <td>02/17/19</td>
+					  <td>98%</td>
+					  <td>1</td>
+					</tr>
+				</tbody>
+		</table>
+		
+	</div>
+	
+	<div class= "nav-2">
+	<ul class="nav nav-tabs">
+	  <li class="active"><a data-toggle="tab" href="#home">Personal Data</a></li>
+	  <li><a data-toggle="tab" href="#menu1">Friends</a></li>
+	  <li><a data-toggle="tab" href="#menu2">Groups</a></li>
+	</ul>
+
+	<div class="tab-content">
+	  <div id="home" class="tab-pane fade in active">
+		<h3>Personal Data</h3>
+		<p>Some content.</p>
+	  </div>
+	  <div id="Friends" class="tab-pane fade">
+		<h3>Friends</h3>
+		<p>Some content in menu 1.</p>
+	  </div>
+	  <div id="menu2" class="tab-pane fade">
+		<h3>Groups</h3>
+		<p>Some content in menu 2.</p>
+	  </div>
+	</div>
+	
+	  
+	  
+	</div>
+			
+	
+			
+	
+			
+
+
+
+
+</body>
+</html>
