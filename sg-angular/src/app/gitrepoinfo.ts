@@ -1,7 +1,5 @@
 export class GitRepoInfo {
+    user:string;
     name:string;
-    htmlUrl: string;
-    stars: number;
-    forks: number;
-    description: string;
+    commits: string;
 }
