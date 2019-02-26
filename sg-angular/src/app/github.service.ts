@@ -12,15 +12,13 @@ export class GithubService {
     constructor(private httpClient: HttpClient) { }
 
     getUserRepos(): Observable<GitRepoInfo> {
-        return this.httpClient.get(`https://api.github.com/users/mithunvp/repos`).
+        return this.httpClient.get(`https://api.github.com/repos/vivianmnguyen/SwoleGoals/stats/contributors`).
             pipe(
                 map((item: any) => item.map(p => <GitRepoInfo>
                     {
-                        name: p.name,
-                        stars: p.stargazers_count,
-                        htmlUrl: p.html_url,
-                        forks: p.forks,
-                        description: p.description
+                        user: p.author.login,
+                        url: p.author.html_url,
+                        commits: p.total
                     })));            
     }
 }
