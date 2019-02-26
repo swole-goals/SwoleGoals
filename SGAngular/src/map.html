@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="map.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	</head>
+	<body>
+		
+		<div id="gameboard">
+    			<div id="1">a</div>
+			<br />
+    			<div id="2">b</div>
+    			<div id="3">c</div>
+		</div>
+		<div class="container">
+			<div class="row">
+			<h1>Welcome to the Game Map</h1>
+			</div>
+			<div class="row">
+				<div class="col-6">
+				<table>
+				<tr>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary hiddenB">Exercise</button></td>
+				</tr>
+				<tr>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+					<td><button type="button" class="btn btn-primary">Exercise</button></td>
+				</tr>
+			</table>
+			</div>
+			<div class="col-6">
+				<div style="border-style: solid;
+  border-width: 5px; height: 300px">
+					<h2>Exercise</h2>
+					<p>Some information about exercise</p>
+					<p><strong>Reps:</strong> 9000</p>
+					<p><strong>PR:</strong> 9000 + 1</p>
+					
+					<button type="button" class="btn btn-primary">Success</button>
+					<button type="button" class="btn btn-primary">Fail (Do you even lift?)</button>
+				</div>
+			</div>
+			</div>
+		</div>
+		<button onclick="generateMap()">
+		<script>
+			
+			var hideButtons = document.getElementsByClassName("hiddenB");
+			for(var i = 0; i < hideButtons.length; i++)
+				hideButtons[i].style.visibility = 'hidden';
+			
+			console.log(document.getElementsByClassName("hiddenB"));	
+			function generateMap() {
+				for(var i = 0; i < 10; i++) {
+					
+					var node = document.createElement("button");
+					var breakLine = document.createElement("br");
+					node.className = "btn btn-primary";
+					node.setAttribute("type", "button");
+  					var textnode = document.createTextNode("Water");
+  					node.appendChild(textnode);i
+  					document.getElementById("gameboard").appendChild(breakLine);
+  					document.getElementById("gameboard").appendChild(node);
+					
+				}
+			}
+		</script>
+	</body>
+</html>
