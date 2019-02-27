@@ -11,11 +11,13 @@ app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     host     : 'localhost',
-     port     : 3307,
+     //host     : 'localhost',
+     //port     : 3307,
      user     : 'root',
      password : 'swolegoals',
-     database : 'user'
+     //database : 'user',
+     database : 'exercises',
+     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 
@@ -28,9 +30,26 @@ mysqlConn.connect(function(err) {
 });
 
 
-//get
+app.get('/', (req, res) => {
+  res.send("Hello from SwoleGoals!")
+});
+
+//get User
+/*
 app.get('/getUser', (req, res) => {
   mysqlConn.query("select * from MyGuests", (err, results, fields) => {
+    if (err){
+      console.log(err);
+    }else{
+      console.log("get successfully.");
+      res.send(results);
+    }
+  })
+});
+*/
+// get all info from exercises
+app.get('/getUser', (req, res) => {
+  mysqlConn.query("select * from bodybuilding_exercises", (err, results, fields) => {
     if (err){
       console.log(err);
     }else{
