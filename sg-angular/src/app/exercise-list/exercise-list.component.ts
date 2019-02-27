@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseListService } from './exercise-list.service';
 
-Component({
+@Component({
   selector: 'app-exercise-list',
   templateUrl: './exercise-list.component.html',
   styleUrls: ['./exercise-list.component.css'],
