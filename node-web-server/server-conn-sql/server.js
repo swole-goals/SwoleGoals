@@ -11,11 +11,12 @@ app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     host     : 'localhost',
-     port     : 3307,
+     //host     : '35.184.39.160',
+     //port     : 3307,
      user     : 'root',
      password : 'swolegoals',
-     database : 'user'
+     database : 'user',
+     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 
@@ -27,6 +28,10 @@ mysqlConn.connect(function(err) {
   }
 });
 
+
+app.get('/', (req, res) => {
+  res.send("Hello from SwoleGoals!")
+});
 
 //get
 app.get('/getUser', (req, res) => {
