@@ -11,8 +11,8 @@ app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     //host     : '35.184.39.160',
-     //port     : 3307,
+     host     : 'localhost',
+     port     : 3307,
      user     : 'root',
      password : 'swolegoals',
      //database : 'user',
