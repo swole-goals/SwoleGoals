@@ -34,10 +34,11 @@ app.get('/', (req, res) => {
   res.send("Hello from SwoleGoals!")
 });
 
+
 //get User
-/*
+
 app.get('/getUser', (req, res) => {
-  mysqlConn.query("select * from MyGuests", (err, results, fields) => {
+  mysqlConn.query("select * from users", (err, results, fields) => {
     if (err){
       console.log(err);
     }else{
@@ -46,9 +47,11 @@ app.get('/getUser', (req, res) => {
     }
   })
 });
-*/
+
+
+
 // get all info from exercises
-app.get('/getUser', (req, res) => {
+app.get('/getEx', (req, res) => {
   mysqlConn.query("select * from bodybuilding_exercises", (err, results, fields) => {
     if (err){
       console.log(err);
@@ -58,6 +61,8 @@ app.get('/getUser', (req, res) => {
     }
   })
 });
+
+
 
 /*
 app.post('/postUser', (res, req) => {
