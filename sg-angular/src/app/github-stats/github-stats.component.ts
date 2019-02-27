@@ -17,29 +17,39 @@ export class GithubStatsComponent implements OnInit {
     public loadGithubRepos() {
         this.githubserv.getUserRepos().subscribe((data) => {
             this.gitAccountList = data;
-            this.gitAccountList[0].name = "Vivian Nguyen";
-            this.gitAccountList[0].bio = "Vivian is an ECE Major graduating in December of 2019";
-            this.gitAccountList[0].image = "../../assets/images/vivian.jpg"
 
-            this.gitAccountList[1].name = "Kaibo Cai";
-            this.gitAccountList[1].bio = "Kaibo is an ECE Major graduating in December of 2019";
-            this.gitAccountList[1].image = "../../assets/images/kaibo.jpg"
-
-            this.gitAccountList[2].name = "Nicole Finks";
-            this.gitAccountList[2].bio = "Nicole is an ECE Major graduating in December of 2019";
-            this.gitAccountList[2].image = "../../assets/images/nicole.jpg"
-
-            this.gitAccountList[3].name = "Michael Lawrence";
-            this.gitAccountList[3].bio = "Michael is an ECE Major graduating in May of 2019";
-            this.gitAccountList[3].image = "../../assets/images/michael.jpg"
-
-            this.gitAccountList[4].name = "Nick Pattie";
-            this.gitAccountList[4].bio = "Nick is a BME Major graduating in May of 2019";
-            this.gitAccountList[4].image = "../../assets/images/nick.png"
-
-            this.gitAccountList[5].name = "Rohan Koripalli";
-            this.gitAccountList[5].bio = "Rohan is an ECE Major graduating in December of 2019";
-            this.gitAccountList[5].image = "../../assets/images/rohan.png"
+            this.gitAccountList.forEach(i => {
+                if(i.user === "vivianmnguyen"){
+                    i.name = "Vivian Nguyen";
+                    i.bio = "Vivian is an ECE Major graduating in December of 2019";
+                    i.image = "../../assets/images/vivian.jpg"
+                }
+                if(i.user === "KaiboCai"){
+                    i.name = "Kaibo Cai";
+                    i.bio = "Kaibo is an ECE Major graduating in December of 2019";
+                    i.image = "../../assets/images/kaibo.jpg"
+                }
+                if(i.user === "NFinks"){
+                    i.name = "Nicole Finks";
+                    i.bio = "Nicole is an ECE Major graduating in December of 2019";
+                    i.image = "../../assets/images/nicole.jpg"
+                }
+                if(i.user === "prilak"){
+                    i.name = "Michael Lawrence";
+                    i.bio = "Michael is an ECE Major graduating in May of 2019";
+                    i.image = "../../assets/images/michael.jpg"
+                }
+                if(i.user === "NickPattie"){
+                    i.name = "Nick Pattie";
+                    i.bio = "Nick is a BME Major graduating in May of 2019";
+                    i.image = "../../assets/images/nick.png"
+                }
+                if(i.user === "rkoripalli"){
+                    i.name = "Rohan Koripalli";
+                    i.bio = "Rohan is an ECE Major graduating in December of 2019";
+                    i.image = "../../assets/images/rohan.png"
+                }
+            });
         });
     }
 
