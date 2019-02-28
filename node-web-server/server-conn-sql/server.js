@@ -4,20 +4,23 @@
 // run this as "node server.js"
 
 const express = require('express');
-var app = express();
-var bodyparser = require('body-parser');
 
+var app = express();
+
+var bodyparser = require('body-parser');
+var cors = require('cors');//cors is used to allow cross platform services
+app.use(cors());
 app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     //host     : 'localhost',
-     //port     : 3307,
+     host     : 'localhost',
+     port     : 3307,
      user     : 'root',
      password : 'swolegoals',
      //database : 'user',
      database : 'exercises',
-     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
+     //socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 
