@@ -14,13 +14,13 @@ app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     host     : 'localhost',
-     port     : 3307,
+     //host     : 'localhost',
+     //port     : 3307,
      user     : 'root',
      password : 'swolegoals',
      //database : 'user',
      database : 'exercises',
-     //socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
+     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 
