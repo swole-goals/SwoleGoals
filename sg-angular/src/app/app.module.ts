@@ -7,7 +7,7 @@ import { GithubStatsComponent } from './github-stats/github-stats.component';
 import { MapComponent } from './map/map.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
-//import { ExercisesComponent } from './exercises/exercises.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -15,7 +15,6 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
     MapComponent,
     UserProfileComponent,
     ExerciseListComponent,
-    //    ExercisesComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,11 +27,15 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
       {
         path: 'app-user-profile',
         component: UserProfileComponent
-	},
-	//{
-	//path: 'app-exercise-list',
-	//component: ExerciseListComponent
-	//}
+	    },
+      {
+        path: 'app-exercise-list',
+        component: ExerciseListComponent
+      },
+      {
+        path: 'app-map',
+        component: MapComponent
+      }
     ]),
   ],
   providers: [],
