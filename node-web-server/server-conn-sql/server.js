@@ -51,6 +51,18 @@ app.get('/getUser', (req, res) => {
   })
 });
 
+app.get('/getUser/:lastname', (req, res) => {
+  var lastname = req.params.lastname;
+  mysqlConn.query("select * from users where LastName = ?", lastname, (err, results, fields) => {
+    if (err){
+      console.log(err);
+    }else{
+      console.log(err);
+      res.send(results);
+    }
+  })
+});
+
 
 
 // get all info from exercises
