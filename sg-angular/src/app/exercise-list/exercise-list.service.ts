@@ -18,7 +18,7 @@ export class ExerciseListService {
         map((item: any) => item.map(e => <ExerciseInfo>
         {
           name: e.name,
-          type: e.typew,
+          type: e.type,
           muscles: e.muscles,
           equipment: e.equipment,
           level: e.level,

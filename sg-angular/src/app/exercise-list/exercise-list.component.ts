@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseListService } from './exercise-list.service';
+import { ExerciseInfo } from './exerciseinfo';
 
 @Component({
   selector: 'app-exercise-list',
@@ -8,12 +9,12 @@ import { ExerciseListService } from './exercise-list.service';
   providers: [ExerciseListService]
 })
 export class ExerciseListComponent implements OnInit {
-
+  private exercisesList: Array<ExerciseInfo>;
   constructor(private exerciseService: ExerciseListService) { 
   	this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
-	//console.log('Response received is ', res);
-		console.log(res);
+		this.exercisesList = res;
 	});
+
   }
 
   ngOnInit() {
