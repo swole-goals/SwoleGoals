@@ -22,42 +22,41 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-6">
-				<!-- Nav tabs -->
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Messages</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
-  </li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-  <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-  <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-  <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
-</div>
+				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+				  <li class="nav-item">
+					<a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="true">Profile</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" id="pills-friends-tab" data-toggle="pill" href="#pills-friends" role="tab" aria-controls="pills-friends" aria-selected="false">Friends</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" id="pills-groups-tab" data-toggle="pill" href="#pills-groups" role="tab" aria-controls="pills-groups" aria-selected="false">Groups</a>
+				  </li>
+				</ul>
+				<div class="tab-content" id="pills-tabContent">
+				  <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"> PROFILE TEXT</div>
+				  <div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab">FRIENDS TEXT</div>
+				  <div class="tab-pane fade" id="pills-groups" role="tabpanel" aria-labelledby="pills-groups-tab">GROUPS TEXT</div>
+				</div>
 			</div>
 
 			<div class="col-lg-6">
-				<ul class="nav flex-column nav-tabs" id="statsProfileTabs">
-					<li class="nav-item">
-						<a class="nav-link active" href="#">Weight</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Activity</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Ranking</a>
-				</ul>
+				<div class="row">
+				  <div class="col-3">
+					<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+					  <a class="nav-link active" id="v-pills-weight-tab" data-toggle="pill" href="#v-pills-weight" role="tab" aria-controls="v-pills-weight" aria-selected="true">Weight</a>
+					  <a class="nav-link" id="v-pills-activity-tab" data-toggle="pill" href="#v-pills-activity" role="tab" aria-controls="v-pills-activity" aria-selected="false">Activity</a>
+					  <a class="nav-link" id="v-pills-ranking-tab" data-toggle="pill" href="#v-pills-ranking" role="tab" aria-controls="v-pills-ranking" aria-selected="false">Ranking</a>
+					  </div>
+				  </div>
+				  <div class="col-9">
+					<div class="tab-content" id="v-pills-tabContent">
+					  <div class="tab-pane fade show active" id="v-pills-weight" role="tabpanel" aria-labelledby="v-pills-weight-tab">WEIGHT GRAPHIC</div>
+					  <div class="tab-pane fade" id="v-pills-activity" role="tabpanel" aria-labelledby="v-pills-activity-tab">ACTIVITY GRAPHIC</div>
+					  <div class="tab-pane fade" id="v-pills-ranking" role="tabpanel" aria-labelledby="v-pills-ranking-tab"> RANKING GRAPHIC</div>
+					  </div>
+				  </div>
+				</div>
 
 			</div>
 		</div>
