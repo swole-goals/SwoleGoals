@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GithubService } from '../github.service';
+import { GithubService } from '../github-stats/github.service';
 
 @Component({
     selector: 'app-github-stats',
@@ -7,7 +7,9 @@ import { GithubService } from '../github.service';
     styleUrls: ['./github-stats.component.css']
 })
 export class GithubStatsComponent implements OnInit {
+
     public gitAccountList;
+    public totalCommits = 0;
     constructor(private githubserv: GithubService) { }
 
     ngOnInit() {
@@ -49,12 +51,8 @@ export class GithubStatsComponent implements OnInit {
                     i.bio = "Rohan is an ECE Major graduating in December of 2019";
                     i.image = "../../assets/images/rohan.png"
                 }
+                this.totalCommits += i.commits;
             });
-        });
-    }
-
-    public addPersonInfo(){
-        this.gitAccountList.forEach(element => {
         });
     }
 }
