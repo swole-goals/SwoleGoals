@@ -1,3 +1,4 @@
+<!--
 <div>
 	<div id="list-example" class="list-group">
   		<a class="list-group-item list-group-item-action" href="#list-item-1">Item 1</a>
@@ -5,4 +6,30 @@
   		<a class="list-group-item list-group-item-action" href="#list-item-3">Item 3</a>
   		<a class="list-group-item list-group-item-action" href="#list-item-4">Item 4</a>
 	</div>
+</div>-->
+<!--
+<div *ngFor="let exercise of exercisesList">
+        <h5>{{exercise.name}}</h5>
+                            <p>Type: {{exercise.type}}</p>
+                            <p>Number of Commits: {{exercise.muscles}}</p>
+                            <p>Equipment: {{exercise.equipment}}</p>
 </div>
+-->
+<h1>All credits go to bodybuilding.com</h1>
+	<div class="container-fluid ml-2">
+        <div class="container-fluid ml-2">
+            <div class="row">
+		<div *ngFor="let exercise of exercisesList">
+                    <div class="card mr-2" style="width: 18rem;">
+			<img src={{exercise.image1}} class="card-img-top" alt="Failed to Load Image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{exercise.name}}</h5>
+                            <p class="card-text">Type: {{exercise.type}}</p>
+                            <p class="card-text">Muscles: {{exercise.muscles}}</p>
+                            <p class="card-text">Equipment: {{exercise.equipment}}</p>
+                        </div>
+                    </div>
+                </div>
+	    </div>
+	</div>
+	</div>
