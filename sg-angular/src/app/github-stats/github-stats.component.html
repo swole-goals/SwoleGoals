@@ -1,7 +1,10 @@
 <body>
     <div class="container-fluid ml-2">
-        <h2>About Swole Goals</h2>
-        <h2>Meet the Team</h2>
+        <h3>About Swole Goals</h3>
+        <p>
+            Swole Goals is a webapp intended to motivate people to exercise by providing a platform for them to compete against their friends.
+        </p>
+        <h3>Meet Team Burgundy</h3>
         <div class="container-fluid ml-2">
             <div class="row">
                 <div *ngFor="let git of gitAccountList">
@@ -19,8 +22,9 @@
                 </div>
             </div>
         </div>
-        <h2>Stats</h2>
-        <h2>Data</h2>
-        <h2>Tools</h2>
+        <h3>Stats</h3>
+        <h5>Total Commits: {{totalCommits}}</h5>
+        <h3>Data</h3>
+        <h3>Tools</h3>
     </div>
 </body>
