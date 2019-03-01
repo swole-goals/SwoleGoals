@@ -18,7 +18,6 @@ var mysqlConn = mysql.createConnection({
      //port     : 3307,
      user     : 'root',
      password : 'swolegoals',
-     //database : 'user',
      database : 'exercises',
      socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
@@ -77,6 +76,10 @@ app.get('/getEx', (req, res) => {
   })
 });
 
+
+app.get('*', (req, res) => {
+  res.sendfile('./notFind.html');
+});
 
 
 /*
