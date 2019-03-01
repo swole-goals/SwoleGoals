@@ -1,17 +1,31 @@
 language: node_js
 node_js:
-  - "9"
+- 11.10.0
 dist: trusty
 sudo: required
-
 branches:
   only:
   - master
 
-before_script:
-  - npm install -g @angular/cli
-  - npm install @angular-devkit/build-angular
+before_install:
+- openssl aes-256-cbc -K $encrypted_b186249c1b53_key -iv $encrypted_b186249c1b53_iv
+  -in gce.json.enc -out gce.json -d
+- cd sg-angular  
 
-script:
+install:
+- npm install -g @angular/cli
+- npm install @angular-devkit/build-angular  
+
+before_script:
+- cd ..
+- npm link
 - cd sg-angular
+script:
 - ng build
+
+deploy:
+  provider: gae
+  project: swolegoals-233203
+  keyfile: gce.json
+  verbosity: debug
+  on: master
