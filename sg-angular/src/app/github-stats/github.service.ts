@@ -12,7 +12,7 @@ export class GithubService {
     constructor(private httpClient: HttpClient) { }
 
     getUserRepos(): Observable<GitRepoInfo> {
-        return this.httpClient.get(`https://api.github.com/repos/vivianmnguyen/SwoleGoals/stats/contributors`).
+        return this.httpClient.get(`https://api.github.com/repositories/168768624/stats/contributors`).
             pipe(
                 map((item: any) => item.map(p => <GitRepoInfo>
                     {
