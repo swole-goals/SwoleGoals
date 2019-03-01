@@ -10,8 +10,8 @@ branches:
 
 before_script:
   - npm install -g @angular/cli
+  - npm install @angular-devkit/build-angular
 
 script:
-- cd SwoleGoals
 - cd sg-angular
 - ng build
