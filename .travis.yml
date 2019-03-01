@@ -12,5 +12,5 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-- cd .\sg-angular\
+- cd sg-angular\
 - ng build
