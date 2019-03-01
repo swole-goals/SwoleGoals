@@ -22,6 +22,6 @@ script:
 deploy:
   provider: gae
   project: swolegoals-233203
-  keyfile: gce.json
+  keyfile: ../gce.json
   verbosity: debug
   on: master
