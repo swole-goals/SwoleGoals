@@ -9,10 +9,12 @@ branches:
   - master
 
 before_script:
+  - cd sg-angular
   - npm install -g @angular/cli
   - npm install @angular-devkit/build-angular
 
 script:
+- cd ..
 - npm link
 - cd sg-angular
 - ng build
