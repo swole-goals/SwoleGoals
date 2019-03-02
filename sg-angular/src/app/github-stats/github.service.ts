@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { GitRepoInfo } from './gitrepoinfo';
+import { Issue } from './issues';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,16 @@ export class GithubService {
                         commits: p.total
                     })));            
     }
+    getIssues(): Observable<Issue> {
+	return this.httpClient.get(`https://api.github.com/repositories/168768624/issues`).
+		pipe(
+			map((item: any) => item.map(p => <Issue>
+			{
+				title: p.title,
+				state: p.state,
+				user: p.login
+			}
+		)));
+	}
+
 }
