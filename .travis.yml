@@ -20,7 +20,7 @@ before_script:
 - npm link
 - cd sg-angular
 script:
-- ng build
+- ng build --prod
 
 deploy:
   provider: gae
