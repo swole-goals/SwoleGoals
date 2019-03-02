@@ -9,14 +9,14 @@
       </div>
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-      aria-label="toggle navigation">
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="nav navbar-nav">
 	  
-        <li class="nav-item active">
-          <a class="nav-link" data-toggle="tab" routerLink="/app-splash">Home
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" routerLink="/app-splash">Home
             <span class="sr-only">(current)</span>
           </a>
         </li>
@@ -37,15 +37,14 @@
         </li>
       </ul>
     </div>
+	  <script>
+	  $('.nav-link').on('click', function(){
+		   $('.nav-item').find('.active').removeClass('active');
+		   $(this).addClass('active');
+		});
+	</script>
   </nav>
   <router-outlet></router-outlet>
-  
-  <script>
-  $(document).ready(function() {
-    $(document).on('click', '.nav-item a', function (e) {
-        $(this).parent().addClass('active').siblings().removeClass('active');
-    });
-});
-  </script>
- 
+
+	 
 </body>
