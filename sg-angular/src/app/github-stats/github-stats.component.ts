@@ -10,12 +10,18 @@ export class GithubStatsComponent implements OnInit {
 
     public gitAccountList;
     public totalCommits = 0;
+    public issues;
     constructor(private githubserv: GithubService) { }
 
     ngOnInit() {
-        this.loadGithubRepos();
+    	this.loadGithubRepos();
+	this.loadGithubIssues();
     }
-
+	public loadGithubIssues() {
+		this.githubserv.getIssues().subscribe((data) => {
+			this.issues = data;	
+		});
+	}
     public loadGithubRepos() {
         this.githubserv.getUserRepos().subscribe((data) => {
             this.gitAccountList = data;
