@@ -28,7 +28,7 @@ handlers:
   upload: dist/.*
 
 # Any other requests are routed to index.html for angular to handle so we don't need hash URLs
-- url: /(.*)
+- url: /.*
   secure: always
   redirect_http_response_code: 301
   static_files: dist/index.html
