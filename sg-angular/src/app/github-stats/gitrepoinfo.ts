@@ -5,4 +5,5 @@ export class GitRepoInfo {
     commits: string;
     bio: string;
     image: string;
+    responsibilities: string;
 }

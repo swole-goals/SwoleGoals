@@ -1,3 +1,5 @@
+
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #5E4485;">
     <a class="navbar-brand" href="#">
@@ -11,29 +13,38 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/app-splash">Home
+      <ul class="nav navbar-nav">
+	  
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" routerLink="/app-splash">Home
             <span class="sr-only">(current)</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/app-github-stats">About</a>
+          <a class="nav-link" data-toggle="tab" routerLink="/app-github-stats">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/app-map">Map</a>
+          <a class="nav-link" data-toggle="tab" routerLink="/app-map">Map</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/app-exercise-list">Exercises</a>
+          <a class="nav-link" data-toggle="tab" routerLink="/app-exercise-list">Exercises</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/app-user-profile">Profile</a>
+          <a class="nav-link" data-toggle="tab" routerLink="/app-user-profile">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Logout</a>
+          <a class="nav-link" data-toggle="tab" href="#">Logout</a>
         </li>
       </ul>
     </div>
+	  <script>
+	  $('.nav-link').on('click', function(){
+		   $('.nav-item').find('.active').removeClass('active');
+		   $(this).addClass('active');
+		});
+	</script>
   </nav>
   <router-outlet></router-outlet>
+
+	 
 </body>

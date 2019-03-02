@@ -19,6 +19,7 @@
                             <a href={{git.url}} target="_blank">{{git.user}}</a>
                         </p>
                         <p class="card-text">Number of Commits: {{git.commits}}</p>
+                        <p class="card-text">Responsibilities: {{git.responsibilities}}</p>
                         <p class="card-text">{{git.bio}}</p>
                     </div>
                 </div>
@@ -26,7 +27,9 @@
         </div>
         <h3>Stats</h3>
         <h5>Total Commits: {{totalCommits}}</h5>
-        <h3>Data</h3>
+	<h5>Total Open Issues: {{issues.length}}</h5>
+	<h5>Total Unit Tests: 0</h5>
+	<h3>Data Scraping</h3>
         <div>
             <h5>
                 <a href="https://www.bodybuilding.com/exercises/" target="_blank">bodybuilding.com</a>
