@@ -31,8 +31,17 @@
 	<h5>Total Unit Tests: 0</h5>
 	<h3>Data Scraping</h3>
         <div>
+
             <h5>
                 <a href="https://www.bodybuilding.com/exercises/" target="_blank">bodybuilding.com</a>
+              <p>Web scraping was done by utilizing Selenium web browser automation. A python script was written which loops
+                through each of the muscle groups found on https://www.bodybuilding.com/exercises/finder/? (17 total),
+                selecting the “Load More” button once on each muscle group, and getting the URLs for each exercise that
+                is present on that page by using its xpath. These URLs are then loaded in the browser, and the exercise
+                name, exercise type, muscle worked, equipment needed, exercise ranking, exercise instructions,
+                and both exercise images are located using their xpaths and stored into arrays. The totality of the
+                data is then written to a tab separated file that then can easily be put into the MySQL database.
+              </p>
             </h5>
             <p></p>
         </div>
