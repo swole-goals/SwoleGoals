@@ -6,26 +6,22 @@ sudo: required
 branches:
   only:
   - master
-
 before_install:
-- openssl aes-256-cbc -K $encrypted_b186249c1b53_key -iv $encrypted_b186249c1b53_iv
+- openssl aes-256-cbc -K $encrypted_09cd10811cd1_key -iv $encrypted_09cd10811cd1_iv
   -in gce.json.enc -out gce.json -d
-- cd sg-angular  
-
+- cd sg-angular
 install:
 - npm install -g @angular/cli
-- npm install @angular-devkit/build-angular  
-
+- npm install @angular-devkit/build-angular
 before_script:
 - cd ..
 - npm link
 - cd sg-angular
 script:
 - ng build
-
 deploy:
   provider: gae
   project: swolegoals-233203
-  keyfile: gce.json
+  keyfile: ../gce.json
   verbosity: debug
   on: master
