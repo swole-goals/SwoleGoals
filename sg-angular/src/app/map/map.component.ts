@@ -10,8 +10,8 @@ import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 })
 export class MapComponent implements OnInit {
 
-	private exercisesList: Array<ExerciseInfo>;
-	private exerciseAbout: string = "Click a tile to learn more";
+	public exercisesList: Array<ExerciseInfo>;
+	public exerciseAbout: string = "Click a tile to learn more";
   	constructor(private exerciseService: MapService) {
 
   	}
