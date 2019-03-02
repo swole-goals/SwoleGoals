@@ -6,6 +6,7 @@ sudo: required
 branches:
   only:
   - master
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_09cd10811cd1_key -iv $encrypted_09cd10811cd1_iv
   -in gce.json.enc -out gce.json -d
@@ -21,8 +22,7 @@ script:
 - ng build --prod
 
 deploy:
-  provider: gae
-  project: swolegoals-233203
-  keyfile: ../gce.json
-  verbosity: debug
-  on: master
+  provider: firebase
+  token:
+    secure: fw0N9Bp/nxu3c+zFa3ooE9Cx19z7rycF/Y/TvinKEhBse/1a0mdxM6phkeCf5PENM9AnXH0Au58bBgj1YewbsgCPfiKbxgK4LbF6Bblk0LLl6x23WkPE9mWaXamrIeYty7BbhZAq1Wv5V6jldZOHelFrtBIaM2PwxsG3ENQxysmVoMXnbiHlU5ZbsYXtM9aRajQz47sGbKqv7qBym2if9fDWsLLKieUYdfpt0YFen/0KfD9U7byz7ujrex3MjxFzCPLhLTR/ZKnZGnD0XRcC4zoCIEM6Qe9/18OaAl1AeatgB5jgViOhZmzB8pJsGmgstBeYPJtGytjYHyiIBr6DTyeXyo0LRyVi/iFyFm9m79wnTA8qOgLH1wX6LUC62LOv4uMIqxpWEcYbXvhPQ9vl45kn42KcdhjyhhPsIy+pS0/qVFU/Xj2imI0k3Q26np7QkqKMp8UBoBN2l7T4sX0X6q81ORi4qzDhbvfZB8SWGgXZTaAWSwPWDw0D+pZm7K9rdvAGGbURAacY8vGCYrWkr9VaNw7PuZRgzHAnVVa07ys/tWsi+rxpWJCE/BK7297A72n+sivHlqg6bceLqUQAgbS2NYYUkcfSWEkC31RXc/g+7l+Mwhnykc2Wh5MmfVpzLO3A3otrK2RM5Ycz5sR52CVyJAdHy3v/5d2Oh7uYUUI=
+  project: "swolegoals-233203"
