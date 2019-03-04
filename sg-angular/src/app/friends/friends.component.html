@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Splash Page</title>
+	
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+  <style>
+	
+    p.ex1 {
+      border: 1px solid black;
+      outline-style: solid;
+      outline-color: red;
+    }
+    
+    p.ex2 {
+      border: 1px solid black;
+      outline-style: double;
+      outline-color: green;
+    }
+    
+    p.ex3 {
+      border: 1px solid black;
+      outline-style: outset;
+      outline-color: purple;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h2>Users</h2>
+    <ul class="users">
+        <ul *ngFor="let user of userList">
+          <p class="ex3"><b>Name: </b>{{user.LastName}} {{user.FirstName}}
+            <br><b>Email: </b>{{user.Email}}
+            <br><b>Registered Date: </b>{{user.Reg_date}}
+            <br><button>Add friend</button>
+          </p>
+        </ul>
+    </ul>
+  </div>
+</body>
+</html>
