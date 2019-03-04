@@ -2,6 +2,9 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 
+/* Nav Pills to Purple */
 
-
+.nav-pills .nav-link:not(.active){
+	color: #5E4485
+}
 

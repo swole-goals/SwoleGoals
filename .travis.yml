@@ -1,18 +1,34 @@
 language: node_js
 node_js:
-  - "9"
+- 11.10.0
 dist: trusty
 sudo: required
-
 branches:
   only:
   - master
 
-before_script:
-  - npm install -g @angular/cli
-  - npm install @angular-devkit/build-angular
+before_install:
+- cd sg-angular
 
-script:
+install:
+- npm install -g firebase-tools
+- npm install -g @angular/cli
+- npm install @angular-devkit/build-angular
+
+before_script:
+- cd ..
 - npm link
 - cd sg-angular
-- ng build
+
+script:
+- ng build --prod
+
+after_script:
+- pwd
+- ls
+
+deploy:
+  provider: firebase
+  token:
+    secure: fw0N9Bp/nxu3c+zFa3ooE9Cx19z7rycF/Y/TvinKEhBse/1a0mdxM6phkeCf5PENM9AnXH0Au58bBgj1YewbsgCPfiKbxgK4LbF6Bblk0LLl6x23WkPE9mWaXamrIeYty7BbhZAq1Wv5V6jldZOHelFrtBIaM2PwxsG3ENQxysmVoMXnbiHlU5ZbsYXtM9aRajQz47sGbKqv7qBym2if9fDWsLLKieUYdfpt0YFen/0KfD9U7byz7ujrex3MjxFzCPLhLTR/ZKnZGnD0XRcC4zoCIEM6Qe9/18OaAl1AeatgB5jgViOhZmzB8pJsGmgstBeYPJtGytjYHyiIBr6DTyeXyo0LRyVi/iFyFm9m79wnTA8qOgLH1wX6LUC62LOv4uMIqxpWEcYbXvhPQ9vl45kn42KcdhjyhhPsIy+pS0/qVFU/Xj2imI0k3Q26np7QkqKMp8UBoBN2l7T4sX0X6q81ORi4qzDhbvfZB8SWGgXZTaAWSwPWDw0D+pZm7K9rdvAGGbURAacY8vGCYrWkr9VaNw7PuZRgzHAnVVa07ys/tWsi+rxpWJCE/BK7297A72n+sivHlqg6bceLqUQAgbS2NYYUkcfSWEkC31RXc/g+7l+Mwhnykc2Wh5MmfVpzLO3A3otrK2RM5Ycz5sR52CVyJAdHy3v/5d2Oh7uYUUI=
+  project: "swolegoals-233203"

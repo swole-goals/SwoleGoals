@@ -9,7 +9,7 @@ import { ExerciseInfo } from './exerciseinfo';
   providers: [ExerciseListService]
 })
 export class ExerciseListComponent implements OnInit {
-  private exercisesList: Array<ExerciseInfo>;
+  public exercisesList: Array<ExerciseInfo>;
   constructor(private exerciseService: ExerciseListService) { 
   	this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
 		this.exercisesList = res;

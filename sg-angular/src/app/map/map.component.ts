@@ -10,16 +10,21 @@ import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 })
 export class MapComponent implements OnInit {
 
-  private exercisesList: Array<ExerciseInfo>;
-  constructor(private exerciseService: MapService) {
-        this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
-                this.exercisesList = res;
-        });
+	public exercisesList: Array<ExerciseInfo>;
+	public exerciseAbout: string = "Click a tile to learn more";
+  	constructor(private exerciseService: MapService) {
 
-  }
+  	}
 
-  ngOnInit() {
-  }
+ 	aboutExercise(index: number) {
+		this.exerciseAbout = "Muscles: " + this.exercisesList[index].muscles;
+	}
+
+  	ngOnInit() {
+        	this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
+                	this.exercisesList = res;
+        	});
+  	}
 
 }
 

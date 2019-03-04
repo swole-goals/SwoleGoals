@@ -6,46 +6,46 @@
 				<div class="col-6">
 				<table>
 				<tr>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[0].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[1].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[2].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[3].name}}</button></td>
+					<td><button (click)="aboutExercise(500)" type="button" class="btn btn-primary tile">{{exercisesList[200].name}}</button></td>
+					<td><button (click)="aboutExercise(501)" type="button" class="btn btn-primary tile">{{exercisesList[201].name}}</button></td>
+					<td><button (click)="aboutExercise(502)" type="button" class="btn btn-primary tile">{{exercisesList[202].name}}</button></td>
+					<td><button (click)="aboutExercise(503)" type="button" class="btn btn-primary tile">{{exercisesList[203].name}}</button></td>
 				</tr>
 				<tr>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[4].name}}</button></td>
+					<td><button (click)="aboutExercise(504)" type="button" class="btn btn-primary tile">{{exercisesList[204].name}}</button></td>
 				</tr>
 				<tr>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[5].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[6].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[7].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[8].name}}</button></td>
+					<td><button (click)="aboutExercise(505)" type="button" class="btn btn-primary tile">{{exercisesList[205].name}}</button></td>
+					<td><button (click)="aboutExercise(506)" type="button" class="btn btn-primary tile">{{exercisesList[206].name}}</button></td>
+					<td><button (click)="aboutExercise(507)" type="button" class="btn btn-primary tile">{{exercisesList[207].name}}</button></td>
+					<td><button (click)="aboutExercise(508)" type="button" class="btn btn-primary tile">{{exercisesList[208].name}}</button></td>
 				</tr>
 				<tr>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[9].name}}</button></td>
+					<td><button (click)="aboutExercise(509)" type="button" class="btn btn-primary tile">{{exercisesList[209].name}}</button></td>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
 				</tr>
 				<tr>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[10].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[11].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[12].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[13].name}}</button></td>
+					<td><button (click)="aboutExercise(510)" type="button" class="btn btn-primary tile">{{exercisesList[210].name}}</button></td>
+					<td><button (click)="aboutExercise(511)" type="button" class="btn btn-primary tile">{{exercisesList[211].name}}</button></td>
+					<td><button (click)="aboutExercise(512)" type="button" class="btn btn-primary tile">{{exercisesList[212].name}}</button></td>
+					<td><button (click)="aboutExercise(513)" type="button" class="btn btn-primary tile">{{exercisesList[213].name}}</button></td>
 				</tr>
 				<tr>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
 					<td><button type="button" class="btn btn-primary hiddenB tile">Exercise</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[14].name}}</button></td>
+					<td><button (click)="aboutExercise(514)" type="button" class="btn btn-primary tile">{{exercisesList[214].name}}</button></td>
 				</tr>
 				<tr>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[15].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[16].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[17].name}}</button></td>
-					<td><button type="button" class="btn btn-primary tile">{{exercisesList[18].name}}</button></td>
+					<td><button (click)="aboutExercise(515)" type="button" class="btn btn-primary tile">{{exercisesList[215].name}}</button></td>
+					<td><button (click)="aboutExercise(516)" type="button" class="btn btn-primary tile">{{exercisesList[216].name}}</button></td>
+					<td><button (click)="aboutExercise(517)" type="button" class="btn btn-primary tile">{{exercisesList[217].name}}</button></td>
+					<td><button (click)="aboutExercise(518)" type="button" class="btn btn-primary tile">{{exercisesList[218].name}}</button></td>
 				</tr>
 			</table>
 			</div>
@@ -53,9 +53,9 @@
 				<div style="border-style: solid;
   border-width: 5px; height: 300px">
 					<h2>Exercise</h2>
-					<p>Some information about exercise</p>
-					<p><strong>Reps:</strong> 9000</p>
-					<p><strong>PR:</strong> 9000 + 1</p>
+					<p id="tile-about">{{exerciseAbout}}</p>
+					<p id="tile-reps"><strong>Reps:</strong> 9000</p>
+					<p id="tile-pr"><strong>PR:</strong> 9000 + 1</p>
 					
 					<button type="button" class="btn btn-primary">Success</button>
 					<button type="button" class="btn btn-primary">Fail (Do you even lift?)</button>
