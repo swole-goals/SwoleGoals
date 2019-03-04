@@ -9,7 +9,7 @@ import { UserListService } from './friends.service';
   providers: [UserListService]
 })
 export class FriendsComponent implements OnInit {
-  private userList: Array<UserInfo>;
+  public userList: Array<UserInfo>;
   constructor(private userService: UserListService) {
       this.userService.getUserListUnfiltered().subscribe(res => {
       this.userList = res;
