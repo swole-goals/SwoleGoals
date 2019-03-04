@@ -8,6 +8,7 @@ import { MapComponent } from './map/map.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { SplashComponent } from './splash/splash.component';
+import { FriendsComponent } from './friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SplashComponent } from './splash/splash.component';
     UserProfileComponent,
     ExerciseListComponent,
     SplashComponent,
+    FriendsComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,10 @@ import { SplashComponent } from './splash/splash.component';
       {
         path: 'app-splash',
         component: SplashComponent
+      },
+      {
+        path: 'friends',
+        component: FriendsComponent
       },
       {
         path: '',
