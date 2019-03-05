@@ -3,32 +3,24 @@ node_js:
 - 11.10.0
 dist: trusty
 sudo: required
-branches:
-  only:
-  - master
-
 before_install:
 - cd sg-angular
-
 install:
-- npm install -g firebase-tools
-- npm install -g @angular/cli
-- npm install @angular-devkit/build-angular
-
-before_script:
-- cd ..
-- npm link
-- cd sg-angular
-
+- npm install
 script:
 - ng build --prod
-
-after_script:
-- pwd
-- ls
-
 deploy:
-  provider: firebase
-  token:
-    secure: fw0N9Bp/nxu3c+zFa3ooE9Cx19z7rycF/Y/TvinKEhBse/1a0mdxM6phkeCf5PENM9AnXH0Au58bBgj1YewbsgCPfiKbxgK4LbF6Bblk0LLl6x23WkPE9mWaXamrIeYty7BbhZAq1Wv5V6jldZOHelFrtBIaM2PwxsG3ENQxysmVoMXnbiHlU5ZbsYXtM9aRajQz47sGbKqv7qBym2if9fDWsLLKieUYdfpt0YFen/0KfD9U7byz7ujrex3MjxFzCPLhLTR/ZKnZGnD0XRcC4zoCIEM6Qe9/18OaAl1AeatgB5jgViOhZmzB8pJsGmgstBeYPJtGytjYHyiIBr6DTyeXyo0LRyVi/iFyFm9m79wnTA8qOgLH1wX6LUC62LOv4uMIqxpWEcYbXvhPQ9vl45kn42KcdhjyhhPsIy+pS0/qVFU/Xj2imI0k3Q26np7QkqKMp8UBoBN2l7T4sX0X6q81ORi4qzDhbvfZB8SWGgXZTaAWSwPWDw0D+pZm7K9rdvAGGbURAacY8vGCYrWkr9VaNw7PuZRgzHAnVVa07ys/tWsi+rxpWJCE/BK7297A72n+sivHlqg6bceLqUQAgbS2NYYUkcfSWEkC31RXc/g+7l+Mwhnykc2Wh5MmfVpzLO3A3otrK2RM5Ycz5sR52CVyJAdHy3v/5d2Oh7uYUUI=
-  project: "swolegoals-233203"
+  provider: s3
+  access_key_id: AKIAJK7ATZWYZW42QWZQ
+  secret_access_key:
+    secure: e7Y6gAbo4j3Tke2m/GyYsuFeT+lYAFvGdIMy320sI8CuThgOOjd+cSf136yKLo5i12u/eP0G68NsszjU0vYM9gldjGH8kCMP0M+QNcvgcTg63HSXv1ckl1uDmRaleg/4OAjCV1rKFxFOnDGTKC1lq3wAe+CCAlqkFXqgu/p3ANdUvUujq23d8wSnCMBBOv3eHD29zCPjqduGHc1Gv2JQVh19JVuPzULOZWkrD2fD80k0e30M6TKAVRZATKnk3JVA+Xt6krV4FaxHWOcVsnWHy2DBFytD8qJDjDWPam/FodKgcGUE6TSmF4Ll93rrOySj/hmSW7uknExAOwen8I20G8fweS3XVmPOP3gJIxADaf4b3VwYPY364k0WQSlZc11EaW1HXNz0FbCkdmvcR+UFXNys7eJPhos+PQpwyePPnHjdOXhHo4GXnEO0wovrNSZIPZ/6uW/0MfGJZTGluC8yGhr51vcXkz+tIjXDKIcZ8o4Ko7LuRtOPXVp+avH01xkXyr18xA6PdysH+v8AHHK9JaQTJWu1HWdCawmjVrcko7EQ0Hfx2sTReiEbaiowx98501S0RrXR1TTtiwUxwbM1THEqekVjYEVrtiujy54IckAqCTwjTBdHYmWIqwh0JevSqIsTTpjNYqiAR8+9eurK5sZZUZFdAYlgHqqRod8+Rfo=
+  bucket: swolegoals
+  local-dir: dist
+  on:
+    repo: swole-goals/SwoleGoals
+    branch: master
+  skip_cleanup: true
+  region: us-east-2
+notifications:
+  slack:
+    secure: EACzT6HqvnujXMsWKe341Sx3X8r4A9nYtAItNyYZC8vJsdUDvGKJK9vrK04puyp8nJPcYRmcoMnjHv6S4F8K66LcS279QyeZi++KneqvpWXofu7w8FmVciZ3p/2jH3TNS/HXztQIl7gE+14p9yqp4o1wrPvHC3XbzTtXAQE/M0qTxgu6syyD9QcR331WgNsRNRZeUkctw0yFNu8SOkUqmdEusFBi5QQn1OuWgYARWxM6+kamv+aTPtCE2Kd8LwLnT52bmrAV1hcpI1YM5zZBak9EGo+NWhwbtqy+nMJ/UR6wY9lsa58UMuJF0Sd0UNmQxoScTqOtyTJcdUZKhisgwC2ULLy6nDkzT/wfQyRygWak1NxgI5w4N9GerygBM/uE7MkzpfM7KF7MWOgq0DuJ5kndtmcelapS0tFMHp4WKcxOZepKqJqy6NZ3ypg8PDm5LXby+YY0/DFOwdJfRnb4iJPcyN1sAu50vrL7dx/9rpP9mMeTwRiRwblif8m6hS2P758i5bpCTnmDiN7K49huihsFqq6Hw7AiOh5/hztqlbO2QvvE1h7DUQxga9N85wnkGQHYBftRCAx2kIAr2NYAtIvc9kzGxbv6YG/D2KVruGpiMvV4ghnVyxcoMr+gdcsRxebgFNr71lhH6EaT+w3+GEQE49se3W/MgRYSgBtKs1k=
