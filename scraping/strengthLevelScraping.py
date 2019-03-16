@@ -19,12 +19,16 @@ try:
     submit = driver.find_element_by_css_selector(".pure-button.pure-button-primary.calculator__primaryaction")
     for genderOption in genderOptions:
         genderOption.click()
+        gender = genderOption.get_attribute("innerHTML")
         for ageOption in ageOptions:
             ageOption.click()
+            age = ageOption.get_attribute("innerHTML")
             for exerciseTypeOption in exerciseTypeOptions:
                 exerciseTypeOption.click()
+                exerciseType = exerciseTypeOption.get_attribute("innerHTML")
                 for exercisesOption in exercisesOptions:
                     exercisesOption.click()
+                    exercise = exercisesOption.get_attribute("innerHTML")
                     driver.execute_script("document.getElementById('bodymass').setAttribute('value', '100')")
                     driver.execute_script("document.getElementById('liftmass').setAttribute('value', '100')")
                     try:
@@ -32,9 +36,11 @@ try:
                     except:
                         pass
                     results = driver.find_element_by_css_selector(".pure-table.pure-table-striped.standards__table").find_element_by_css_selector("tbody").find_element_by_css_selector("tr").find_elements_by_css_selector("td")
+                    fitness = "";
                     for result in results:
-                        print(result.get_attribute("innerHTML").split()[0])
-
+                        #print(result.get_attribute("innerHTML").split()[0])
+                        fitness += result.get_attribute("innerHTML").split()[0] + " "
+                    print(fitness + gender + " " + age + " " + exerciseType + " " + exercise)
                     break
                 break
             break
