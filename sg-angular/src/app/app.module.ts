@@ -10,7 +10,6 @@ import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
 import { LoginComponent } from './login/login.component';
-import {GoogleSignInComponent} from 'angular-google-signin';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
@@ -38,7 +37,6 @@ export function getAuthServiceConfigs() {
     SplashComponent,
     FriendsComponent,
     LoginComponent,
-    GoogleSignInComponent,
   ],
   imports: [
     BrowserModule,
