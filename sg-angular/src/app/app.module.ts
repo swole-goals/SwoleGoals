@@ -9,6 +9,24 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
+import { LoginComponent } from './login/login.component';
+import {GoogleSignInComponent} from 'angular-google-signin';
+import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
+//import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+//import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("276075475404-gjouku37354fsjqrm631f9q9s29vm3im.apps.googleusercontent.com")
+        }
+        
+      ]
+  );
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -19,10 +37,13 @@ import { FriendsComponent } from './friends/friends.component';
     ExerciseListComponent,
     SplashComponent,
     FriendsComponent,
+    LoginComponent,
+    GoogleSignInComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    DynamiSocialLoginModule,
     RouterModule.forRoot([
       {
         path: 'app-github-stats',
@@ -49,12 +70,21 @@ import { FriendsComponent } from './friends/friends.component';
         component: FriendsComponent
       },
       {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
         path: '',
         component: SplashComponent
       }
     ]),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
