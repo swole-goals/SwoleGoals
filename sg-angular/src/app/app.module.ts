@@ -68,7 +68,7 @@ export function getAuthServiceConfigs() {
         component: FriendsComponent
       },
       {
-        path: 'login',
+        path: 'app-login',
         component: LoginComponent
       },
       {
