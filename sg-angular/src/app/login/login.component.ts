@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
-//import { AuthService } from "angularx-social-login";
-//import { FacebookLoginProvider, GoogleLoginProvider, LinkedInLoginProvider } from "angularx-social-login";
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +9,7 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginP
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private socialAuthService: AuthService) { }
+  constructor(private socialAuthService: AuthService, private router: Router) { }
  
   ngOnInit() {
   }
@@ -29,11 +27,19 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
  
-        console.log(userData);      
+        console.log(userData);   
+        this.router.navigate(['/friends']);
       }
     );
   }
-
+}
+/*
+  public register() {
+    constructor(private router: Router){
+    }
+    this.router.navigate(['/register']);
+  }
+*/
 
   /*ngOnInit(): void {
     throw new Error("Method not implemented.");
@@ -49,7 +55,7 @@ export class LoginComponent implements OnInit {
     this.authService.signOut();
   }
 */
-}
+
 
 
 

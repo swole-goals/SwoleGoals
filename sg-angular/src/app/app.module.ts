@@ -77,6 +77,7 @@ export function getAuthServiceConfigs() {
       }
     ]),
   ],
+  exports: [RouterModule],
   providers: [
     {
       provide: AuthServiceConfig,
