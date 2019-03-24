@@ -44,7 +44,33 @@ var cors = require('cors');//cors is used to allow cross platform services
 app.use(cors());
 app.use(bodyparser.json());
 
+app.get('/', (req, res) => {
+    res.send("Hello from Firestore!");
+  });
 
+app.post('/addUser', bodyparser.json(), (req, res) => {
+    console.log(req.body);
+    res.json(req.body);
+    const userRef = db.collection('users').doc(req.body.email);
+    userRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists){
+
+        }else{
+            userRef.set({
+                name: req.body.name,
+                email: req.body.email,
+                age: 0,
+                height: 0,
+                weight: 0,
+                friends: []
+            }).then(() => {
+                console.log('save successfully!');
+            }).catch((err) => {
+                console.log('get an error:', error);
+            });
+        }
+    });
+});
 
 // set up the listening port
 const PORT = process.env.PORT || 8080;

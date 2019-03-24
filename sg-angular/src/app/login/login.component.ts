@@ -1,6 +1,10 @@
+import { UserInfo } from './../friends/friendsinfo';
+import { LoginService } from './login.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -8,10 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private socialAuthService: AuthService, private router: Router) { }
+  
+  userInfo = {};
+  constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService) { }
  
   ngOnInit() {
+    
   }
  
   public socialSignIn(socialPlatform : string) {
@@ -26,11 +32,27 @@ export class LoginComponent implements OnInit {
     
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
- 
-        console.log(userData);   
+        
+        this.userInfo = userData;
+
+        this.loginService.postAPIData(this.userInfo).subscribe((response)=>{
+          console.log('response from post data is ', response);
+        },(error)=>{
+          console.log('error during post is ', error)
+        })
+
         this.router.navigate(['/friends']);
       }
     );
+
+    //console.log(this.userInfo);
+
+
+
+
+    // this.httpClient.post(`http://localhost:8080`, this.userData).subscribe((data:any) => {
+    //   console.log('data sent');
+    // })
   }
 }
 /*
