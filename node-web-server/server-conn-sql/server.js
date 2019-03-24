@@ -33,7 +33,7 @@ mysqlConn.connect(function(err) {
 
 
 app.get('/', (req, res) => {
-  res.send("Hello from SwoleGoals!")
+  res.send("Hello from SwoleGoals!");
 });
 
 
@@ -70,7 +70,19 @@ app.get('/getEx', (req, res) => {
     if (err){
       console.log(err);
     }else{
-      console.log("get successfully.");
+      console.log("get exercises info successfully.");
+      res.send(results);
+    }
+  })
+});
+
+//get all the strengthlevel info
+app.get('/getStrength', (req, res) => {
+  mysqlConn.query("select * from strengthlevel", (err, results, fields) => {
+    if (err){
+      console.log(err);
+    }else{
+      console.log("get strenthlevel info successfully.");
       res.send(results);
     }
   })
