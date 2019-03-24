@@ -14,6 +14,7 @@ import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 
 import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
+import { ChartModule } from 'angular-highcharts';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
@@ -44,6 +45,7 @@ export function getAuthServiceConfigs() {
     BrowserModule,
     HttpClientModule,
     DynamiSocialLoginModule,
+    ChartModule,
     RouterModule.forRoot([
       {
         path: 'app-github-stats',
