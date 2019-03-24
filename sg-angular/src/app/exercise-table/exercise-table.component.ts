@@ -26,7 +26,10 @@ export class ExerciseTableComponent implements OnInit {
   });
 
   add() {
-    this.chart.addPoint(Math.floor(Math.random() * 10));
+  //this.chart.addPoint(Math.floor(Math.random() * 10));
+  this.chart.removeSeries(0);
+  this.chart.addSeries({name: 'new', data: [4, 5, 6]});
+
   }
 
   constructor() { }
