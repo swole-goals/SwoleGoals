@@ -11,8 +11,10 @@ import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
 import { LoginComponent } from './login/login.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
+import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
+import { ChartModule } from 'angular-highcharts';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
@@ -37,11 +39,13 @@ export function getAuthServiceConfigs() {
     SplashComponent,
     FriendsComponent,
     LoginComponent,
+    ExerciseTableComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     DynamiSocialLoginModule,
+    ChartModule,
     RouterModule.forRoot([
       {
         path: 'app-github-stats',
@@ -50,10 +54,14 @@ export function getAuthServiceConfigs() {
       {
         path: 'app-user-profile',
         component: UserProfileComponent
-	    },
+      },
       {
         path: 'app-exercise-list',
         component: ExerciseListComponent
+      },
+      {
+        path: 'app-exercise-table',
+        component: ExerciseTableComponent
       },
       {
         path: 'app-map',
