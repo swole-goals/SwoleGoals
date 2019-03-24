@@ -1,0 +1,65 @@
+
+<h1>
+  Welcome to Swole Goals. 
+  This is a fun game to help you get fit with your friends!
+  Before having fun, please create an account by logging into an existing gmail account. 
+</h1>
+
+<button (click)="socialSignIn('google')">Sign in with Google</button>              
+
+
+
+<!--
+
+<p>
+<div class="jumbotron bg-transparent text-center">
+<div *ngIf="!user" class="card text-center">
+  <h6 class="card-header">
+    Social Login Demo
+  </h6>
+  <div class="card-block">
+    <h4 class="card-title">Not signed in</h4>
+    <p class="card-text">Sign in with</p>
+  </div>
+  <div class="card-block">
+    <button class="btn btn-social-icon btn-google mx-1" (click)="signInWithGoogle()"><span class="fa fa-google"></span></button>
+    <button class="btn btn-social-icon btn-facebook mx-1" (click)="signInWithFB()"><span class="fa fa-facebook"></span></button>
+    <button class="btn btn-social-icon btn-linkedin mx-1" (click)="signInWithLinkedIn()"><span class="fa fa-linkedin"></span></button>
+  </div>
+</div>
+<div *ngIf="user" class="card text-center">
+  <h6 class="card-header">
+    Social Login Demo
+  </h6>
+  <div class="card-block"></div>
+  <img class="card-img-top img-responsive photo" src="{{ user.photoUrl }}">
+  <div class="card-block">
+    <h4 class="card-title">{{ user.name }}</h4>
+    <p class="card-text">{{ user.email }}</p>
+  </div>
+  <div class="card-block">
+    <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+  </div>
+</div>
+</div>
+
+----------------
+
+<p>
+  login works!
+</p>
+
+<div id="googleBtn">Google</div>
+
+
+<google-signin
+  [clientId]="myClientId"
+  [width]="myWidth"
+  [theme]="myTheme"
+  [scope]="myScope"
+  [longTitle]="myLongTitle"
+  (googleSignInSuccess)="onGoogleSignInSuccess($event)">
+</google-signin>
+
+
+-->

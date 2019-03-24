@@ -4,11 +4,7 @@
 <head>
 	<title>Splash Page</title>
 	
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
-  <style>
+	 <style>
 	
     p.ex1 {
       border: 1px solid black;
@@ -31,17 +27,44 @@
 </head>
 
 <body>
-  <div>
-    <h2>Users</h2>
-    <ul class="users">
-        <ul *ngFor="let user of userList">
-          <p class="ex3"><b>Name: </b>{{user.LastName}} {{user.FirstName}}
-            <br><b>Email: </b>{{user.Email}}
-            <br><b>Registered Date: </b>{{user.Reg_date}}
-            <br><button>Add friend</button>
-          </p>
-        </ul>
-    </ul>
-  </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <div>
+                    <h2>Your Friends</h2>
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                
+                    <ul *ngFor="let user of userList">
+                        <li class="list-group-item">
+                        <b>Name: </b>{{user.LastName}} {{user.FirstName}}
+                        <br><b>Email: </b>{{user.Email}}
+                        <!-- <br><b>Registered Date: </b>{{user.Reg_date}} -->
+                        <br><button>Remove friend</button>
+                    </ul>
+                
+                  </div>
+            </div>
+            <div class="col-xs-6">
+                <div>
+                    <h2>Add New Friend</h2>
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
+                        <ul *ngFor="let user of userList">
+                          <b>Name: </b>{{user.LastName}} {{user.FirstName}}
+                          <br><b>Email: </b>{{user.Email}}
+                          <!-- <br><b>Registered Date: </b>{{user.Reg_date}} -->
+                          <br><button>Add friend</button>
+                        </ul>
+                  </div>  
+
+
+            </div>
+        </div>
+    </div>
+ 
+  
+
+  
 </body>
 </html>
