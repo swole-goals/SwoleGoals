@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'angular-highcharts';
 
 @Component({
   selector: 'app-exercise-table',
@@ -7,30 +6,6 @@ import { Chart } from 'angular-highcharts';
   styleUrls: ['./exercise-table.component.css']
 })
 export class ExerciseTableComponent implements OnInit {
-  chart = new Chart({
-    chart: {
-      type: 'line'
-    },
-    title: {
-      text: 'Linechart'
-    },
-    credits: {
-      enabled: false
-    },
-    series: [
-      {
-        name: 'Line 1',
-        data: [1, 2, 3]
-      }
-    ]
-  });
-
-  add() {
-  //this.chart.addPoint(Math.floor(Math.random() * 10));
-  this.chart.removeSeries(0);
-  this.chart.addSeries({name: 'new', data: [4, 5, 6]});
-
-  }
 
   constructor() { }
 
