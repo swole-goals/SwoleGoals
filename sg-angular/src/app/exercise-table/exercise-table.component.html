@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-4 col-md-4">
+    <div class="col-lg-6 col-md-6">
     	<select>
   		<option value="volvo">Volvo</option>
   		<option value="saab">Saab</option>
@@ -8,14 +8,10 @@
   		<option value="audi">Audi</option>
 	</select>
 	<select>
-  		<option value="volvo">Volvo</option>
-  		<option value="saab">Saab</option>
-  		<option value="mercedes">Mercedes</option>
-  		<option value="audi">Audi</option>
+    		<ng-container *ngFor="let exercise of strengthInformation">
+	    		<option value={{exercise_id}}>{{exercise.exercise_name}}</option>
+    		</ng-container>
 	</select>
-    </div>
-    <div class="col-lg-4 col-md-4">
-    	should be right
     </div>
     <div class="col-lg-4 col-md-4">
     	should be right
