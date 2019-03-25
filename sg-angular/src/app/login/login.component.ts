@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
   @ViewChild('first') d1 : ElementRef;
   @ViewChild('second') d2 : ElementRef;
 
@@ -40,30 +40,32 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
         
-        this.loginService.postAPIData(userData).subscribe((response)=>{
-          console.log('response from post data is ', response);
-          this.userInfo = response;
-          this.dataService.setUserData(response);
-        },(error)=>{
-          console.log('error during post is ', error)
-        })
+        this.userInfo = userData;
 
-        //this.router.navigate(['/app-user-profile']);
-        //console.log(typeof this.userInfo);
+        this.printConsole();
+        // this.loginService.postAPIData(userData).subscribe((response)=>{
+        //   console.log('response from post data is ', response);
+        //   this.userInfo = response;
+        //   this.dataService.setUserData(response);
+        // },(error)=>{
+        //   console.log('error during post is ', error)
+        // })
+
       }
     );
 
-    console.log('?????????XXXXXX',this.userInfo)
+    //console.log('?????????XXXXXX',this.userInfo)
     //this.first.nativeElement.style.display = 'none';
     this.d1.nativeElement.style.display = 'none';
     this.d2.nativeElement.style.display = 'block';
     //this.second.nativeElement.style.display = 'block';
   }
 
-  ngAfterViewInit(){
-  //   this.first.nativeElement.style.color = 'blue';
-    console.log("nm$l", this.userInfo);
+  printConsole(){
+      console.log('hehehehhhehhehe',this.userInfo);
   }
+
+
 }
 
 

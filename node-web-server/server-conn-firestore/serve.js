@@ -68,7 +68,7 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
             }).then(() => {
                 console.log('save successfully!');
             }).catch((err) => {
-                console.log('get an error:', error);
+                console.log('get an error:', err);
             });
         }
     });
