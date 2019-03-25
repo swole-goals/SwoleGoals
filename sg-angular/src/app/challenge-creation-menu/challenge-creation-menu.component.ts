@@ -42,6 +42,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
   selectedExercises = [];
   exercisesToRemove = [];
   exerciseReps = [];
+  currentFilter: string;
 
   constructor(private exerciseService: ExerciseListService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
@@ -53,6 +54,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.currentFilter = filterValue.trim().toLowerCase();
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -81,6 +83,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
     });
     this.selection = new SelectionModel(true, []);
     this.dataSource.paginator = this.paginator;
+    this.dataSource.filter = this.currentFilter;
   }
 
   removeExercises() {

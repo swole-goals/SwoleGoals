@@ -74,7 +74,7 @@
     <h3>Selected Exercises<br/></h3>
     <div style="height:600px; overflow: auto; width:500px;  border: 2px solid #5E4485;">
       <mat-selection-list #rows [(ngModel)]="exercisesToRemove">
-        <mat-list-option *ngFor="let exercise of selectedExercises">
+        <mat-list-option *ngFor="let exercise of selectedExercises" [value]="exercise">
           {{exercise.name}}: {{exerciseReps[data.indexOf(exercise)]}} reps
         </mat-list-option>
       </mat-selection-list>
