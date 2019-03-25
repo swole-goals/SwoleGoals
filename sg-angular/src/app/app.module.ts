@@ -7,12 +7,15 @@ import { GithubStatsComponent } from './github-stats/github-stats.component';
 import { MapComponent } from './map/map.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
+import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
 import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
 import { LoginComponent } from './login/login.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
+
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
+import { ChartModule } from 'angular-highcharts';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
@@ -37,11 +40,13 @@ export function getAuthServiceConfigs() {
     SplashComponent,
     FriendsComponent,
     LoginComponent,
+    ExerciseTableComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     DynamiSocialLoginModule,
+    ChartModule,
     RouterModule.forRoot([
       {
         path: 'app-github-stats',
@@ -50,10 +55,14 @@ export function getAuthServiceConfigs() {
       {
         path: 'app-user-profile',
         component: UserProfileComponent
-	    },
+      },
       {
         path: 'app-exercise-list',
         component: ExerciseListComponent
+      },
+      {
+        path: 'app-exercise-table',
+        component: ExerciseTableComponent
       },
       {
         path: 'app-map',
@@ -68,7 +77,7 @@ export function getAuthServiceConfigs() {
         component: FriendsComponent
       },
       {
-        path: 'login',
+        path: 'app-login',
         component: LoginComponent
       },
       {
@@ -77,6 +86,7 @@ export function getAuthServiceConfigs() {
       }
     ]),
   ],
+  exports: [RouterModule],
   providers: [
     {
       provide: AuthServiceConfig,

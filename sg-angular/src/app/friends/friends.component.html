@@ -35,10 +35,12 @@
                     <h2>Your Friends</h2>
                     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
                 
-                    <ul class="list-group" *ngFor="let user of userList">
-                          <li class="list-group-item"><b>Email: </b>{{user.Email}}
-                          <br><b>Registered Date: </b>{{user.Reg_date}}
-                          </li>
+                    <ul *ngFor="let user of userList">
+                        <li class="list-group-item">
+                        <b>Name: </b>{{user.LastName}} {{user.FirstName}}
+                        <br><b>Email: </b>{{user.Email}}
+                        <!-- <br><b>Registered Date: </b>{{user.Reg_date}} -->
+                        <br><button>Remove friend</button>
                     </ul>
                 
                   </div>
@@ -46,11 +48,13 @@
             <div class="col-xs-6">
                 <div>
                     <h2>Add New Friend</h2>
+                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
                         <ul *ngFor="let user of userList">
                           <b>Name: </b>{{user.LastName}} {{user.FirstName}}
-                            <br><b>Email: </b>{{user.Email}}
-                            <br><b>Registered Date: </b>{{user.Reg_date}}
-                            <br><button>Add friend</button>
+                          <br><b>Email: </b>{{user.Email}}
+                          <!-- <br><b>Registered Date: </b>{{user.Reg_date}} -->
+                          <br><button>Add friend</button>
                         </ul>
                   </div>  
 
