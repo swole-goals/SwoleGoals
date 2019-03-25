@@ -50,11 +50,12 @@ app.get('/', (req, res) => {
 
 app.post('/addUser', bodyparser.json(), (req, res) => {
     console.log(req.body);
-    res.json(req.body);
+    //res.json(req.body);
     const userRef = db.collection('users').doc(req.body.email);
     userRef.get().then((docSnapshot) => {
         if (docSnapshot.exists){
-
+            console.log('document already exists');
+            res.json(docSnapshot.data());
         }else{
             userRef.set({
                 name: req.body.name,
@@ -62,7 +63,8 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
                 age: 0,
                 height: 0,
                 weight: 0,
-                friends: []
+                friends: [],
+                groups: []
             }).then(() => {
                 console.log('save successfully!');
             }).catch((err) => {
@@ -71,6 +73,22 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
         }
     });
 });
+
+
+//findUser info
+
+// app.post('/findUser', bodyparser.json(), (req, res) => {
+//     console.log(req.body);
+//     res.json(req.body);
+//     const userRef = db.collection('users').doc(req.body.email);
+//     userRef.get().then((docSnapshot) => {
+//         if (docSnapshot.exists){
+//             res.send('documents exists');
+//         }else{
+//             res.send('documents not exists');
+//         }
+//     });
+// });
 
 // set up the listening port
 const PORT = process.env.PORT || 8080;

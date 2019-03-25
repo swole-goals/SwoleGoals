@@ -1,6 +1,8 @@
+import { UserProfileComponent } from './../user-profile/user-profile.component';
+import { DataService } from './../../services/data.service';
 import { UserInfo } from './../friends/friendsinfo';
 import { LoginService } from './login.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer, ViewChild, ElementRef } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -11,13 +13,18 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-  
-  userInfo = {};
-  constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService) { }
+export class LoginComponent implements OnInit, AfterViewInit {
+  @ViewChild('first') d1 : ElementRef;
+  @ViewChild('second') d2 : ElementRef;
+
+  userInfo : object;
+  message : string;
+  constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService, 
+    private dataService : DataService, private userprofile : UserProfileComponent, private render : Renderer,
+    private first : ElementRef, /*private second : ElementRef*/) { }
  
   ngOnInit() {
-    
+    //this.dataService.currentMessage.subscribe(message => this.message = message)
   }
  
   public socialSignIn(socialPlatform : string) {
@@ -33,28 +40,33 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
         
-        this.userInfo = userData;
-
-        this.loginService.postAPIData(this.userInfo).subscribe((response)=>{
+        this.loginService.postAPIData(userData).subscribe((response)=>{
           console.log('response from post data is ', response);
+          this.userInfo = response;
+          this.dataService.setUserData(response);
         },(error)=>{
           console.log('error during post is ', error)
         })
 
-        this.router.navigate(['/friends']);
+        //this.router.navigate(['/app-user-profile']);
+        //console.log(typeof this.userInfo);
       }
     );
 
-    //console.log(this.userInfo);
+    console.log('?????????XXXXXX',this.userInfo)
+    //this.first.nativeElement.style.display = 'none';
+    this.d1.nativeElement.style.display = 'none';
+    this.d2.nativeElement.style.display = 'block';
+    //this.second.nativeElement.style.display = 'block';
+  }
 
-
-
-
-    // this.httpClient.post(`http://localhost:8080`, this.userData).subscribe((data:any) => {
-    //   console.log('data sent');
-    // })
+  ngAfterViewInit(){
+  //   this.first.nativeElement.style.color = 'blue';
+    console.log("nm$l", this.userInfo);
   }
 }
+
+
 /*
   public register() {
     constructor(private router: Router){
