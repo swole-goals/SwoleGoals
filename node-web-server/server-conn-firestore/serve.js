@@ -48,14 +48,24 @@ app.get('/', (req, res) => {
     res.send("Hello from Firestore!");
   });
 
-app.post('/addUser', bodyparser.json(), (req, res) => {
+app.post('/addFriend', bodyparser.json(), (req, res) => {
     console.log(req.body);
-    //res.json(req.body);
+    res.json(req.body);
     const userRef = db.collection('users').doc(req.body.email);
     userRef.get().then((docSnapshot) => {
         if (docSnapshot.exists){
-            console.log('document already exists');
-            res.json(docSnapshot.data());
+	        userRef.set({
+	          name: 0,
+            email: 0,
+            age: 0,
+            height: 0,
+            weight: 0,
+            friends: req.body.friend
+	    }).then(() => {
+		console.log('save successfully!');
+            }).catch((err) => {
+		console.log('get an error:', err);
+            });
         }else{
             userRef.set({
                 name: req.body.name,
@@ -63,10 +73,9 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
                 age: 0,
                 height: 0,
                 weight: 0,
-                friends: [],
-                groups: []
+                friends: []
             }).then(() => {
-                console.log('save successfully!');
+                console.log('added friend successfully!');
             }).catch((err) => {
                 console.log('get an error:', err);
             });
@@ -74,21 +83,29 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
     });
 });
 
+app.post('/addUser', bodyparser.json(), (req, res) => {
+    console.log(req.body);
+    res.json(req.body);
+    const userRef = db.collection('users').doc(req.body.email);
+    userRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists){
 
-//findUser info
-
-// app.post('/findUser', bodyparser.json(), (req, res) => {
-//     console.log(req.body);
-//     res.json(req.body);
-//     const userRef = db.collection('users').doc(req.body.email);
-//     userRef.get().then((docSnapshot) => {
-//         if (docSnapshot.exists){
-//             res.send('documents exists');
-//         }else{
-//             res.send('documents not exists');
-//         }
-//     });
-// });
+        }else{
+            userRef.set({
+                name: req.body.name,
+                email: req.body.email,
+                age: 0,
+                height: 0,
+                weight: 0,
+                friends: []
+            }).then(() => {
+                console.log('save successfully!');
+            }).catch((err) => {
+                console.log('get an error:', error);
+            });
+        }
+    });
+});
 
 // set up the listening port
 const PORT = process.env.PORT || 8080;
