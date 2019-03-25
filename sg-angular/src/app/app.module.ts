@@ -7,11 +7,12 @@ import { GithubStatsComponent } from './github-stats/github-stats.component';
 import { MapComponent } from './map/map.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
+import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
 import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
 import { LoginComponent } from './login/login.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
-import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
+
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
 import { ChartModule } from 'angular-highcharts';
@@ -39,7 +40,7 @@ export function getAuthServiceConfigs() {
     SplashComponent,
     FriendsComponent,
     LoginComponent,
-    //ExerciseTableComponent,
+    ExerciseTableComponent
   ],
   imports: [
     BrowserModule,
@@ -59,10 +60,10 @@ export function getAuthServiceConfigs() {
         path: 'app-exercise-list',
         component: ExerciseListComponent
       },
-      // {
-      //   path: 'app-exercise-table',
-      //   component: ExerciseTableComponent
-      // },
+      {
+        path: 'app-exercise-table',
+        component: ExerciseTableComponent
+      },
       {
         path: 'app-map',
         component: MapComponent
@@ -90,8 +91,7 @@ export function getAuthServiceConfigs() {
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
-    },
-    UserProfileComponent
+    }
   ],
   bootstrap: [AppComponent]
 })
