@@ -11,7 +11,7 @@ import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
 import { LoginComponent } from './login/login.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
-//import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
+import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
 import { ChartModule } from 'angular-highcharts';

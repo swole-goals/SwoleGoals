@@ -40,16 +40,15 @@ export class LoginComponent implements OnInit {
     this.socialAuthService.signIn(socialPlatformProvider).then(
       (userData) => {
         
-        this.userInfo = userData;
+        //this.userInfo = userData;
 
-        this.printConsole();
-        // this.loginService.postAPIData(userData).subscribe((response)=>{
-        //   console.log('response from post data is ', response);
-        //   this.userInfo = response;
-        //   this.dataService.setUserData(response);
-        // },(error)=>{
-        //   console.log('error during post is ', error)
-        // })
+        this.loginService.postAPIData(userData).subscribe((response)=>{
+          console.log('response from post data is ', response);
+          this.userInfo = response;
+          this.dataService.setUserData(response);
+        },(error)=>{
+          console.log('error during post is ', error)
+        })
 
       }
     );
@@ -59,10 +58,6 @@ export class LoginComponent implements OnInit {
     this.d1.nativeElement.style.display = 'none';
     this.d2.nativeElement.style.display = 'block';
     //this.second.nativeElement.style.display = 'block';
-  }
-
-  printConsole(){
-      console.log('hehehehhhehhehe',this.userInfo);
   }
 
 
