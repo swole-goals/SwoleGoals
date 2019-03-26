@@ -1,35 +1,27 @@
 
-// // set up the firestore
-// const admin = require('firebase-admin');
-
-// admin.initializeApp({
-//   credential: admin.credential.applicationDefault()
-// });
-
-// const db = admin.firestore();
-// // ...
-
-
+// set up the firestore
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
-
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.applicationDefault()
 });
 
-var db = admin.firestore();
+const db = admin.firestore();
+// ...
 
 
-var docRef = db.collection('users').doc('Kaibo');
+// const admin = require('firebase-admin');
 
-var setAda = docRef.set({
-  name: 'Kaibo',
-  age: '25',
-  height: 175,
-  weight: 120,
-  friends: ['user1', 'user2', 'user3']
-});
+// var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
+
+// var db = admin.firestore();
+
+
+
 
 //console.log(setAda);
 
@@ -50,11 +42,12 @@ app.get('/', (req, res) => {
 
 app.post('/addUser', bodyparser.json(), (req, res) => {
     console.log(req.body);
-    res.json(req.body);
+    //res.json(req.body);
     const userRef = db.collection('users').doc(req.body.email);
     userRef.get().then((docSnapshot) => {
         if (docSnapshot.exists){
-
+            console.log('document already exists');
+            res.json(docSnapshot.data());
         }else{
             userRef.set({
                 name: req.body.name,
@@ -62,15 +55,32 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
                 age: 0,
                 height: 0,
                 weight: 0,
-                friends: []
+                friends: [],
+                groups: []
             }).then(() => {
                 console.log('save successfully!');
             }).catch((err) => {
-                console.log('get an error:', error);
+                console.log('get an error:', err);
             });
         }
     });
 });
+
+
+//findUser info
+
+// app.post('/findUser', bodyparser.json(), (req, res) => {
+//     console.log(req.body);
+//     res.json(req.body);
+//     const userRef = db.collection('users').doc(req.body.email);
+//     userRef.get().then((docSnapshot) => {
+//         if (docSnapshot.exists){
+//             res.send('documents exists');
+//         }else{
+//             res.send('documents not exists');
+//         }
+//     });
+// });
 
 // set up the listening port
 const PORT = process.env.PORT || 8080;
