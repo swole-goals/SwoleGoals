@@ -16,6 +16,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     //console.log(this.dataService.getUserData());
+    this.userData = this.dataService.getUserData();
   }
 
 }
