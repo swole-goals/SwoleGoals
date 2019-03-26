@@ -7,9 +7,9 @@ import { HttpClient } from '@angular/common/http';
 export class FriendUpdateService {
 
   constructor(private httpClient : HttpClient) { }
-  postAPIData(email){
-    console.log(email);
+  postAPIData(currUserEmail, friendEmail){
+    console.log(friendEmail);
     //console.log(userData.name); 
-    return this.httpClient.post('http://localhost:8080/addFriend', {'friends' : email})
+    return this.httpClient.post('http://localhost:8080/addFriend', {'currUser' : currUserEmail, 'friends' : friendEmail})
   }
 }

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   userInfo : object;
   message : string;
   constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService, 
-    private dataService : DataService, private userprofile : UserProfileComponent, private render : Renderer,
+    private dataService : DataService, private render : Renderer,
     private first : ElementRef, /*private second : ElementRef*/) { }
  
   ngOnInit() {
@@ -46,6 +46,12 @@ export class LoginComponent implements OnInit {
           console.log('response from post data is ', response);
           this.userInfo = response;
           this.dataService.setUserData(response);
+          if (this.userInfo != null) {
+            this.router.navigate(['/app-user-profile']);
+      
+          }
+      
+          console.log('current logged in user is ', this.dataService.getUserData())
         },(error)=>{
           console.log('error during post is ', error)
         })
@@ -53,10 +59,15 @@ export class LoginComponent implements OnInit {
       }
     );
 
+   
     //console.log('?????????XXXXXX',this.userInfo)
     //this.first.nativeElement.style.display = 'none';
-    this.d1.nativeElement.style.display = 'none';
-    this.d2.nativeElement.style.display = 'block';
+    
+    
+    //this.d1.nativeElement.style.display = 'none';
+    //this.d2.nativeElement.style.display = 'block';
+    
+    
     //this.second.nativeElement.style.display = 'block';
   }
 

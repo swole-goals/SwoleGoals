@@ -12,10 +12,12 @@ export class UserProfileComponent implements OnInit {
   userData : object;
   constructor(private dataService : DataService, private userProfileService : UserProfileService) { 
     //var userData = this.dataService.getUserData();
+  
   }
 
   ngOnInit() {
-    //console.log(this.dataService.getUserData());
+    this.userData = this.dataService.getUserData();
+    console.log("userprofile:", this.dataService.getUserData());
   }
 
 }

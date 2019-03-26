@@ -12,7 +12,7 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
+var serviceAccount = require('./swolegoalsfirestore-df1e8132ad11.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -51,18 +51,13 @@ app.get('/', (req, res) => {
 app.post('/addFriend', bodyparser.json(), (req, res) => {
     console.log(req.body);
     res.json(req.body);
-    const userRef = db.collection('users').doc(req.body.email);
+    const userRef = db.collection('users').doc(req.body.currUser);
     userRef.get().then((docSnapshot) => {
         if (docSnapshot.exists){
-	        userRef.set({
-	          name: 0,
-            email: 0,
-            age: 0,
-            height: 0,
-            weight: 0,
-            friends: req.body.friend
+	        userRef.update({
+                friends: req.body.friends
 	    }).then(() => {
-		console.log('save successfully!');
+        console.log('added friend w/ email: ', req.body.friends);
             }).catch((err) => {
 		console.log('get an error:', err);
             });
@@ -75,7 +70,7 @@ app.post('/addFriend', bodyparser.json(), (req, res) => {
                 weight: 0,
                 friends: []
             }).then(() => {
-                console.log('added friend successfully!');
+                console.log('reached not existing doc!');
             }).catch((err) => {
                 console.log('get an error:', err);
             });

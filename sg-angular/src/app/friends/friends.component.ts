@@ -5,6 +5,7 @@ import { FriendUpdateService } from './friendupdate.service';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from './../../services/data.service';
 
 @Component({
   selector: 'app-friends',
@@ -14,7 +15,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FriendsComponent implements OnInit {
   public userList: Array<UserInfo>;
-  constructor(private userService: UserListService, private router: Router, private friendUpdateService : FriendUpdateService) {
+  userData;
+
+
+  constructor(private userService: UserListService, private router: Router, private friendUpdateService : FriendUpdateService, private dataService : DataService) {
       this.userService.getUserListUnfiltered().subscribe(res => {
       this.userList = res;
     })
@@ -23,9 +27,12 @@ export class FriendsComponent implements OnInit {
   ngOnInit() {
   }
 
-  public addFriend(email : string) {
+  public addFriend(friendEmail : string) {
+    
+    this.userData = this.dataService.getUserData(); 
+    console.log("friendComponent: current logged in user is: ", this.dataService.getUserData());
 
-    this.friendUpdateService.postAPIData(email).subscribe((response)=>{
+    this.friendUpdateService.postAPIData(this.userData.email, friendEmail).subscribe((response)=>{
       console.log('response from post data is ', response);
     },(error)=>{
       console.log('error during post is ', error)
