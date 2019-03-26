@@ -7,13 +7,21 @@ import { GithubStatsComponent } from './github-stats/github-stats.component';
 import { MapComponent } from './map/map.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
+import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
 import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
 import { LoginComponent } from './login/login.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
-import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
+import { ChallengeCreationMenuComponent } from './challenge-creation-menu/challenge-creation-menu.component';
+
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
+import { MatTableModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSliderModule, MatCheckboxModule,
+MatListModule } from '@angular/material';
+import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+
 import { ChartModule } from 'angular-highcharts';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -39,12 +47,22 @@ export function getAuthServiceConfigs() {
     SplashComponent,
     FriendsComponent,
     LoginComponent,
-    ExerciseTableComponent,
+    ChallengeCreationMenuComponent,
+    ExerciseTableComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     DynamiSocialLoginModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    MatCheckboxModule,
+    MatListModule,
+    FormsModule,
     ChartModule,
     RouterModule.forRoot([
       {
@@ -82,6 +100,10 @@ export function getAuthServiceConfigs() {
       {
         path: '',
         component: SplashComponent
+      },
+      {
+        path: 'app-challenge-creation-menu',
+        component: ChallengeCreationMenuComponent
       }
     ]),
   ],
