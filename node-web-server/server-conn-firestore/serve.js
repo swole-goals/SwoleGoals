@@ -8,6 +8,16 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
+// const admin = require('firebase-admin');
+
+// var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
+
+// var db = admin.firestore();
+
 // set up the router
 const express = require('express');
 

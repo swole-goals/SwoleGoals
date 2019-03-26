@@ -14,8 +14,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild('first') d1 : ElementRef;
-  @ViewChild('second') d2 : ElementRef;
+  // @ViewChild('first') d1 : ElementRef;
+  // @ViewChild('second') d2 : ElementRef;
 
   userInfo : object;
   message : string;
