@@ -24,8 +24,12 @@ con.query(cmd, function (err, result) {
 	//console.log(result);
 	var exercises = [];
 	result.forEach(function(exercise) {
+		if(exercise.image1 == null) {
+			return;
+		}
 		var contains = false;
 		exercises.forEach(function(item) {
+			
 			if(item.name === exercise.name) {
 				contains = true;
 			}
