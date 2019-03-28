@@ -20,6 +20,9 @@ export class DataService {
   getUserEmail(){
     return this.userData.email;
   }
+  getUserName(){
+    return this.userData.name;
+  }
   getUserAge(){
     return this.userData.age;
   }

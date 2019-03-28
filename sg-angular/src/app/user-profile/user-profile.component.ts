@@ -12,6 +12,8 @@ export class UserProfileComponent implements OnInit {
   userData : object;
   groupInfo : object;
   groupName : String;
+  userEmail : String;
+  userName : String;
   age : number;
   weight : number;
   height : number;
@@ -22,6 +24,8 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.userData = this.dataService.getUserData();
     console.log("userprofile:", this.dataService.getUserData());
+    this.userName = this.dataService.getUserName();
+    this.userEmail = this.dataService.getUserEmail();
     this.age = this.dataService.getUserAge();
     this.height = this.dataService.getUserHeight();
     this.weight = this.dataService.getUserWeight();
