@@ -1,38 +1,22 @@
 
-// // set up the firestore
-// const admin = require('firebase-admin');
-
-// admin.initializeApp({
-//   credential: admin.credential.applicationDefault()
-// });
-
-// const db = admin.firestore();
-// // ...
-
-
+// set up the firestore
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
-
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.applicationDefault()
 });
 
-var db = admin.firestore();
+const db = admin.firestore();
 
+// const admin = require('firebase-admin');
 
-var docRef = db.collection('users').doc('Kaibo');
+// var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
 
-var setAda = docRef.set({
-  name: 'Kaibo',
-  age: '25',
-  height: 175,
-  weight: 120,
-  friends: ['user1', 'user2', 'user3']
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
 
-//console.log(setAda);
-
+// var db = admin.firestore();
 
 // set up the router
 const express = require('express');

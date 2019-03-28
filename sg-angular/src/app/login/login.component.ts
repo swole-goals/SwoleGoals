@@ -1,4 +1,4 @@
-import { UserProfileComponent } from './../user-profile/user-profile.component';
+//import { UserProfileComponent } from './../user-profile/user-profile.component';
 import { DataService } from './../../services/data.service';
 import { UserInfo } from './../friends/friendsinfo';
 import { LoginService } from './login.service';
@@ -14,13 +14,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild('first') d1 : ElementRef;
-  @ViewChild('second') d2 : ElementRef;
+  // @ViewChild('first') d1 : ElementRef;
+  // @ViewChild('second') d2 : ElementRef;
 
   userInfo : object;
   message : string;
   constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService, 
-    private dataService : DataService, private userprofile : UserProfileComponent, private render : Renderer,
+    private dataService : DataService, private render : Renderer,
     private first : ElementRef, /*private second : ElementRef*/) { }
  
   ngOnInit() {
@@ -46,18 +46,17 @@ export class LoginComponent implements OnInit {
           console.log('response from post data is ', response);
           this.userInfo = response;
           this.dataService.setUserData(response);
+          if (this.userInfo != null){
+            this.router.navigate(['/app-user-profile']);
+          }
         },(error)=>{
           console.log('error during post is ', error)
         })
 
       }
-    );
 
-    //console.log('?????????XXXXXX',this.userInfo)
-    //this.first.nativeElement.style.display = 'none';
-    this.d1.nativeElement.style.display = 'none';
-    this.d2.nativeElement.style.display = 'block';
-    //this.second.nativeElement.style.display = 'block';
+      
+    );
   }
 
 
@@ -68,7 +67,6 @@ export class LoginComponent implements OnInit {
   public register() {
     constructor(private router: Router){
     }
-    this.router.navigate(['/register']);
   }
 */
 
