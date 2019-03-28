@@ -10,6 +10,7 @@ export class LoginService {
   postAPIData(userData){
     console.log(userData);
     //console.log(userData.name); 
+    //TODO: CHANGE BELOW TO https://swolegoalsfirestore.appspot.com/
     return this.httpClient.post('http://localhost:8080/addUser', {'name' : `${userData.name}`, 'email' : `${userData.email}`})
   }
 }

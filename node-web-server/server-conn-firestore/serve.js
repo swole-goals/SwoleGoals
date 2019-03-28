@@ -12,7 +12,7 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
+var serviceAccount = require('./swolegoalsfirestore-b01dcf58e879.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -45,53 +45,104 @@ app.use(cors());
 app.use(bodyparser.json());
 
 app.get('/', (req, res) => {
-    res.send("Hello from Firestore!");
-  });
+  res.send("Hello from Firestore!");
+});
 
 app.post('/addUser', bodyparser.json(), (req, res) => {
-    console.log(req.body);
-    //res.json(req.body);
-    const userRef = db.collection('users').doc(req.body.email);
-    userRef.get().then((docSnapshot) => {
-        if (docSnapshot.exists){
-            console.log('document already exists');
-            res.json(docSnapshot.data());
-        }else{
-            userRef.set({
-                name: req.body.name,
-                email: req.body.email,
-                age: 0,
-                height: 0,
-                weight: 0,
-                friends: [],
-                groups: []
-            }).then(() => {
-                console.log('save successfully!');
-            }).catch((err) => {
-                console.log('get an error:', err);
-            });
-        }
-    });
+  console.log(req.body);
+  //res.json(req.body);
+  const userRef = db.collection('users').doc(req.body.email);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('document already exists');
+      res.json(docSnapshot.data());
+    } else {
+      userRef.set({
+        name: req.body.name,
+        email: req.body.email,
+        age: 0,
+        height: 0,
+        weight: 0,
+        friends: [],
+        groupID: null
+      }).then(() => {
+        console.log('Added user successfully!');
+      }).then(() => userRef.get().then((docSnapshot) => {
+        res.json(docSnapshot.data())
+      })).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
+app.post('/addGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const groupRef = db.collection('groups').doc(req.body.groupName);
+  groupRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('Group already exists');
+    } else {
+      groupRef.set({
+        name: req.body.groupName,
+        users: req.body.userEmail
+      }).then(() => {
+        console.log('Created Group!');
+      }).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+  const userRef = db.collection('users').doc(req.body.userEmail);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      userRef.update({
+        groupID: req.body.groupName
+      }).then(() => {
+        console.log('Added User to Group!');
+      }).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
+app.post('/updateInfo', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('users').doc(req.body.userEmail);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      userRef.update({
+        age: req.body.userAge,
+        height: req.body.userHeight,
+        weight: req.body.userWeight
+      }).then(() => {
+        console.log('Added User to Group!');
+      }).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
 });
 
 
-//findUser info
+  //findUser info
 
-// app.post('/findUser', bodyparser.json(), (req, res) => {
-//     console.log(req.body);
-//     res.json(req.body);
-//     const userRef = db.collection('users').doc(req.body.email);
-//     userRef.get().then((docSnapshot) => {
-//         if (docSnapshot.exists){
-//             res.send('documents exists');
-//         }else{
-//             res.send('documents not exists');
-//         }
-//     });
-// });
+  // app.post('/findUser', bodyparser.json(), (req, res) => {
+  //     console.log(req.body);
+  //     res.json(req.body);
+  //     const userRef = db.collection('users').doc(req.body.email);
+  //     userRef.get().then((docSnapshot) => {
+  //         if (docSnapshot.exists){
+  //             res.send('documents exists');
+  //         }else{
+  //             res.send('documents not exists');
+  //         }
+  //     });
+  // });
 
-// set up the listening port
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}...`);
-});
+  // set up the listening port
+  const PORT = process.env.PORT || 8080;
+  app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}...`);
+  });
