@@ -1,16 +1,28 @@
-<div class="container">
+<style>
+
+.container-fluid{
+	padding: 2% 2% 4% 4%;
+}
+.col-lg-6{
+	.padding: 2%;
+}
+
+</style>
+
+
+<div class="container-fluid">
   <div class="row">
     <div class="col-lg-6 col-md-6">
 	<form>
   		<div class="form-group">
     			<label for="exampleFormControlSelect1">Example select</label>
     			<select class="form-control" id="exampleFormControlSelect1" (change)="onChange($event.target.value)">
-  				<option value="Barbell">Barbell</option>
-  				<option value="Bodyweight">Bodyweight</option>
-				<option value="Olympic">Olympic</option>
-  				<option value="Dumbell">Dumbell</option>
-  				<option value="Machine">Machine</option>
-				<option value="Cable">Cable</option>
+					<option value="Barbell">Barbell</option>
+					<option value="Bodyweight">Bodyweight</option>
+					<option value="Olympic">Olympic</option>
+					<option value="Dumbell">Dumbell</option>
+					<option value="Machine">Machine</option>
+					<option value="Cable">Cable</option>
     			</select>
 			<!--
 			<select (change)="onChange($event.target.value)">
