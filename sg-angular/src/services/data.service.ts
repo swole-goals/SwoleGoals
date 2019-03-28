@@ -26,4 +26,22 @@ export class DataService {
   getUserData(){
     return this.userData;
   }
+  getUserEmail(){
+    return this.userData.email;
+  }
+  getUserName(){
+    return this.userData.name;
+  }
+  getUserAge(){
+    return this.userData.age;
+  }
+  getUserGroup(){
+    return this.userData.groupID;
+  }
+  getUserHeight(){
+    return this.userData.height;
+  }
+  getUserWeight(){
+    return this.userData.weight;
+  }
 }
