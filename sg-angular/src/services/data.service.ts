@@ -19,4 +19,8 @@ export class DataService {
   getUserData(){
     return this.userData;
   }
+  getUserEmail(){
+    console.log("User Email: " , this.userData.email);
+    return this.userData.email;
+  }
 }

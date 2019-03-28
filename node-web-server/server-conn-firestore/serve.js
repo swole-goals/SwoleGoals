@@ -83,7 +83,8 @@ app.post('/addGroup', bodyparser.json(), (req, res) => {
           console.log('Group already exists');
       }else{
           groupRef.set({
-              name: req.body.groupName
+              name: req.body.groupName,
+              users: req.body.userEmail
           }).then(() => {
               console.log('save successfully!');
           }).catch((err) => {

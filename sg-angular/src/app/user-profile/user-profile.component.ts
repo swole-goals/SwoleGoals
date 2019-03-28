@@ -13,8 +13,7 @@ export class UserProfileComponent implements OnInit {
   groupInfo : object;
   groupName : String;
   constructor(private dataService : DataService, private userProfileService : UserProfileService) { 
-    //var userData = this.dataService.getUserData();
-  
+    var userData = this.dataService.getUserData();
   }
 
   ngOnInit() {
@@ -28,7 +27,6 @@ export class UserProfileComponent implements OnInit {
       console.log('response from post data is ', response);
       this.groupInfo = response;
       this.dataService.setUserData(response);
-      console.log('Joined Group', this.dataService.getUserData())
     },(error)=>{
       console.log('error during post is ', error)
     })
