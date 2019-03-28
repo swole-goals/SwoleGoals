@@ -12,7 +12,7 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsfirestore-df1e8132ad11.json');
+var serviceAccount = require('./swolegoalsfirestore-b01dcf58e879.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -48,19 +48,14 @@ app.get('/', (req, res) => {
     res.send("Hello from Firestore!");
   });
 
-app.post('/addFriend', bodyparser.json(), (req, res) => {
+app.post('/addUser', bodyparser.json(), (req, res) => {
     console.log(req.body);
-    res.json(req.body);
-    const userRef = db.collection('users').doc(req.body.currUser);
+    //res.json(req.body);
+    const userRef = db.collection('users').doc(req.body.email);
     userRef.get().then((docSnapshot) => {
         if (docSnapshot.exists){
-	        userRef.update({
-                friends: req.body.friends
-	    }).then(() => {
-        console.log('added friend w/ email: ', req.body.friends);
-            }).catch((err) => {
-		console.log('get an error:', err);
-            });
+            console.log('document already exists');
+            res.json(docSnapshot.data());
         }else{
             userRef.set({
                 name: req.body.name,
@@ -68,9 +63,10 @@ app.post('/addFriend', bodyparser.json(), (req, res) => {
                 age: 0,
                 height: 0,
                 weight: 0,
-                friends: []
+                friends: [],
+                groupID: null
             }).then(() => {
-                console.log('reached not existing doc!');
+                console.log('Added user successfully!');
             }).catch((err) => {
                 console.log('get an error:', err);
             });
@@ -78,29 +74,48 @@ app.post('/addFriend', bodyparser.json(), (req, res) => {
     });
 });
 
-app.post('/addUser', bodyparser.json(), (req, res) => {
-    console.log(req.body);
-    res.json(req.body);
-    const userRef = db.collection('users').doc(req.body.email);
-    userRef.get().then((docSnapshot) => {
-        if (docSnapshot.exists){
 
-        }else{
-            userRef.set({
-                name: req.body.name,
-                email: req.body.email,
-                age: 0,
-                height: 0,
-                weight: 0,
-                friends: []
-            }).then(() => {
-                console.log('save successfully!');
-            }).catch((err) => {
-                console.log('get an error:', error);
-            });
-        }
-    });
+app.post('/addGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  //res.json(req.body);
+  const userRef = db.collection('groups').doc();
+  userRef.get().then((docSnapshot) => {
+      if (docSnapshot.exists){
+          console.log('document already exists');
+          res.json(docSnapshot.data());
+      }else{
+          userRef.set({
+              name: req.body.name,
+              email: req.body.email,
+              age: 0,
+              height: 0,
+              weight: 0,
+              friends: [],
+              groupID: null
+          }).then(() => {
+              console.log('save successfully!');
+          }).catch((err) => {
+              console.log('get an error:', err);
+          });
+      }
+  });
 });
+
+
+//findUser info
+
+// app.post('/findUser', bodyparser.json(), (req, res) => {
+//     console.log(req.body);
+//     res.json(req.body);
+//     const userRef = db.collection('users').doc(req.body.email);
+//     userRef.get().then((docSnapshot) => {
+//         if (docSnapshot.exists){
+//             res.send('documents exists');
+//         }else{
+//             res.send('documents not exists');
+//         }
+//     });
+// });
 
 // set up the listening port
 const PORT = process.env.PORT || 8080;
