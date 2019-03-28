@@ -4,6 +4,8 @@ import {ExerciseListService} from "../exercise-list/exercise-list.service";
 import {expressionChangedAfterItHasBeenCheckedError} from "@angular/core/src/view/errors";
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel} from "@angular/cdk/collections";
+import {ChallengeCreationService} from "./challenge-creation.service";
+import {DataService} from "../../services/data.service";
 
 export interface PeriodicElement {
   name: string;
@@ -11,22 +13,6 @@ export interface PeriodicElement {
   weight: number;
   symbol: string;
 }
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-
-
 
 @Component({
   selector: 'app-challenge-creation-menu',
@@ -44,7 +30,9 @@ export class ChallengeCreationMenuComponent implements OnInit {
   exerciseReps = [];
   currentFilter: string;
 
-  constructor(private exerciseService: ExerciseListService) {
+  constructor(private exerciseService: ExerciseListService,
+              private challengeCreationService: ChallengeCreationService,
+              private dataService: DataService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
@@ -93,6 +81,28 @@ export class ChallengeCreationMenuComponent implements OnInit {
     });
     this.exercisesToRemove = [];
   }
+
+  createChallenge(){
+    let exerciseNames = [];
+    let challengeData = []
+    let exerciseRepsChallenge = []
+    for(let exercise of this.selectedExercises){
+      exerciseRepsChallenge.push(this.exerciseReps[this.data.indexOf(exercise)]);
+      exerciseNames.push(exercise.name);
+    }
+    challengeData.push(exerciseNames);
+    challengeData.push(exerciseRepsChallenge);
+    console.log(challengeData);
+    this.challengeCreationService.postAPIdata(challengeData).subscribe((response)=>{
+        let challengeInfo = response;
+        this.dataService.setChallengeData(response);
+        if (challengeInfo != null){
+          console.log('challenge created');
+          alert('Challenge Created');
+        }
+    })
+  }
+
 
   ngOnInit() {
   }

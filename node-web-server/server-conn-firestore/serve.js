@@ -1,22 +1,22 @@
+//
+// // set up the firestore
+// const admin = require('firebase-admin');
+//
+// admin.initializeApp({
+//   credential: admin.credential.applicationDefault()
+// });
+//
+// const db = admin.firestore();
 
-// set up the firestore
-const admin = require('firebase-admin');
+ const admin = require('firebase-admin');
+
+var serviceAccount = require('./swolegoalsFirestore-601575c95ed8.json');
 
 admin.initializeApp({
-  credential: admin.credential.applicationDefault()
+  credential: admin.credential.cert(serviceAccount)
 });
 
-const db = admin.firestore();
-
-// const admin = require('firebase-admin');
-
-// var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
-
-// var db = admin.firestore();
+var db = admin.firestore();
 
 // set up the router
 const express = require('express');
@@ -56,6 +56,32 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
             });
         }
     });
+});
+
+app.post('/addChallenge', bodyparser.json(), (req, res) => {
+    console.log(req.body);
+    const challengeRef = db.collection('Challenges').doc(req.body.exercises);
+    challengeRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists) {
+            console.log('challenge already exists');
+            res.json(docSnapshot.data());
+        }else{
+            challengeRef.set({
+                exercises: req.body.exercises,
+                reps: req.body.reps
+            }).then(() => {
+                console.log('save successfully!');
+            }).then(() => {
+                challengeRef.get().then((docSnapshot) => {
+                    res.json(docSnapshot.data());
+                });
+            }).catch((err) => {
+                console.log('get an error:', err);
+            });
+        }
+
+    });
+
 });
 
 
