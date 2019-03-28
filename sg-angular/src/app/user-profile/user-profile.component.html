@@ -43,12 +43,37 @@
 									<img src="assets\images\userImg.jpg" alt="profile image" class="img-thumbnail">
 								</div>
 								<div class="col-8">
-									{{userData.email}}
-									Bat that the and tediously that yet treacherous far when deliberately wow therefore a awakened
-									unscrupulously ungracefully floated before however and noble where wrote some stole that far hurt far
-									nonsensically.
-									The leaned far goodness a one the far won reindeer apart near that falcon less smoothly mistakenly
-									because far informal cuddled strived.
+									<h5>{{userData.name}}</h5>
+									<p>{{userData.email}}</p>
+									<form>
+										<div class="form-group">
+											<div class="form-row">
+												<div class="col-2">
+													<p>Age:</p>
+												</div>
+												<div class="col-2">
+													<input class="form-control" [(ngModel)]="age" name="age" />
+												</div>
+											</div>
+											<div class="form-row">
+												<div class="col-2">
+													<p>Height:</p>
+												</div>
+												<div class="col-2">
+													<input class="form-control" [(ngModel)]="height" name="height" />
+												</div>
+											</div>
+											<div class="form-row">
+												<div class="col-2">
+													<p>Weight:</p>
+												</div>
+												<div class="col-2">
+													<input class="form-control" [(ngModel)]="weight" name="weight" />
+												</div>
+											</div>
+										</div>
+										<button (click)="updateUserInfo()" type="submit" class="btn btn-primary">Update</button>
+									</form>
 								</div>
 							</div>
 
@@ -66,6 +91,7 @@
 								</div>
 								<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
 							</form>
+
 						</div>
 					</div>
 				</div>

@@ -14,4 +14,8 @@ export class UserProfileService {
     console.log("Creating new group", groupName)
     return this.httpClient.post('http://localhost:8080/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userEmail}` })
   }
+  updateInfo(userAge,userHeight,userWeight) {
+    this.userEmail = this.dataService.getUserEmail();
+    return this.httpClient.post('http://localhost:8080/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}` })
+  }
 }

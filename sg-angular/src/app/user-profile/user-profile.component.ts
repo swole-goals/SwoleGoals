@@ -12,6 +12,9 @@ export class UserProfileComponent implements OnInit {
   userData : object;
   groupInfo : object;
   groupName : String;
+  age : number;
+  weight : number;
+  height : number;
   constructor(private dataService : DataService, private userProfileService : UserProfileService) { 
     var userData = this.dataService.getUserData();
   }
@@ -19,6 +22,9 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.userData = this.dataService.getUserData();
     console.log("userprofile:", this.dataService.getUserData());
+    this.age = this.dataService.getUserAge();
+    this.height = this.dataService.getUserHeight();
+    this.weight = this.dataService.getUserWeight();
   }
 
   joinGroup() {
@@ -26,7 +32,16 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.createGroup(this.groupName).subscribe((response)=>{
       console.log('response from post data is ', response);
       this.groupInfo = response;
-      this.dataService.setUserData(response);
+    },(error)=>{
+      console.log('error during post is ', error)
+    })
+  }
+
+  updateUserInfo() {
+    console.log("Updating User Info");
+    this.userProfileService.updateInfo(this.age,this.height,this.weight).subscribe((response)=>{
+      console.log('response from post data is ', response);
+      this.groupInfo = response;
     },(error)=>{
       console.log('error during post is ', error)
     })
