@@ -10,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
   userData : object;
+  groupInfo : object;
+  groupName : String;
   constructor(private dataService : DataService, private userProfileService : UserProfileService) { 
     //var userData = this.dataService.getUserData();
   
@@ -20,4 +22,15 @@ export class UserProfileComponent implements OnInit {
     console.log("userprofile:", this.dataService.getUserData());
   }
 
+  joinGroup() {
+    console.log("Joining Group" + this.groupName);
+    this.userProfileService.createGroup(this.groupName).subscribe((response)=>{
+      console.log('response from post data is ', response);
+      this.groupInfo = response;
+      this.dataService.setUserData(response);
+      console.log('Joined Group', this.dataService.getUserData())
+    },(error)=>{
+      console.log('error during post is ', error)
+    })
+  }
 }

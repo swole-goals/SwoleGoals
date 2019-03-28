@@ -48,9 +48,7 @@ export class LoginComponent implements OnInit {
           this.dataService.setUserData(response);
           if (this.userInfo != null) {
             this.router.navigate(['/app-user-profile']);
-      
           }
-      
           console.log('current logged in user is ', this.dataService.getUserData())
         },(error)=>{
           console.log('error during post is ', error)

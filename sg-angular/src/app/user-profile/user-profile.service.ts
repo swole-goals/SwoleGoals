@@ -6,10 +6,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserProfileService {
-  message : {};
-  constructor(private dataService : DataService, private httpClient : HttpClient) {}
+  message: {};
+  constructor(private dataService: DataService, private httpClient: HttpClient) { }
 
-  // postUserProfile(){
-  //   return this.httpClient.post('http://localhost:8080/findUser', {'email' : this.message})
-  // }
+  createGroup(groupName) {
+    console.log("Creating new group", groupName)
+    return this.httpClient.post('http://localhost:8080/addGroup', { 'groupName': `${groupName}` })
+  }
 }

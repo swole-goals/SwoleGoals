@@ -74,24 +74,16 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
     });
 });
 
-
 app.post('/addGroup', bodyparser.json(), (req, res) => {
+  res.send("Hello world");
   console.log(req.body);
-  //res.json(req.body);
-  const userRef = db.collection('groups').doc();
-  userRef.get().then((docSnapshot) => {
+  const groupRef = db.collection('groups').doc(req.body.groupName);
+  groupRef.get().then((docSnapshot) => {
       if (docSnapshot.exists){
-          console.log('document already exists');
-          res.json(docSnapshot.data());
+          console.log('Group already exists');
       }else{
-          userRef.set({
-              name: req.body.name,
-              email: req.body.email,
-              age: 0,
-              height: 0,
-              weight: 0,
-              friends: [],
-              groupID: null
+          groupRef.set({
+              name: req.body.groupName
           }).then(() => {
               console.log('save successfully!');
           }).catch((err) => {
