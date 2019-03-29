@@ -17,7 +17,7 @@ export class UserProfileComponent implements OnInit {
   age : number;
   weight : number;
   height : number;
-  constructor(private dataService : DataService, private userProfileService : UserProfileService) { 
+  constructor(private dataService : DataService, private userProfileService : UserProfileService) {
     var userData = this.dataService.getUserData();
   }
 

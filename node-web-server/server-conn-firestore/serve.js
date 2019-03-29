@@ -12,7 +12,7 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsfirestore-b01dcf58e879.json');
+var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -123,6 +123,32 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
       });
     }
   });
+});
+
+app.post('/addChallenge', bodyparser.json(), (req, res) => {
+    console.log(req.body);
+    const challengeRef = db.collection('Challenges').doc(req.body.exercises);
+    challengeRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists) {
+            console.log('challenge already exists');
+            res.json(docSnapshot.data());
+        }else{
+            challengeRef.set({
+                exercises: req.body.exercises,
+                reps: req.body.reps
+            }).then(() => {
+                console.log('save successfully!');
+            }).then(() => {
+                challengeRef.get().then((docSnapshot) => {
+                    res.json(docSnapshot.data());
+                });
+            }).catch((err) => {
+                console.log('get an error:', err);
+            });
+        }
+
+    });
+
 });
 
 

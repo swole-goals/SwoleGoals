@@ -57,15 +57,15 @@ export class LoginComponent implements OnInit {
       }
     );
 
-   
+
     //console.log('?????????XXXXXX',this.userInfo)
     //this.first.nativeElement.style.display = 'none';
-    
-    
+
+
     //this.d1.nativeElement.style.display = 'none';
     //this.d2.nativeElement.style.display = 'block';
-    
-    
+
+
     //this.second.nativeElement.style.display = 'block';
   }
 
