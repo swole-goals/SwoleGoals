@@ -32,11 +32,26 @@ export class FriendsComponent implements OnInit {
     this.userData = this.dataService.getUserData(); 
     console.log("friendComponent: current logged in user is: ", this.dataService.getUserData());
 
-    this.friendUpdateService.postAPIData(this.userData.email, friendEmail).subscribe((response)=>{
+   /* this.friendUpdateService.postAPIData(this.userData.email, friendEmail).subscribe((response)=>{
       console.log('response from post data is ', response);
+    },(error)=>{
+      console.log('error during post is ', error)
+    })*/
+
+    this.friendUpdateService.postAPIDataGroup("FINAL_GROUP", friendEmail).subscribe((response)=>{
+      console.log('response from addFriendToGroup ', response);
     },(error)=>{
       console.log('error during post is ', error)
     })
   }
 
+  public addFriendToGroup(friendEmail : string) {
+    this.userData = this.dataService.getUserData();
+
+    this.friendUpdateService.postAPIDataGroup("FINAL_GROUP", friendEmail).subscribe((response)=>{
+        console.log('response from addFriendToGroup ', response);
+    },(error)=>{
+      console.log('error during post is ', error)
+    })
+  }
 }

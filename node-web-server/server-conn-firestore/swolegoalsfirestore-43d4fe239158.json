@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "swolegoalsfirestore",
+  "private_key_id": "43d4fe23915864ceb55f3841f8380b50c515fcd6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCF4CeEWctIoYkB\nH39mS7fp7MHRwMtkE9oOkL0uZz8ZwXmzwYAGppN+mcuAItJ4Aa9G3dTSEede25Gl\nvTShEE7koCZ4TDwL2X006lRS0E8n58833ItD4atdta5Ex3IE1EO85q4C4VGld6p+\nTvndm2gcm8Iqwk0UDca9iORWBshRaR6t43V7f4fOg8+7fPTlzbKCQHwhgGbHWPOX\nmnZoVhA0Q2DcOzmRUU39IwWa9rsn/jmkg3c7CVZldO8WTOTl0KnSj4BbeGqE29/Q\nu26g/ya61USSjcR9uepAOpwTrZEUfQ6Y88VFlMyZz11g57U/reZz0sYaqib2E8fQ\nNLxBWEH1AgMBAAECggEADR0JUeYHywwDowgGTytgjvnhfF3RrnJhXCbiWQ7E+A1j\nEfAEzeH4NaDz9Y+zpQypMhxdkdwuGTURvbXcV2CFEdD8I7F3+kMqCApiCyCbeFG1\nEwg33gTXZ9z5foQ4z29JWVIRPnf6quYfXbL3t7TWzGKXcN/KdAnrazpi/2g3q/2n\nPh98QSwyJpFrh1tJU0gB5NKj6zZpx5/u1gvmwRq8e1pmTlfA+XvSh/aMhPZuqirx\nKi1hsIfy0u1YvVpRvmWP0w7Bmi+xJ/yvvA6LSG06wYItfc7Rwzadd/iegmLBYqVp\nJL8D+f3NCosH/VExoqex9dUopBSaxtxwBAdJCIPFkQKBgQC6/1DVANXP1qR0TDxK\nkS+CKyKuoK2mV+i4ZvfNREzg4NrLOSVK6Jui9qoh92sezRFn6NNGHNQtLwGe3kuo\n7IP84E5PwINcQQKNfvuQm6OozzU6vO2vLm6T1+E6IpeEo9N7QUfrrdeqsROxwhvb\nEUC8s+T2LUBbTCUdY6QD6/+I6QKBgQC3RrM7gCDXvarA6hDYAjc3L6zbclWIlX5z\nD4G/u1C5M7/umKeyCMPdPakuyhcAPy9xZuKA/4QBrZm/4/p9r1pD6+km1l1N7IVy\nwDOpLt7TDS+AVYDV6+wFSpOL0GANYZOXSMAZcBvDSJ44BMIfshJ0cOesBvcwwdS1\nsOzMCpUJLQKBgFqnxGw/R2jHSlsHSoNr93hHqTy3sPffznb3lFLzNcIfwHKddbLn\nKezLYJeu90OrbzDM8wAeoc5153c5lbyDTUmfBNgtIIHtEmu+j/7/NUx1h/y98wzm\nmb0a/5nLg2FOewxaDZ/4W4Ho7v9Sd2aw6o2ROQMP1Q9tzuB8mds84llhAoGAMiLd\nFQHP+jSgaXWedfjlMeuQ1ddJHrwGg2NSkyiixIcrkhGgjktniTY8+de+wwqF5/fF\nLpS3f94FmUC8XXWCs+HtPfqWO6LgPqvldfqkagfJXsoFHIAVaL0l77FpFUAEJ/Z2\n1n6cmadb4OcsU49bDQ910NF2/ZeIoMtte8PJUWECgYACu9WpgKXPvYBppS/mkNVO\nm+Qlprd+g8pkxYAcf9kBQiU2EspMZH+jtzZYDLF5SN9OQpQmZ3q9zu4WzIc2MX/8\nfBMT6VdI0Dd+iyolc0M3eHL4oGHoT/xsRVGap/ciEoS+Lx0vpxpOsp5cNEecDI0/\nBjMMBS4QybkfA0iSjK16iQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "swolegoalsfirestore@appspot.gserviceaccount.com",
+  "client_id": "112883715394550601779",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/swolegoalsfirestore%40appspot.gserviceaccount.com"
+}

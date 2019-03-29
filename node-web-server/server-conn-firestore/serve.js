@@ -12,7 +12,7 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
+var serviceAccount = require('./swolegoalsfirestore-43d4fe239158.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -81,6 +81,9 @@ app.post('/addGroup', bodyparser.json(), (req, res) => {
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
+      groupRef.update({
+        users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
+      })
       console.log('Group already exists');
     } else {
       groupRef.set({
