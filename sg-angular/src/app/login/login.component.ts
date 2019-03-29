@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('second') d2 : ElementRef;
 
   userInfo : object;
+  userImage : string;
   message : string;
   constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService, 
     private dataService : DataService, private render : Renderer,
@@ -41,11 +42,13 @@ export class LoginComponent implements OnInit {
       (userData) => {
         
         //this.userInfo = userData;
-
+        this.userImage = userData.image;
+        
         this.loginService.postAPIData(userData).subscribe((response)=>{
           console.log('response from post data is ', response);
           this.userInfo = response;
           this.dataService.setUserData(response);
+          this.dataService.setUserImage(this.userImage);
           if (this.userInfo != null) {
             this.router.navigate(['/app-user-profile']);
           }

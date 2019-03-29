@@ -12,10 +12,10 @@ export class UserProfileService {
   createGroup(groupName) {
     this.userEmail = this.dataService.getUserEmail();
     console.log("Creating new group", groupName)
-    return this.httpClient.post('https://swolegoalsfirestore.appspot.com/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userEmail}` })
+    return this.httpClient.post('http://localhost:8080/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userEmail}` })
   }
   updateInfo(userAge,userHeight,userWeight) {
     this.userEmail = this.dataService.getUserEmail();
-    return this.httpClient.post('https://swolegoalsfirestore.appspot.com/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}` })
+    return this.httpClient.post('http://localhost:8080/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}` })
   }
 }
