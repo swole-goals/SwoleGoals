@@ -18,7 +18,7 @@ const db = admin.firestore();
 //   credential: admin.credential.cert(serviceAccount)
 // });
 
-var db = admin.firestore();
+//var db = admin.firestore();
 
 
 var docRef = db.collection('users').doc('Kaibo');
