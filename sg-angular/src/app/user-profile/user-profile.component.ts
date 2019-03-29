@@ -14,6 +14,7 @@ export class UserProfileComponent implements OnInit {
   groupName : String;
   userEmail : String;
   userName : String;
+  image : String;
   age : number;
   weight : number;
   height : number;
@@ -29,6 +30,7 @@ export class UserProfileComponent implements OnInit {
     this.age = this.dataService.getUserAge();
     this.height = this.dataService.getUserHeight();
     this.weight = this.dataService.getUserWeight();
+    this.image = this.dataService.getUserImage();
   }
 
   joinGroup() {

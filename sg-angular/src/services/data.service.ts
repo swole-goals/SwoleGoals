@@ -35,6 +35,9 @@ export class DataService {
   getUserAge(){
     return this.userData.age;
   }
+  getUserImage(){
+    return this.userData.image;
+  }
   getUserGroup(){
     return this.userData.groupID;
   }

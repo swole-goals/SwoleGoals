@@ -60,6 +60,7 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
       userRef.set({
         name: req.body.name,
         email: req.body.email,
+        photo: req.body.image,
         age: 0,
         height: 0,
         weight: 0,
@@ -120,7 +121,7 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
         height: req.body.userHeight,
         weight: req.body.userWeight
       }).then(() => {
-        console.log('Added User to Group!');
+        console.log('Updated user info!');
       }).catch((err) => {
         console.log('get an error:', err);
       });
