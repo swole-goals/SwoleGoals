@@ -17,37 +17,37 @@
 	  
         <li class="nav-item">
           <a class="nav-link active" data-toggle="tab" routerLink="/app-splash">Home
-            <span class="sr-only">(current)</span>
+            <!-- <span class="sr-only">(current)</span> -->
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-github-stats">About</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-map">Map</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-exercise-list">Exercises</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-exercise-table">Performance Table</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
             <a class="nav-link" data-toggle="tab" routerLink="/friends">Friends</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-user-profile">Profile</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" routerLink="/app-login">Login</a>
+        <li *ngIf="!loggedIn" class="nav-item">
+          <a class="nav-link" (click)="logIn()" data-toggle="tab" >Login</a>
         </li>
 
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#">Logout</a>
+        <li *ngIf="loggedIn" class="nav-item">
+          <a class="nav-link" (click)="logOut()" data-toggle="tab" href="#">Logout</a>
         </li>
 
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-challenge-creation-menu">Challenge Creation</a>
         </li>
       </ul>

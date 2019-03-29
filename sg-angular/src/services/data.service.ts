@@ -15,6 +15,10 @@ export class DataService {
     this.challengeData = {};
    }
 
+  logOut(){
+    this.userData = {};
+    this.challengeData = {};
+  }
   setUserData(val : object){
     this.userData = val;
     console.log("this is setter method in data service", this.userData);
