@@ -9,7 +9,7 @@ export class ChallengeCreationService {
   constructor(private httpClient : HttpClient) { }
   postAPIdata(challengeData){
     console.log(challengeData);
-    return this.httpClient.post('http://localhost:8080/addChallenge',
+    return this.httpClient.post('https://swolegoalsfirestore.appspot.com/addChallenge',
       {'exercises' : `${challengeData[0]}`, 'reps' : `${challengeData[1]}`});
   }
 
