@@ -9,6 +9,7 @@ export class DataService {
 
   userData;
   challengeData;
+  userImage: String;
   constructor() {
     this.userData = {};
     this.challengeData = {};
@@ -35,8 +36,12 @@ export class DataService {
   getUserAge(){
     return this.userData.age;
   }
+  setUserImage(image : String){
+    console.log("Setting image to ", image);
+    this.userImage = image;
+  }
   getUserImage(){
-    return this.userData.image;
+    return this.userImage;
   }
   getUserGroup(){
     return this.userData.groupID;
