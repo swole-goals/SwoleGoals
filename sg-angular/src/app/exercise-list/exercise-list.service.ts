@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { ExerciseInfo } from './exerciseinfo';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class ExerciseListService {
   constructor(private httpClient: HttpClient) { }
   
   getExerciseListUnfiltered() {
-    return this.httpClient.get(`https://swolegoalsdatabase.appspot.com/getEx`).
+    return this.httpClient.get(environment.sqlURL+`/getEx`).
       pipe(
         map((item: any) => item.map(e => <ExerciseInfo>
         {
