@@ -8,16 +8,33 @@
 
 // const db = admin.firestore();
 // // ...
-
-
 const admin = require('firebase-admin');
+const fs = require('fs');
+const {Storage} = require('@google-cloud/storage');
 
-var serviceAccount = require('./swolegoalsfirestore-10cf73021893.json');
+const private_key = `./swolegoalsfirestore-10cf73021893.json`;
+if(!fs.existsSync(private_key)){
+  const projectId = 'swolegoalsFirestore';
+  const storage = new Storage({
+    projectId: projectId,
+  });
+  const bucketName = 'sg-storage';
+  storage
+    .bucket(bucketName)
+    .file(private_key)
+    .download({ destination: private_key })
+    .then(() => {
+      console.info('Private key downloaded successfully')
+    })
+    .catch(e => {
+      console.error(`serve.js: There was an error: ${JSON.stringify(e, undefined, 2)}`)
+    })
+}
 
+var serviceAccount = require(private_key);
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
-
 const db = admin.firestore();
 
 var docRef = db.collection('users').doc('Kaibo');

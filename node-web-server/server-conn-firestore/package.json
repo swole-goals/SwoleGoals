@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/storage": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "firebase-admin": "^7.1.1"
+    "firebase-admin": "^7.1.1",
+    "fs": "0.0.1-security"
   }
 }
