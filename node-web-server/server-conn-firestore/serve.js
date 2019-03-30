@@ -18,8 +18,7 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-var db = admin.firestore();
-
+const db = admin.firestore();
 
 var docRef = db.collection('users').doc('Kaibo');
 

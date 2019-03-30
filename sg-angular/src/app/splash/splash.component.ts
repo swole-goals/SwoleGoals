@@ -1,4 +1,6 @@
+import { AppComponent } from './../app.component';
 import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-splash',
@@ -8,9 +10,13 @@ import { Component, OnInit } from '@angular/core';
 
 export class SplashComponent implements OnInit {
 
-  constructor() { }
+  constructor(private appComponent : AppComponent) { }
 
   ngOnInit() {
 
+  }
+
+  logIn(){
+    this.appComponent.logIn('google');
   }
 }
