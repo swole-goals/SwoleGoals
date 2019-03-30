@@ -1,5 +1,5 @@
 
-// // set up the firestore
+// set up the firestore
 // const admin = require('firebase-admin');
 
 // admin.initializeApp({
@@ -12,13 +12,13 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsdatastore-f42e76e18d90.json');
+var serviceAccount = require('./swolegoalsfirestore-b01dcf58e879.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
-var db = admin.firestore();
+const db = admin.firestore();
 
 
 var docRef = db.collection('users').doc('Kaibo');
@@ -60,6 +60,7 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
       userRef.set({
         name: req.body.name,
         email: req.body.email,
+        photo: req.body.image,
         age: 0,
         height: 0,
         weight: 0,
@@ -81,6 +82,9 @@ app.post('/addGroup', bodyparser.json(), (req, res) => {
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
+      groupRef.update({
+        users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
+      })
       console.log('Group already exists');
     } else {
       groupRef.set({
@@ -117,7 +121,7 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
         height: req.body.userHeight,
         weight: req.body.userWeight
       }).then(() => {
-        console.log('Added User to Group!');
+        console.log('Updated user info!');
       }).catch((err) => {
         console.log('get an error:', err);
       });

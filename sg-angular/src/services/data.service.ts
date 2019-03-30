@@ -9,11 +9,16 @@ export class DataService {
 
   userData;
   challengeData;
+  userImage: String;
   constructor() {
     this.userData = {};
     this.challengeData = {};
    }
 
+  logOut(){
+    this.userData = {};
+    this.challengeData = {};
+  }
   setUserData(val : object){
     this.userData = val;
     console.log("this is setter method in data service", this.userData);
@@ -34,6 +39,13 @@ export class DataService {
   }
   getUserAge(){
     return this.userData.age;
+  }
+  setUserImage(image : String){
+    console.log("Setting image to ", image);
+    this.userImage = image;
+  }
+  getUserImage(){
+    return this.userImage;
   }
   getUserGroup(){
     return this.userData.groupID;
