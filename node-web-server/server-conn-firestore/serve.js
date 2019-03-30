@@ -12,14 +12,13 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsfirestore-b01dcf58e879.json');
+var serviceAccount = require('./swolegoalsfirestore-10cf73021893.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
 const db = admin.firestore();
-
 
 var docRef = db.collection('users').doc('Kaibo');
 
@@ -172,7 +171,7 @@ app.post('/addChallenge', bodyparser.json(), (req, res) => {
   // });
 
   // set up the listening port
-  const PORT = process.env.PORT || 8080;
+  const PORT = process.env.PORT || 4202;
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
   });
