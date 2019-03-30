@@ -1,3 +1,4 @@
+import { AppComponent } from './../app.component';
 import { UserProfileComponent } from './../user-profile/user-profile.component';
 import { DataService } from './../../services/data.service';
 import { UserInfo } from './../friends/friendsinfo';
@@ -6,6 +7,7 @@ import { Component, OnInit, AfterViewInit, Renderer, ViewChild, ElementRef } fro
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -22,13 +24,13 @@ export class LoginComponent implements OnInit {
   message : string;
   constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService, 
     private dataService : DataService, private render : Renderer,
-    private first : ElementRef, /*private second : ElementRef*/) { }
+    private first : ElementRef, private appComponent: AppComponent) { }
  
   ngOnInit() {
     //this.dataService.currentMessage.subscribe(message => this.message = message)
   }
  
-  public socialSignIn(socialPlatform : string) {
+  socialSignIn(socialPlatform : string) {
     let socialPlatformProvider;
     if(socialPlatform == "facebook"){
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
@@ -49,6 +51,7 @@ export class LoginComponent implements OnInit {
           this.userInfo = response;
           this.dataService.setUserData(response);
           this.dataService.setUserImage(this.userImage);
+          this.appComponent.loggedIn=true;
           if (this.userInfo != null) {
             this.router.navigate(['/app-user-profile']);
           }

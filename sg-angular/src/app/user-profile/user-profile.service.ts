@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './../../services/data.service';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,12 @@ export class UserProfileService {
 
   createGroup(groupName) {
     this.userEmail = this.dataService.getUserEmail();
-    console.log("Creating new group", groupName)
-    return this.httpClient.post('http://localhost:8080/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userEmail}` })
+    console.log("Creating new group: ", groupName);
+    return this.httpClient.post(environment.fireStoreURL+'/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userEmail}` })
   }
   updateInfo(userAge,userHeight,userWeight) {
     this.userEmail = this.dataService.getUserEmail();
-    return this.httpClient.post('http://localhost:8080/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}` })
+    console.log(environment.fireStoreURL);
+    return this.httpClient.post(environment.fireStoreURL+'/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}` })
   }
 }

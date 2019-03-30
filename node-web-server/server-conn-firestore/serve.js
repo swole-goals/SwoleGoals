@@ -1,25 +1,24 @@
 
-// set up the firestore
-const admin = require('firebase-admin');
+// // set up the firestore
+// const admin = require('firebase-admin');
 
-admin.initializeApp({
-  credential: admin.credential.applicationDefault()
-});
+// admin.initializeApp({
+//   credential: admin.credential.applicationDefault()
+// });
 
-const db = admin.firestore();
+// const db = admin.firestore();
 // // ...
 
 
-// const admin = require('firebase-admin');
+const admin = require('firebase-admin');
 
-// var serviceAccount = require('./swolegoalsfirestore-43d4fe239158.json');
+var serviceAccount = require('./swolegoalsfirestore-10cf73021893.json');
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
-//var db = admin.firestore();
-
+const db = admin.firestore();
 
 var docRef = db.collection('users').doc('Kaibo');
 
@@ -131,24 +130,30 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
 
 app.post('/addChallenge', bodyparser.json(), (req, res) => {
     console.log(req.body);
-    const challengeRef = db.collection('Challenges').doc(req.body.exercises);
+    const challengeRef = db.collection('Challenges').doc(String(req.body));
     challengeRef.get().then((docSnapshot) => {
         if (docSnapshot.exists) {
             console.log('challenge already exists');
             res.json(docSnapshot.data());
-        }else{
+        }else {
             challengeRef.set({
-                exercises: req.body.exercises,
-                reps: req.body.reps
-            }).then(() => {
-                console.log('save successfully!');
-            }).then(() => {
-                challengeRef.get().then((docSnapshot) => {
-                    res.json(docSnapshot.data());
-                });
-            }).catch((err) => {
-                console.log('get an error:', err);
+                exercises: "1",
+                reps: "2"
             });
+            for (let i = 0; i < req.body[0].length; i++) {
+                challengeRef.update({
+                    exercises: admin.firestore.FieldValue.arrayUnion(req.body[0][i]),
+                    reps: admin.firestore.FieldValue.arrayUnion(req.body[1][i])
+                }).then(() => {
+                    console.log('save successfully!');
+                }).then(() => {
+                    challengeRef.get().then((docSnapshot) => {
+                        res.json(docSnapshot.data());
+                    });
+                }).catch((err) => {
+                    console.log('get an error:', err);
+                });
+        }
         }
 
     });
@@ -172,7 +177,7 @@ app.post('/addChallenge', bodyparser.json(), (req, res) => {
   // });
 
   // set up the listening port
-  const PORT = process.env.PORT || 8080;
+  const PORT = process.env.PORT || 4202;
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
   });
