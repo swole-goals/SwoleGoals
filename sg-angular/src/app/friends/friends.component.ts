@@ -15,12 +15,14 @@ import { DataService } from './../../services/data.service';
 })
 export class FriendsComponent implements OnInit {
   public userList: Array<UserInfo>;
-  userData;
+  public userData;
+  public groupMembers;
 
 
   constructor(private userService: UserListService, private router: Router, private friendUpdateService : FriendUpdateService, private dataService : DataService) {
       this.userService.getUserListUnfiltered().subscribe(res => {
       this.userList = res;
+
     })
    }
 
@@ -39,4 +41,26 @@ export class FriendsComponent implements OnInit {
     })
   }
 
+
+  public addFriendToGroup(friendEmail : string) {
+    this.userData = this.dataService.getUserData();
+    this.groupMembers = this.dataService.addFriendToGroup(friendEmail);
+
+    this.friendUpdateService.postAPIGroupAdd("FINAL_GROUP", friendEmail).subscribe((response)=>{
+        console.log('response from addFriendToGroup ', response);
+    },(error)=>{
+      console.log('error during add friend to group ', error)
+    })
+  }
+
+  public removeFriendFromGroup(friendEmail: string) {
+    this.userData = this.dataService.getUserData();
+    this.groupMembers = this.dataService.removeFriendFromGroup(friendEmail);
+
+    this.friendUpdateService.postAPIGroupRemove("FINAL_GROUP", friendEmail).subscribe((response)=>{
+      console.log('response from removeFriendFromGroup ', response);
+    }),(error)=>{
+      console.log('error during remove friend from group ', error)
+    }
+  }
 }

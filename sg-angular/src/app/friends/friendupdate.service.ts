@@ -12,4 +12,15 @@ export class FriendUpdateService {
     //console.log(userData.name); 
     return this.httpClient.post('http://localhost:8080/addFriend', {'currUser' : currUserEmail, 'friends' : friendEmail})
   }
+
+  postAPIGroupAdd(groupName, userEmail) {
+    console.log("Reached postAPIDataGroup with groupName: ", groupName)
+    return this.httpClient.post('http://localhost:8080/addFriendToGroup', {'groupName' : groupName, 'userEmail' : userEmail})
+  }
+
+  postAPIGroupRemove(groupName, userEmail) {
+    console.log("Reached postAPIDataGroup with groupName: ", groupName)
+    return this.httpClient.post('http://localhost:8080/removeFriendFromGroup', {'groupName' : groupName, 'userEmail' : userEmail})
+  }
+
 }

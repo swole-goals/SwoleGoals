@@ -12,7 +12,7 @@
 
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./swolegoalsfirestore-b01dcf58e879.json');
+var serviceAccount = require('./swolegoalsfirestore-10cf73021893.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -76,11 +76,14 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
   });
 });
 
-app.post('/addGroup', bodyparser.json(), (req, res) => {
+app.post('/addFriendToGroup', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
+      groupRef.update({
+        users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
+      }) 
       console.log('Group already exists');
     } else {
       groupRef.set({
@@ -98,6 +101,33 @@ app.post('/addGroup', bodyparser.json(), (req, res) => {
     if (docSnapshot.exists) {
       userRef.update({
         groupID: req.body.groupName
+      }).then(() => {
+        console.log('Added User to Group!');
+      }).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
+app.post('/removeFriendFromGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const groupRef = db.collection('groups').doc(req.body.groupName);
+  groupRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      groupRef.update({
+        users: admin.firestore.FieldValue.arrayRemove(req.body.userEmail)
+      })
+      console.log('Group already exists');
+    } else {
+      console.log('Group does not exist to delete from.')
+    }
+  });
+  const userRef = db.collection('users').doc(req.body.userEmail);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      userRef.update({
+        groupID: admin.firestore.FieldPath.arrayRemove(req.body.groupName)
       }).then(() => {
         console.log('Added User to Group!');
       }).catch((err) => {
