@@ -2,7 +2,7 @@ import { LoginService } from './login/login.service';
 //import { LoginComponent } from './login/login.component';
 import { Router } from '@angular/router';
 import { DataService } from './../services/data.service';
-import { Component } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
 
 
@@ -11,11 +11,19 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginP
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'sg-angular';
   loggedIn = false;
   userInfo : object;
   userImage : string;
+
+  ngOnInit() {
+    if (isDevMode()) {
+      console.log('👋 Development!');
+    } else {
+      console.log('💪 Production!');
+    }
+  }
 
   constructor(private dataService : DataService, private router : Router, private socialAuthService: AuthService, 
     private loginService : LoginService) {}
