@@ -9,16 +9,20 @@
   },
   "devDependencies": {},
   "scripts": {
+    "angular": "cd sg-angular && ng serve --open",
+    "sql": "cd node-web-server\\server-conn-sql && npm start",
+    "firestore": "cd node-web-server\\server-conn-firestore && npm start",
+    "start": "concurrently \"npm run angular\" \"npm run sql\" \"npm run firestore\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vivianmnguyen/SwoleGoals.git"
+    "url": "git+https://github.com/swole-goals/SwoleGoals.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/vivianmnguyen/SwoleGoals/issues"
+    "url": "https://github.com/swole-goals/SwoleGoals/issues"
   },
-  "homepage": "https://github.com/vivianmnguyen/SwoleGoals#readme"
+  "homepage": "https://github.com/swole-goals/SwoleGoals#readme"
 }

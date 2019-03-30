@@ -14,12 +14,12 @@ app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     //host     : 'localhost',
-     //port     : 3307,
+     host     : 'localhost',
+     port     : 3307,
      user     : 'root',
      password : 'swolegoals',
      database : 'exercises',
-     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
+    //  socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 
@@ -100,7 +100,7 @@ app.post('/postUser', (res, req) => {
 });
 */
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 4201;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
 });
