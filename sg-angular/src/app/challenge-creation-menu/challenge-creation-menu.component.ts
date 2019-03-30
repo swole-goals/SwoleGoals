@@ -82,7 +82,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
   removeExercises() {
     this.selectedSelection.selected.forEach(exercise => {
-      let index: number = this.selectedExercises.findIndex(data => data === exercise);
+      let index: number = this.selectedExercises.findIndex(i => i === exercise);
       this.selectedExercises.splice(index, 1);
       this.exerciseReps.splice(index, 1);
     });
@@ -93,7 +93,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
   createChallenge(){
     let exerciseNames = [];
-    let challengeData = []
+    let challengeData = [];
     for(let exercise of this.selectedExercises){
       exerciseNames.push(exercise.name);
     }
