@@ -105,6 +105,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header" id="headingFour">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    AWS S3
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordion">
+                            <div class="card-body">
+                                AWS is used to host the frontend Angular project
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col">
@@ -148,8 +162,7 @@
                         </div>
                         <div id="collapseSeven" class="collapse show" aria-labelledby="headingSeven" data-parent="#accordion2">
                             <div class="card-body">
-                                We are using three separate Google Cloud servers, one to host the database, one to host the backend, and one to host the
-                                frontend
+                                We are using Google App Engine for our Firestore and SQL backend servers
                             </div>
                         </div>
                     </div>
@@ -167,10 +180,38 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header" id="headingEight">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    Google Firestore
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseEight" class="collapse show" aria-labelledby="headingEight" data-parent="#accordion2">
+                            <div class="card-body">
+                                We use Firestore to host our non-relational data such as user data, groups, and challenges
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col">
                 <div id="accordion3">
+                    <div class="card">
+                        <div class="card-header" id="headingNine">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapseNine" aria-expanded="true" aria-controls="collapseNine">
+                                    Travis CI
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseNine" class="collapse show" aria-labelledby="headingNine" data-parent="#accordion3">
+                            <div class="card-body">
+                                Travis CI runs our tests on a VM and then deploys to AWS after the master branch passes our tests
+                            </div>
+                        </div>
+                    </div>
                     <div class="card">
                         <div class="card-header" id="headingNine">
                             <h5 class="mb-0">
