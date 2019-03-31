@@ -44,7 +44,7 @@
   <div class="form-row">
     <div class="form-group">
       <label for="inputState">Muscles</label>
-      <select id="inputState" class="form-control" (change)="onChangeMuscles($event.target.value)">
+      <select id="inputState" class="form-control" (change)="onChangeMuscle($event.target.value)">
 	<ng-container *ngFor="let muscle of muscles">
 	  <option value="{{muscle}}">{{muscle}}</option>
 	</ng-container>
