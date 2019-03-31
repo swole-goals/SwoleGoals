@@ -96,7 +96,7 @@ public gitAccountList = [
 						bio: 'Michael is an ECE Major graduating in May of 2019',
 						image: '../../assets/headshots/michael.jpg',
 						responsibilities: "Create map page and exercise list page. " +
-                      "Add issue information on the about page. Work on initializing the scraping script. Phase 2: Added filters and on click functionality to exercise list page. Created the exercise table page. Fixed issue with missing git commits. Fixed the exercise list table duplicates issue. Added tests for the sql database."
+                      "Add issue information on the about page. Work on initializing the scraping script. Phase 2: Scraped from strengthlevel.com. Added filters and on click functionality to exercise list page. Created the exercise table page. Fixed issue with missing git commits. Fixed the exercise list table duplicates issue. Added tests for the sql database."
 					},
 					{
 						user: 'NickPattie',
