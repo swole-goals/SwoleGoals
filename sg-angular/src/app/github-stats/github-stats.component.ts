@@ -57,67 +57,67 @@ export class GithubStatsComponent implements OnInit {
 public gitAccountList = [	
 					{
 						user: 'vivianmnguyen',
-						url: '',
+						url: 'https://github.com/vivianmnguyen',
 						commits: '0',
 						name: 'Vivian Nguyen',
 						bio: 'Vivian is an ECE Major graduating in December of 2019',
 						image: '../../assets/headshots/vivian.jpg',
 						responsibilities: "Initialize CloudSQL database. Load web-scraped exercise data into database. " +
                       "Write notes for local database development. " +
-                      "Write a script for automatically loading web-scraped text files"
+                      "Write a script for automatically loading web-scraped text files. Phase 2: "
 					},
 					{
 						user: 'KaiboCai',
-						url: '',
+						url: 'https://github.com/KaiboCai',
 						commits: '0',
 						name: 'Kaibo Cai',
 						bio: 'Kaibo is an ECE Major graduating in December of 2019',
 						image: '../../assets/headshots/kaibo.jpg',
 						responsibilities: "Set up the backend server using nodejs.  " +
                       "Connect the backend server with glcoud sql database. " +
-                      "Create two Get request routers. Create user table in the database."
+                      "Create two Get request routers. Create user table in the database. Phase 2: Set up google firestore server, wrote routes for frontend post querying. Helped build login function and user profile page. "
 					},
 					{
 						user: 'NFinks',
-						url: '',
+						url: 'https://github.com/NFinks',
 						commits: '0',
 						name: 'Nicole Finks',
 						bio: 'Nicole is an ECE Major graduating in December of 2019',
 						image: '../../assets/headshots/nicole.jpg',
 						responsibilities: "Create profile page using Bootstrap 4. Create basic aesthetic design to be " +
                       "used throughout front end. Standardization of css files. " +
-                      "Correction of general front-end functionality errors."
+                      "Correction of general front-end functionality errors. Phase 2:"
 					},
 					{
 						user: 'prilak',
-						url: '',
+						url: 'https://github.com/prilak',
 						commits: '0',
 						name: 'Michael Lawrence',
 						bio: 'Michael is an ECE Major graduating in May of 2019',
 						image: '../../assets/headshots/michael.jpg',
 						responsibilities: "Create map page and exercise list page. " +
-                      "Add issue information on the about page. Work on initializing the scraping script."
+                      "Add issue information on the about page. Work on initializing the scraping script. Phase 2: Added filters and on click functionality to exercise list page. Created the exercise table page. Fixed issue with missing git commits. Fixed the exercise list table duplicates issue. Added tests for the sql database."
 					},
 					{
 						user: 'NickPattie',
-						url: '',
+						url: 'https://github.com/NickPattie',
 						commits: '0',
 						name: 'Nick Pattie',
 						bio: 'Nick is a BME Major graduating in May of 2019',
 						image: '../../assets/headshots/nick.png',
 						responsibilities: "Write Python script for webscraping on Bodybuilding.com utilizing selenium. " +
                       "Create test file for web scraping. " +
-                      "Provide and load in exersise data into MySQL database."
+                      "Provide and load in exersise data into MySQL database. Phase 2: Created challenge creation page and saving the challenges in the new firebase datastore"
 					},
 					{
 						user: 'rkoripalli',
-						url: '',
+						url: 'https://github.com/rkoripalli',
 						commits: '0',
 						name: 'Rohan Koripalli',
 						bio: 'Rohan is an ECE Major graduating in December of 2019',
 						image: '../../assets/headshots/rohan.png',
 						responsibilities: "Create angular project. Setup Bootstrap. Build Splash page and About page " +
-                      "using Github API. Setup routing between Angular components."
+                      "using Github API. Setup routing between Angular components. Phase 2: Set up the google firestor server. Wrote some routers for front post query. Help build the login function and user profile page"
 					}
 					];
     public totalCommits = 0;
