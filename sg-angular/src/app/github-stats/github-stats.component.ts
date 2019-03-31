@@ -117,7 +117,7 @@ export class GithubStatsComponent implements OnInit {
 			bio: 'Rohan is an ECE Major graduating in December of 2019',
 			image: '../../assets/headshots/rohan.png',
 			responsibilities: "Create angular project. Setup Bootstrap. Build Splash page and About page " +
-				"using Github API. Setup routing between Angular components. Phase 2: Moved frontend to AWS. Worked on the user profile page and new group creation, helped with backend server for Firestore."
+				"using Github API. Setup routing between Angular components. Phase 2: Moved frontend to AWS. Added Travis CI for testing and automatic deployment to AWS. Setup Angular build and production environments. Worked on the user profile page and new group creation, helped with backend server for Firestore."
 		}
 	];
 	public totalCommits = 0;
