@@ -19,7 +19,7 @@ export class ExerciseListComponent implements OnInit {
 	public filteredList: Array<ExerciseInfo>;	
 	public types: Array<string> = ['Strength', 'Strongman', 'Plyometrics', 'Powerlifting', 'Stretching', 'Olympic Weightlifting', 'Cardio'];
 	public muscles: Array<string> = ['Chest', 'Forearms', 'Lats', 'Middle Back', 'Lower Back', 'Neck', 'Quadriceps', 'Hamstrings', 'Calves', 'Triceps', 'Traps', 'Shoulders', 'Abdominals', 'Glutes', 'Biceps', 'Abductors'];
-	public equipments: Array<string> = ['Dumbell', 'Body Only', 'Cable', 'Other', 'Barbell', 'E-Z Curl Bar', 'Machine', 'Medicine Ball', 'Kettlebells', 'Exercise Ball', 'None', 'Foam Ball', 'Bands'];
+	public equipments: Array<string> = ['Dumbbell', 'Body Only', 'Cable', 'Other', 'Barbell', 'E-Z Curl Bar', 'Machine', 'Medicine Ball', 'Kettlebells', 'Exercise Ball', 'None', 'Foam Ball', 'Bands'];
 		
 	public selectedType = '';
 	public selectedEquipment= '';
@@ -31,27 +31,31 @@ export class ExerciseListComponent implements OnInit {
 			this.exercisesList = res;
 			console.log(res[0]);
 			this.selectedExercise = res[0];
-			this.selectedType = res.type;
-			this.selectedEquipment = res.equipment;
-			this.selectedMuscle = res.muscle;
+			this.selectedType = res[0].type;
+			this.selectedEquipment = res[0].equipment;
+			this.selectedMuscle = res[0].muscles;
+			this.filterExercises();
 		});
 	}
 
 	onChangeType(value: string) {
 		this.selectedType = value;	
+		this.filterExercises();
 	}
 
 	onChangeEquipment(value: string) {
 		this.selectedEquipment = value;
+		this.filterExercises();
 	}
 
 	onChangeMuscle(value: string) {
 		this.selectedMuscle = value;
+		this.filterExercises();
 	}
 	filterExercises() {
 		this.filteredList = [];
 		this.exercisesList.forEach(e => {
-		if(e.muscles === this.selectedMuscle && e.equipment === this.selectedEquipment && e.type === this.selectedType) {
+		if(e.muscles == this.selectedMuscle && e.equipment == this.selectedEquipment && e.type == this.selectedType) {
 			this.filteredList.push(e);
 		}
 		});
