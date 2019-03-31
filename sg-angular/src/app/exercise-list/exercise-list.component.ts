@@ -52,6 +52,13 @@ export class ExerciseListComponent implements OnInit {
 		this.selectedMuscle = value;
 		this.filterExercises();
 	}
+	updateSelectedExercise(value: string) {
+		this.exercisesList.forEach(e => {
+			if(e.name == value) {
+				this.selectedExercise = e;
+			}
+		});
+	}
 	filterExercises() {
 		this.filteredList = [];
 		this.exercisesList.forEach(e => {

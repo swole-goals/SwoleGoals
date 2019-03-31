@@ -84,7 +84,7 @@
         <div class="container-fluid ml-2">
             <div class="row">
 		<ng-container *ngFor="let exercise of filteredList">
-                    <div *ngIf="exercise.image1" class="card mr-2" style="width: 18rem;">
+			<div *ngIf="exercise.image1" class="card mr-2" style="width: 18rem;" (click)="updateSelectedExercise(exercise.name)">
 			<img src={{exercise.image1}} class="card-img-top" alt="Failed to Load Image">
                         <div class="card-body">
                             <h5 class="card-title">{{exercise.name}}</h5>
