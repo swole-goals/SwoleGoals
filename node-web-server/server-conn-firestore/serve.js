@@ -76,7 +76,6 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
       userRef.set({
         name: req.body.name,
         email: req.body.email,
-        photo: req.body.image,
         age: 0,
         height: 0,
         weight: 0,
