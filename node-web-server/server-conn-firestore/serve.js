@@ -1,24 +1,24 @@
 
-// // set up the firestore
-// const admin = require('firebase-admin');
+// set up the firestore
+const admin = require('firebase-admin');
 
-// admin.initializeApp({
-//   credential: admin.credential.applicationDefault()
-// });
+admin.initializeApp({
+  credential: admin.credential.applicationDefault()
+});
 
-// const db = admin.firestore();
+const db = admin.firestore();
 // // ...
 
 
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 
 var serviceAccount = require('./swolegoalsfirestore-10cf73021893.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
 
-var db = admin.firestore();
+//var db = admin.firestore();
 
 
 var docRef = db.collection('users').doc('Kaibo');
@@ -60,6 +60,7 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
       userRef.set({
         name: req.body.name,
         email: req.body.email,
+        photo: req.body.image,
         age: 0,
         height: 0,
         weight: 0,
@@ -147,12 +148,38 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
         height: req.body.userHeight,
         weight: req.body.userWeight
       }).then(() => {
-        console.log('Added User to Group!');
+        console.log('Updated user info!');
       }).catch((err) => {
         console.log('get an error:', err);
       });
     }
   });
+});
+
+app.post('/addChallenge', bodyparser.json(), (req, res) => {
+    console.log(req.body);
+    const challengeRef = db.collection('Challenges').doc(req.body.exercises);
+    challengeRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists) {
+            console.log('challenge already exists');
+            res.json(docSnapshot.data());
+        }else{
+            challengeRef.set({
+                exercises: req.body.exercises,
+                reps: req.body.reps
+            }).then(() => {
+                console.log('save successfully!');
+            }).then(() => {
+                challengeRef.get().then((docSnapshot) => {
+                    res.json(docSnapshot.data());
+                });
+            }).catch((err) => {
+                console.log('get an error:', err);
+            });
+        }
+
+    });
+
 });
 
 

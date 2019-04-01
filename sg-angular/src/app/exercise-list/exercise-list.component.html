@@ -15,6 +15,66 @@
                             <p>Equipment: {{exercise.equipment}}</p>
 </div>
 -->
+<!--
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+-->
+<div class="container">
+<div class="row">
+<div class="col-lg-6">
+<form>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="inputState">Type</label>
+      <select id="inputState" class="form-control">
+	<ng-container *ngFor="let type of types">
+	  <option value="{{type}}">{{type}}</option>
+	</ng-container>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="inputState">Muscles</label>
+      <select id="inputState" class="form-control">
+	<ng-container *ngFor="let muscle of muscles">
+	  <option value="{{muscle}}">{{muscle}}</option>
+	</ng-container>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label for="inputState">Equipment</label>
+      <select id="inputState" class="form-control">
+	<ng-container *ngFor="let equipment of equipments">
+	  <option value="{{equipment}}">{{equipment}}</option>
+	</ng-container>
+      </select>
+    </div>
+  </div>
+</form>
+</div>
+<div class="col-lg-6">
+	add on click information here
+</div>
+</div>
+</div>
+<!--
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+-->
+<br/>
+<br/>
 <h1>All scraping credits go to bodybuilding.com</h1>
 	<div class="container-fluid ml-2">
         <div class="container-fluid ml-2">

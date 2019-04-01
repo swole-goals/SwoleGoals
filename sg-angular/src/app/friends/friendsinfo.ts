@@ -4,3 +4,5 @@ export class UserInfo {
 	Email: string;
 	Reg_date: string;
 }
+
+export class groupMembers {};

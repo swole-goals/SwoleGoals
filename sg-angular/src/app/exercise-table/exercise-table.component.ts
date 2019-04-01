@@ -16,6 +16,7 @@ export class ExerciseTableComponent implements OnInit {
 		this.tableService.getStrengthLevelDataUnfiltered().subscribe(res => {
 			this.strengthInformation = res;
 			console.log(this.strengthInformation[0]);
+			this.onChange('Barbell');
 			this.selectedExercise = this.strengthInformation[0];
 		});
 	}

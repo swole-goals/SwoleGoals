@@ -2,22 +2,21 @@
 <html lang="en">
 
 <head>
-	<title>Splash Page</title>
-	
-	 <style>
-	
+  <title>Splash Page</title>
+
+  <style>
     p.ex1 {
       border: 1px solid black;
       outline-style: solid;
       outline-color: red;
     }
-    
+
     p.ex2 {
       border: 1px solid black;
       outline-style: double;
       outline-color: green;
     }
-    
+
     p.ex3 {
       border: 1px solid black;
       outline-style: outset;
@@ -28,53 +27,40 @@
 
 <body>
 
-<table>
+  <table>
     <td>
-        <h3>Current Group<br/></h3>
-        <div style="height:600px; overflow: auto; width:500px;  border: 2px solid #5E4485;">
-            <mat-list-option *ngFor="let member of groupMembers">
-              {{member}}
-            </mat-list-option>
-            <ul *ngFor="let member of groupMembers">
-                <li class="list-group-item">
-                <br><b>{{member}} </b>
-            </ul>
-        </div>
-    </td>
-    <ng-container matColumnDef="Your Friends">        <mat-list role="list">
-            <h2>Your Friends</h2>
+      <ng-container matColumnDef="Your Friends">
+        <mat-list role="list">
+          <h2>All Users</h2>
+          <div style="height:600px; overflow: auto; width:500px;  border: 2px solid #5E4485;">
+
             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
-         
+
             <ul *ngFor="let user of userList">
-                <li class="list-group-item">
+              <li class="list-group-item">
                 <b>Name: </b>{{user.LastName}} {{user.FirstName}}
                 <br><b>Email: </b>{{user.Email}}
-                <!-- <br><b>Registered Date: </b>{{user.Reg_date}} -->
-                <br><button (click)="removeFriendFromGroup(user.Email)">Remove friend from Group</button>
-            </ul>
-        </mat-list>    
-    </ng-container>
-    <ng-container matColumnDef="New">
-        <div class="col-xs-6">
-            <div>
-                <h2>Add New Friend</h2>
-                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                <br><button (click)="addFriendToGroup(user.Email)">Add</button>
+                <button (click)="removeFriendFromGroup(user.Email)">Remove</button>
+              </ul>
+            </div>
+        </mat-list>
+      </ng-container>
+    </td>
 
-                    <ul *ngFor="let user of userList">
-                      <b>Name: </b>{{user.LastName}} {{user.FirstName}}
-                      <br><b>Email: </b>{{user.Email}}
-                      <!-- <br><b>Registered Date: </b>{{user.Reg_date}} -->
-                      <!-- 
-                      <br><button (click)= "addFriend('friendemail@gmail.com')">Add friend</button>
-                      -->
-                      <b></b><button (click)="addFriendToGroup(user.Email)">Add friend to group</button>
-                    </ul>
-              </div>  
+    <td>
+        <div>
+          <h3>Your Group<br /></h3>
+          <div style="height:600px; overflow: auto; width:500px;  border: 2px solid #5E4485;">
+              <ul *ngFor="let member of groupMembers">
+                  <li class="list-group-item">
+                    <b>Name: </b>{{member}}
+                  </li>
+              </ul>
+          </div>
         </div>
-    </ng-container>
-
-</table>
-   
-    
+      </td>
+  </table>
 </body>
+
 </html>

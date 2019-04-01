@@ -23,4 +23,9 @@ export class FriendUpdateService {
     return this.httpClient.post('http://localhost:8080/removeFriendFromGroup', {'groupName' : groupName, 'userEmail' : userEmail})
   }
 
+
+  postAPIDataGroup(groupName, userEmail) {
+    console.log("Reached postAPIDataGroup with groupName: ", groupName)
+    return this.httpClient.post('http://localhost:8080/addGroup', {'groupName' : groupName, 'userEmail' : userEmail})
+  }
 }

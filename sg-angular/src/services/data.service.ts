@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { FriendUpdateService } from 'src/app/friends/friendupdate.service';
+
+import {visitAll} from "@angular/compiler";
+ 
 //import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -8,15 +12,24 @@ import { FriendUpdateService } from 'src/app/friends/friendupdate.service';
 export class DataService {
 
   userData;
+  challengeData;
+  userImage: String;
   groupMembers : Array<string>;
   constructor() {
     this.userData = {};
     this.groupMembers = [];
-  }
+    this.challengeData = {};
+   }
+
   setUserData(val : object){
     this.userData = val;
     console.log("this is setter method in data service", this.userData);
   }
+
+  setChallengeData(val : object){
+    this.challengeData = val;
+  }
+
   getUserData(){
     return this.userData;
   }
@@ -29,6 +42,13 @@ export class DataService {
   getUserAge(){
     return this.userData.age;
   }
+  setUserImage(image : String){
+    console.log("Setting image to ", image);
+    this.userImage = image;
+  }
+  getUserImage(){
+    return this.userImage;
+  }
   getUserGroup(){
     return this.userData.groupID;
   }
@@ -40,7 +60,11 @@ export class DataService {
   }
 
   addFriendToGroup(val : string){
-    this.groupMembers.push(val);
+    var index = this.groupMembers.indexOf(val);
+    console.log("index should be -1", index);
+    if (index == -1) {
+      this.groupMembers.push(val);
+    }
     console.log('Group Members after Add: ', this.groupMembers)
   }
   removeFriendFromGroup(val : string){
@@ -52,6 +76,9 @@ export class DataService {
     console.log('Group Members after Remove: ', this.groupMembers)
   }
   getGroupMembers() {
-    return this.getGroupMembers;
+    console.log("getGroupMembers returns: ", this.groupMembers)
+    return this.groupMembers;
   }
+
+
 }
