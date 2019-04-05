@@ -15,12 +15,15 @@ import { DataService } from './../../services/data.service';
 })
 export class FriendsComponent implements OnInit {
   public userList: Array<UserInfo>;
-  userData;
+  public userData: Array<string>;
+  public groupMembers;
 
 
   constructor(private userService: UserListService, private router: Router, private friendUpdateService : FriendUpdateService, private dataService : DataService) {
       this.userService.getUserListUnfiltered().subscribe(res => {
       this.userList = res;
+      this.groupMembers;
+
     })
    }
 
@@ -45,13 +48,44 @@ export class FriendsComponent implements OnInit {
     })
   }
 
+
   public addFriendToGroup(friendEmail : string) {
     this.userData = this.dataService.getUserData();
+   this.dataService.addFriendToGroup(friendEmail);
 
-    this.friendUpdateService.postAPIDataGroup("FINAL_GROUP", friendEmail).subscribe((response)=>{
+    this.friendUpdateService.postAPIGroupAdd("FINAL_GROUP", friendEmail).subscribe((response)=>{
         console.log('response from addFriendToGroup ', response);
     },(error)=>{
-      console.log('error during post is ', error)
+      console.log('error during add friend to group ', error)
     })
+
+    this.groupMembers = this.dataService.getGroupMembers();
+    console.log("THIS GROUP MEMB: ", this.groupMembers);
+    console.log("CURRENT GROUP MEMBERS: ", this.groupMembers);
   }
+
+  public removeFriendFromGroup(friendEmail: string) {
+    this.userData = this.dataService.getUserData();
+    this.dataService.removeFriendFromGroup(friendEmail);
+
+    this.friendUpdateService.postAPIGroupRemove("FINAL_GROUP", friendEmail).subscribe((response)=>{
+      console.log('response from removeFriendFromGroup ', response);
+    }),(error)=>{
+      console.log('error during remove friend from group ', error)
+    }
+    this.groupMembers = this.dataService.getGroupMembers();
+    console.log("CURRENT GROUP MEMBERS: ", this.groupMembers);
+
+  }
+
+  public getGroupMembers() {
+    return this.getGroupMembers;
+  }
+ 
+  public greeter(person: string) {
+    document.getElementById('thisElem').innerHTML = this.groupMembers;
+
+  }
+
+ 
 }
