@@ -12,7 +12,7 @@ const admin = require('firebase-admin');
 const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
 
-const private_key = `./swolegoalsfirestore-10cf73021893.json`;
+const private_key = `./swolegoalsFirestore-a6f94cd05c59.json`;
 if(!fs.existsSync(private_key)){
   const projectId = 'swolegoalsFirestore';
   const storage = new Storage({
