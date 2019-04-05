@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+
+import { FriendUpdateService } from 'src/app/friends/friendupdate.service';
+
 import {visitAll} from "@angular/compiler";
+ 
 //import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -10,8 +14,10 @@ export class DataService {
   userData;
   challengeData;
   userImage: String;
+  groupMembers : Array<string>;
   constructor() {
     this.userData = {};
+    this.groupMembers = [];
     this.challengeData = {};
    }
 
@@ -56,4 +62,27 @@ export class DataService {
   getUserWeight(){
     return this.userData.weight;
   }
+
+  addFriendToGroup(val : string){
+    var index = this.groupMembers.indexOf(val);
+    console.log("index should be -1", index);
+    if (index == -1) {
+      this.groupMembers.push(val);
+    }
+    console.log('Group Members after Add: ', this.groupMembers)
+  }
+  removeFriendFromGroup(val : string){
+    var index = this.groupMembers.indexOf(val);
+    console.log('index is: ', index);
+    if (index != -1) {
+      this.groupMembers.splice(index, 1);
+    }
+    console.log('Group Members after Remove: ', this.groupMembers)
+  }
+  getGroupMembers() {
+    console.log("getGroupMembers returns: ", this.groupMembers)
+    return this.groupMembers;
+  }
+
+
 }
