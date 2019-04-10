@@ -10,7 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "angular": "cd sg-angular && ng serve --open",
-    "sql": "cd node-web-server\\server-conn-sql && npm start",
+    "sql": "cd node-web-server\\server-conn-sql && cloud_sql_proxy_x64.exe -instances=swolegoalsdatabase:us-central1:swolegoalsdb=tcp:3307 && npm start",
     "firestore": "cd node-web-server\\server-conn-firestore && npm start",
     "start": "concurrently \"npm run angular\" \"npm run sql\" \"npm run firestore\" ",
     "test": "echo \"Error: no test specified\" && exit 1"
