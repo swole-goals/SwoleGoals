@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <h1>Do {{name}} for {{reps}} Repetitions</h1>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-6"> 
+      <div class="card" style="width: 18rem;">
+  	<img src="https://www.bodybuilding.com/exercises/exerciseImages/sequences/380/Male/m/380_2.jpg" class="card-img-top" alt="No Start Image">
+  	<div class="card-body">
+    	  <p class="card-text">Start</p>
+  	</div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+      <img id="image2" src="">
+      <div class="card" style="width: 18rem;">
+  	<img src="https://www.bodybuilding.com/exercises/exerciseImages/sequences/380/Male/m/380_1.jpg" class="card-img-top" alt="No End Image">
+  	<div class="card-body">
+    	  <p class="card-text">End</p>
+  	</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-5 col-md-5">
+      <label>{{description}}</label>
+      
+      <div class="progress" style="height: 30px;">
+	      <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">Progress: {{progress}}%</div>
+      </div>
+      <button class="btn btn-success">Complete</button>
+    </div>
+  </div>
+</div>
