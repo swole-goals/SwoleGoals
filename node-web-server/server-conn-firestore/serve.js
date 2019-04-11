@@ -37,20 +37,6 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
-var docRef = db.collection('users').doc('Kaibo');
-
-var setAda = docRef.set({
-  name: 'Kaibo',
-  age: '25',
-  height: 175,
-  weight: 120,
-  friends: ['user1', 'user2', 'user3']
-});
-
-//console.log(setAda);
-
-
-// set up the router
 const express = require('express');
 
 var app = express();
@@ -76,7 +62,6 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
       userRef.set({
         name: req.body.name,
         email: req.body.email,
-        photo: req.body.image,
         age: 0,
         height: 0,
         weight: 0,
@@ -87,6 +72,55 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
       }).then(() => userRef.get().then((docSnapshot) => {
         res.json(docSnapshot.data())
       })).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
+app.post('/getGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const groupRef = db.collection('groups').doc(req.body.groupName);
+  groupRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      res.json(docSnapshot.data());
+    }else{
+      console.log('No such group exists');
+    }
+  });
+});
+
+
+app.get('/getChallengeExercises/:name', bodyparser.json(), (req, res) => {
+  var challengeName = req.params.name;
+  const challengeRef = db.collection('Challenges').doc(challengeName);
+  challengeRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('challenge exists');
+      res.json(docSnapshot.data());
+    }else{
+      console.log('No such challenge exist.');
+    }
+  });
+});
+
+
+app.post('/addGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const groupRef = db.collection('groups').doc(req.body.groupName);
+  groupRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      groupRef.update({
+        users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
+      }) 
+      console.log('Group already exists');
+    } else {
+      groupRef.set({
+        name: req.body.groupName,
+        users: req.body.userEmail
+      }).then(() => {
+        console.log('Created Group!');
+      }).catch((err) => {
         console.log('get an error:', err);
       });
     }
@@ -127,8 +161,9 @@ app.post('/addFriendToGroup', bodyparser.json(), (req, res) => {
   });
 });
 
+
+
 app.post('/removeFriendFromGroup', bodyparser.json(), (req, res) => {
-  console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
@@ -162,7 +197,8 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
       userRef.update({
         age: req.body.userAge,
         height: req.body.userHeight,
-        weight: req.body.userWeight
+        weight: req.body.userWeight,
+        groupID: req.body.userGroup
       }).then(() => {
         console.log('Updated user info!');
       }).catch((err) => {

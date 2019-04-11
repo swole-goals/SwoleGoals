@@ -34,7 +34,7 @@
   <div class="form-row">
     <div class="form-group">
       <label for="inputState">Type</label>
-      <select id="inputState" class="form-control">
+      <select id="inputState" class="form-control" (change)="onChangeType($event.target.value)">
 	<ng-container *ngFor="let type of types">
 	  <option value="{{type}}">{{type}}</option>
 	</ng-container>
@@ -44,7 +44,7 @@
   <div class="form-row">
     <div class="form-group">
       <label for="inputState">Muscles</label>
-      <select id="inputState" class="form-control">
+      <select id="inputState" class="form-control" (change)="onChangeMuscle($event.target.value)">
 	<ng-container *ngFor="let muscle of muscles">
 	  <option value="{{muscle}}">{{muscle}}</option>
 	</ng-container>
@@ -54,7 +54,7 @@
   <div class="form-row">
     <div class="form-group">
       <label for="inputState">Equipment</label>
-      <select id="inputState" class="form-control">
+      <select id="inputState" class="form-control" (change)="onChangeEquipment($event.target.value)">
 	<ng-container *ngFor="let equipment of equipments">
 	  <option value="{{equipment}}">{{equipment}}</option>
 	</ng-container>
@@ -64,8 +64,14 @@
 </form>
 </div>
 <div class="col-lg-6">
-	add on click information here
+	<h3>Name: {{selectedExercise.name}}</h3>
+	<p>Type: {{selectedExercise.type}}</p>
+	<p>Muscles: {{selectedExercise.muscles}}</p>
+	<p>Equipment: {{selectedExercise.equipment}}</p>
+	<p>Difficulty: {{selectedExercise.review}}</p>
+	<p>Review: {{selectedExercise.level}}</p>
 </div>
+
 </div>
 </div>
 <!--
@@ -73,14 +79,12 @@
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 -->
-<br/>
-<br/>
 <h1>All scraping credits go to bodybuilding.com</h1>
 	<div class="container-fluid ml-2">
         <div class="container-fluid ml-2">
             <div class="row">
-		<ng-container *ngFor="let exercise of exercisesList">
-                    <div *ngIf="exercise.image1" class="card mr-2" style="width: 18rem;">
+		<ng-container *ngFor="let exercise of filteredList">
+			<div *ngIf="exercise.image1" class="card mr-2" style="width: 18rem;" (click)="updateSelectedExercise(exercise.name)">
 			<img src={{exercise.image1}} class="card-img-top" alt="Failed to Load Image">
                         <div class="card-body">
                             <h5 class="card-title">{{exercise.name}}</h5>

@@ -22,7 +22,7 @@ var mysqlConn = mysql.createConnection({
     //  socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
-
+/*
 mysqlConn.connect(function(err) {
   if (err){
     console.log("mysql connect failed \n Error:" + JSON.stringify(err, undefined, 2));
@@ -30,6 +30,7 @@ mysqlConn.connect(function(err) {
     console.log("mysql connect successfully.");
   }
 });
+*/
 
 
 app.get('/', (req, res) => {
@@ -89,9 +90,9 @@ app.get('/getStrength', (req, res) => {
 });
 
 
-app.get('*', (req, res) => {
-  res.sendfile('./notFind.html');
-});
+// app.get('*', (req, res) => {
+//   res.sendFile('./notFind.html');
+// });
 
 
 /*
