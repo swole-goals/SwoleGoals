@@ -29,9 +29,9 @@ export class UserProfileService {
     console.log(environment.fireStoreURL);
     return this.httpClient.post(environment.fireStoreURL+'/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}`, 'userGroup': `${userGroup}` })
   }
-  getGroupMembers(groupID) {
-    console.log("Inside the service");
+  getGroupMembers(groupName) {
+    console.log("Inside the service", groupName);
     console.log(environment.fireStoreURL+'/getGroupMembers');
-    return this.httpClient.post(environment.fireStoreURL+'/getGroupMembers', { 'groupName': `${groupID}`});
+    return this.httpClient.post(environment.fireStoreURL+'/getGroupMembers', { 'groupName': `${groupName}`})
   }
 }

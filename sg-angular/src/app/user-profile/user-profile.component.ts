@@ -36,7 +36,11 @@ export class UserProfileComponent implements OnInit {
 
   getGroupMembers() {
     console.log("Getting Group Members");
-    this.userProfileService.getGroupMembers(this.groupName);
+    this.userProfileService.getGroupMembers(this.groupName).subscribe((res) => {
+      console.log('response from backend is ', res);
+    }, (err) => {
+      console.log('error during post is', err);
+    })
   }
 
   joinGroup() {

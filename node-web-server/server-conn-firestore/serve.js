@@ -78,6 +78,20 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
   });
 });
 
+app.post('/getGroupMembers', bodyparser.json(), (req, res) => {
+  console.log('XXXXX??????');
+  console.log(req.body);
+  const groupRef = db.collection('groups').doc(req.body.groupName);
+  groupRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('document already exists');
+      res.json(docSnapshot.data());
+    }else{
+      console.log('No such group exist.');
+    }
+  });
+});
+
 
 app.post('/addGroup', bodyparser.json(), (req, res) => {
   console.log(req.body);
@@ -135,15 +149,7 @@ app.post('/addFriendToGroup', bodyparser.json(), (req, res) => {
   });
 });
 
-app.post('/getGroupMembers', bodyparser.json(), (req, res) => {
-  console.log(req.body);
-  // const groupRef = db.collection('groups').doc(req.body.groupName);
-  // groupRef.get().then((docSnapshot) => {
-  //   if (docSnapshot.exists) {
-  //     res.groupRef;
-  //   }
-  // });
-});
+
 
 app.post('/removeFriendFromGroup', bodyparser.json(), (req, res) => {
   const groupRef = db.collection('groups').doc(req.body.groupName);
