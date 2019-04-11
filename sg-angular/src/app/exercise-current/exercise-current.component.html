@@ -1,9 +1,11 @@
 <div class="container-fluid">
   <div class="row">
-    <h1>Do {{name}} for {{reps}} Repetitions</h1>
+    <div class="col-lg-12 col-md-12" align="center">
+      <h1 style="text-align: center;">Do {{name}} for {{reps}} Repetitions</h1>
+    </div>
   </div>
   <div class="row">
-    <div class="col-lg-6 col-md-6"> 
+    <div class="col-lg-4 col-md-4" align="center"> 
       <div class="card" style="width: 18rem;">
   	<img src="https://www.bodybuilding.com/exercises/exerciseImages/sequences/380/Male/m/380_2.jpg" class="card-img-top" alt="No Start Image">
   	<div class="card-body">
@@ -11,7 +13,12 @@
   	</div>
       </div>
     </div>
-    <div class="col-lg-6 col-md-6">
+    <div class="col-lg-4 col-md-4" align="center">
+      <p>{{description}}</p>
+      
+      <div><button class="btn btn-success">Complete</button></div>
+    </div>
+    <div class="col-lg-4 col-md-4" align="center">
       <img id="image2" src="">
       <div class="card" style="width: 18rem;">
   	<img src="https://www.bodybuilding.com/exercises/exerciseImages/sequences/380/Male/m/380_1.jpg" class="card-img-top" alt="No End Image">
@@ -21,14 +28,16 @@
       </div>
     </div>
   </div>
+  <br/>
   <div class="row">
     <div class="col-lg-5 col-md-5">
-      <label>{{description}}</label>
+      <div><button class="btn btn-primary">Back to Game Map</button></div>
       
+    </div>
+    <div class="col-lg-7 col-md-7">
       <div class="progress" style="height: 30px;">
 	      <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">Progress: {{progress}}%</div>
       </div>
-      <button class="btn btn-success">Complete</button>
     </div>
   </div>
 </div>
