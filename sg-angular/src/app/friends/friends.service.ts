@@ -19,8 +19,7 @@ export class UserListService {
           LastName: e.LastName,
           FirstName: e.FirstName,
           Email: e.Email,
-          Reg_date: e.Reg_date
-          
+          Reg_date: e.Reg_date   
         })));
   }
 }

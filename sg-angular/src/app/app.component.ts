@@ -48,7 +48,6 @@ export class AppComponent implements OnInit {
       this.userImage = userData.image;
 
       this.loginService.postAPIData(userData).subscribe((response) => {
-        console.log('response from post data is', response);
         this.userInfo = response;
         this.dataService.setUserData(response);
         this.dataService.setUserImage(this.userImage);
@@ -56,7 +55,6 @@ export class AppComponent implements OnInit {
         if (this.userInfo != null){
           this.router.navigate(['/app-user-profile']);
         }
-        console.log('current logged in user is', this.dataService.getUserName());
       },(error) => {
         console.log('error during post is', error)
       })

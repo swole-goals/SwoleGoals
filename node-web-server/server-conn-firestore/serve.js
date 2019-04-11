@@ -37,20 +37,6 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
-var docRef = db.collection('users').doc('Kaibo');
-
-var setAda = docRef.set({
-  name: 'Kaibo',
-  age: '25',
-  height: 175,
-  weight: 120,
-  friends: ['user1', 'user2', 'user3']
-});
-
-//console.log(setAda);
-
-
-// set up the router
 const express = require('express');
 
 var app = express();
@@ -92,6 +78,29 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
   });
 });
 
+
+app.post('/addGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const groupRef = db.collection('groups').doc(req.body.groupName);
+  groupRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      groupRef.update({
+        users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
+      }) 
+      console.log('Group already exists');
+    } else {
+      groupRef.set({
+        name: req.body.groupName,
+        users: req.body.userEmail
+      }).then(() => {
+        console.log('Created Group!');
+      }).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
 app.post('/addFriendToGroup', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
@@ -126,8 +135,17 @@ app.post('/addFriendToGroup', bodyparser.json(), (req, res) => {
   });
 });
 
-app.post('/removeFriendFromGroup', bodyparser.json(), (req, res) => {
+app.post('/getGroupMembers', bodyparser.json(), (req, res) => {
   console.log(req.body);
+  // const groupRef = db.collection('groups').doc(req.body.groupName);
+  // groupRef.get().then((docSnapshot) => {
+  //   if (docSnapshot.exists) {
+  //     res.groupRef;
+  //   }
+  // });
+});
+
+app.post('/removeFriendFromGroup', bodyparser.json(), (req, res) => {
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
@@ -161,7 +179,8 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
       userRef.update({
         age: req.body.userAge,
         height: req.body.userHeight,
-        weight: req.body.userWeight
+        weight: req.body.userWeight,
+        groupID: req.body.userGroup
       }).then(() => {
         console.log('Updated user info!');
       }).catch((err) => {
