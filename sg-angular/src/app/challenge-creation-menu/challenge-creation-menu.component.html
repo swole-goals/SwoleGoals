@@ -98,6 +98,7 @@
       </mat-selection-list>
     </div>-->
   </td>
+
 </tr>
 
   <tr>
@@ -113,7 +114,14 @@
       </button>
     </td>
     <td>
-      <button class="btn btn-primary" (click)="createChallenge()" [disabled]="!(selectedExercises.length > 0)">
+      <form class="example-form">
+        <mat-form-field>
+          <input matInput [(ngModel)]="challengeName" [ngModelOptions]="{standalone: true}" placeholder="Challenge Name">
+        </mat-form-field>
+      </form>
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="createChallenge()" [disabled]="(!(selectedExercises.length > 0) || !(challengeName.length > 0))">
         Create Challenge
       </button>
     </td>
