@@ -78,7 +78,7 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
   });
 });
 
-app.post('/getGroupMembers', bodyparser.json(), (req, res) => {
+app.post('/getGroup', bodyparser.json(), (req, res) => {
   console.log('XXXXX??????');
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
@@ -88,6 +88,20 @@ app.post('/getGroupMembers', bodyparser.json(), (req, res) => {
       res.json(docSnapshot.data());
     }else{
       console.log('No such group exist.');
+    }
+  });
+});
+
+
+app.get('/getChallengeExercises/:name', bodyparser.json(), (req, res) => {
+  var challengeName = req.params.name;
+  const challengeRef = db.collection('Challenges').doc(challengeName);
+  challengeRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('challenge exists');
+      res.json(docSnapshot.data());
+    }else{
+      console.log('No such challenge exist.');
     }
   });
 });
