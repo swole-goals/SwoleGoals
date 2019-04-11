@@ -78,16 +78,14 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
   });
 });
 
-app.post('/getGroupMembers', bodyparser.json(), (req, res) => {
-  console.log('XXXXX??????');
+app.post('/getGroup', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      console.log('document already exists');
       res.json(docSnapshot.data());
     }else{
-      console.log('No such group exist.');
+      console.log('No such group exists');
     }
   });
 });

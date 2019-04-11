@@ -61,6 +61,7 @@
 
 					</div>
 					<div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab">
+
 						<button (click)="getGroupMembers()" class="btn btn-primary">Get</button>
 					</div>
 					<div class="tab-pane fade" id="pills-groups" role="tabpanel" aria-labelledby="pills-groups-tab">
@@ -71,6 +72,11 @@
 							</div>
 							<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
 						</form>
+						<ul>
+							<li *ngFor="let user of group.users">
+								{{user}}
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
