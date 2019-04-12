@@ -77,6 +77,18 @@ app.get('/getEx', (req, res) => {
   })
 });
 
+app.get('/getEx/:name', (req, res) => {
+  var name = req.params.name;
+  mysqlConn.query("select * from bodybuilding_exercises name = ?", name, (err, results, fields) => {
+    if (err){
+      console.log(err);
+    }else{
+      console.log("get exercises info successfully.");
+      res.send(results);
+    }
+  })
+});
+
 //get all the strengthlevel info
 app.get('/getStrength', (req, res) => {
   mysqlConn.query("select * from strengthlevel", (err, results, fields) => {
