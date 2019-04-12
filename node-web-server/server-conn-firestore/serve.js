@@ -56,24 +56,49 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
   const userRef = db.collection('users').doc(req.body.email);
   userRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      console.log('document already exists');
+      console.log('Logging in user, ',req.body.name);
       res.json(docSnapshot.data());
     } else {
       userRef.set({
         name: req.body.name,
         email: req.body.email,
+        image: req.body.image,
         age: 0,
         height: 0,
         weight: 0,
         friends: [],
         groupID: null
       }).then(() => {
-        console.log('Added user successfully!');
+        console.log('Creating new user');
       }).then(() => userRef.get().then((docSnapshot) => {
         res.json(docSnapshot.data())
       })).catch((err) => {
         console.log('get an error:', err);
       });
+    }
+  });
+});
+
+app.post('/getUser', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('users').doc(req.body.userEmail);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      res.json(docSnapshot.data());
+    } else{
+      console.log('User does not exist!');
+    }
+  });
+});
+
+app.post('/getUsers', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('users').doc(req.body);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      res.json(docSnapshot.data());
+    } else{
+      console.log('Unable to get users!');
     }
   });
 });
@@ -84,8 +109,8 @@ app.post('/getGroup', bodyparser.json(), (req, res) => {
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
       res.json(docSnapshot.data());
-    }else{
-      console.log('No such group exists');
+    } else{
+      console.log('Group does not exist!');
     }
   });
 });
@@ -113,7 +138,7 @@ app.post('/addGroup', bodyparser.json(), (req, res) => {
       groupRef.update({
         users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
       }) 
-      console.log('Group already exists');
+      console.log('Group already exists, adding user to group');
     } else {
       groupRef.set({
         name: req.body.groupName,

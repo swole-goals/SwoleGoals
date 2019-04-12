@@ -12,6 +12,6 @@ export class LoginService {
     console.log(userData);
     //console.log(userData.name); 
     //TODO: CHANGE BELOW TO https://swolegoalsfirestore.appspot.com/
-    return this.httpClient.post(environment.fireStoreURL+'/addUser', {'name' : `${userData.name}`, 'email' : `${userData.email}`});
+    return this.httpClient.post(environment.fireStoreURL+'/addUser', {'name' : `${userData.name}`, 'email' : `${userData.email}`, 'image' : `${userData.image}`});
   }
 }
