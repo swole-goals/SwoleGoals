@@ -1,6 +1,8 @@
 import { UserProfileService } from './user-profile.service';
 import { DataService } from './../../services/data.service';
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Group } from './group';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,8 +10,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+  group: Group;
   userData: object;
-  groupMembers;
+  groupMembers: Array<String>;
   groupInfo: object;
   groupName: String;
   userEmail: String;
@@ -18,7 +21,7 @@ export class UserProfileComponent implements OnInit {
   age: number;
   weight: number;
   height: number;
-  constructor(private dataService: DataService, private userProfileService: UserProfileService) {
+  constructor(private dataService: DataService, private userProfileService: UserProfileService, private http: HttpClient) {
     var userData = this.dataService.getUserData();
   }
 
@@ -31,16 +34,14 @@ export class UserProfileComponent implements OnInit {
     this.weight = this.dataService.getUserWeight();
     this.image = this.dataService.getUserImage();
     this.groupName = this.dataService.getUserGroup();
-    this.groupMembers = this.userProfileService.getGroupMembers(this.groupName);
+    this.getGroupMembers();
   }
 
   getGroupMembers() {
-    console.log("Getting Group Members");
-    this.userProfileService.getGroupMembers(this.groupName).subscribe((res) => {
-      console.log('response from backend is ', res);
-    }, (err) => {
-      console.log('error during post is', err);
+    this.userProfileService.getGroup(this.groupName).subscribe(res => {
+      this.group = res;
     })
+    console.log(this.group.users);
   }
 
   joinGroup() {

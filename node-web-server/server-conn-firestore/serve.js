@@ -12,7 +12,7 @@ const admin = require('firebase-admin');
 const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
 
-const private_key = `./swolegoalsFirestore-a6f94cd05c59.json`;
+const private_key = `./swolegoalsfirestore-a6f94cd05c59.json`;
 if(!fs.existsSync(private_key)){
   const projectId = 'swolegoalsFirestore';
   const storage = new Storage({
@@ -79,15 +79,13 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
 });
 
 app.post('/getGroup', bodyparser.json(), (req, res) => {
-  console.log('XXXXX??????');
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      console.log('document already exists');
       res.json(docSnapshot.data());
     }else{
-      console.log('No such group exist.');
+      console.log('No such group exists');
     }
   });
 });
@@ -212,31 +210,38 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
 
 app.post('/addChallenge', bodyparser.json(), (req, res) => {
     console.log(req.body);
-    const challengeRef = db.collection('Challenges').doc(String(req.body));
+    const challengeRef = db.collection('Challenges').doc(req.body[0]);
     challengeRef.get().then((docSnapshot) => {
-        if (docSnapshot.exists) {
-            console.log('challenge already exists');
-            res.json(docSnapshot.data());
-        }else {
-            challengeRef.set({
-                exercises: "1",
-                reps: "2"
-            });
-            for (let i = 0; i < req.body[0].length; i++) {
-                challengeRef.update({
-                    exercises: admin.firestore.FieldValue.arrayUnion(req.body[0][i]),
-                    reps: admin.firestore.FieldValue.arrayUnion(req.body[1][i])
-                }).then(() => {
-                    console.log('save successfully!');
-                }).then(() => {
+      if (docSnapshot.exists) {
+        console.log('challenge already exists');
+        res.json("exists")
+      }else {
+        challengeRef.set({
+          challengeName: req.body[0],
+          exercises: "1",
+          reps: "2"
+        });
+        for (let i = 0; i < req.body[1].length; i++) {
+          console.log(req.body[1][i]);
+          console.log(req.body[2][i]);
+          challengeRef.update({
+            exercises: admin.firestore.FieldValue.arrayUnion('[' + req.body[1][i] + ']{' + String(req.body[2][i]) + '}  '),
+            reps: admin.firestore.FieldValue.arrayUnion(req.body[2][i])
+          }).then(challengeRef.update({
+            reps: admin.firestore.FieldValue.arrayUnion(req.body[2][i])
+          }))/*.then(() => {
                     challengeRef.get().then((docSnapshot) => {
                         res.json(docSnapshot.data());
                     });
-                }).catch((err) => {
-                    console.log('get an error:', err);
-                });
+                })*/.catch((err) => {
+            console.log('get an error:', err);
+          });
         }
-        }
+        challengeRef.get().then((docSnapshot) => {
+          console.log('save successfully!');
+          res.json(docSnapshot.data())
+        });
+      }
 
     });
 

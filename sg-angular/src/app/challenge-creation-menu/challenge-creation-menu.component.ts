@@ -32,6 +32,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
   exercisesToRemove = [];
   exerciseReps = [];
   currentFilter: string;
+  challengeName = '';
 
   constructor(private exerciseService: ExerciseListService,
               private challengeCreationService: ChallengeCreationService,
@@ -97,15 +98,18 @@ export class ChallengeCreationMenuComponent implements OnInit {
     for(let exercise of this.selectedExercises){
       exerciseNames.push(exercise.name);
     }
+    challengeData.push(this.challengeName);
     challengeData.push(exerciseNames);
     challengeData.push(this.exerciseReps);
     console.log(challengeData);
-    this.challengeCreationService.postAPIdata(challengeData).subscribe((response)=>{
+    this.challengeCreationService.postAPIdata(challengeData).subscribe((response) => {
         let challengeInfo = response;
-        this.dataService.setChallengeData(response);
-        if (challengeInfo != null){
+        if (challengeInfo !== 'exists') {
+          this.dataService.setChallengeData(response);
           console.log('challenge created');
           alert('Challenge Created');
+        } else {
+          alert('Challenge name already exists. Please rename your challenge.');
         }
     });
   }
