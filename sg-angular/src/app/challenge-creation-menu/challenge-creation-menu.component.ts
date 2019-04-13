@@ -33,6 +33,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
   exerciseReps = [];
   currentFilter: string;
   challengeName = '';
+  groupName: String;
 
   constructor(private exerciseService: ExerciseListService,
               private challengeCreationService: ChallengeCreationService,
@@ -93,6 +94,10 @@ export class ChallengeCreationMenuComponent implements OnInit {
   }
 
   createChallenge(){
+    if (this.groupName ===  null){
+      alert('Please create your group or join a group first.');
+      return;
+    }
     let exerciseNames = [];
     let challengeData = [];
     for(let exercise of this.selectedExercises){
@@ -112,10 +117,22 @@ export class ChallengeCreationMenuComponent implements OnInit {
           alert('Challenge name already exists. Please rename your challenge.');
         }
     });
+
+    this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
+      let ans = res.challenge;
+      //console.log(ans);
+      if (ans !== 'exists'){
+        this.dataService.setChallengeName(ans);
+        console.log(ans);
+      }else{
+        alert('A challenge already exists in your group');
+      }
+    });
   }
 
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.groupName = this.dataService.getUserGroup();
   }
 
 }

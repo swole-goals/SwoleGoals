@@ -17,6 +17,7 @@ export class DataService {
   groupID: String;
   groupData;
   groupMembers : Array<string>;
+  challengeName: String;
 
   constructor() {
     this.userData = {};
@@ -34,6 +35,10 @@ export class DataService {
 
   setChallengeData(val : object){
     this.challengeData = val;
+  }
+
+  setChallengeName(name: String){
+    this.challengeName = name;
   }
 
   getUserData(){
@@ -62,6 +67,10 @@ export class DataService {
   }
   getUserWeight(){
     return this.userData.weight;
+  }
+
+  getChallengeName(){
+    return this.challengeName;
   }
 
   addFriendToGroup(val : string){
