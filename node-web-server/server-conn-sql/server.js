@@ -14,12 +14,12 @@ app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     host     : 'localhost',
-     port     : 3307,
+     //host     : 'localhost',
+     //port     : 3307,
      user     : 'root',
      password : 'swolegoals',
      database : 'exercises',
-    //  socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
+     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 /*
@@ -71,13 +71,13 @@ app.get('/getEx', (req, res) => {
     if (err){
       console.log(err);
     }else{
-      console.log("get exercises info successfully.");
+      console.log("get ex info successfully.");
       res.send(results);
     }
   })
 });
 
-app.get('/getEx/:name', (req, res) => {
+app.get('/getExercises/:name', (req, res) => {
   var name = req.params.name;
   mysqlConn.query("select * from bodybuilding_exercises name = ?", name, (err, results, fields) => {
     if (err){
