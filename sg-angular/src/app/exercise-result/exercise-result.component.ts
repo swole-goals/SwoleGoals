@@ -14,6 +14,8 @@ export class ExerciseResultComponent implements OnInit {
   decreaseReps() { 
   	this.repsTotal--;
   }
+  submitReps() {
+  }
   ngOnInit() {
   }
 
