@@ -51,8 +51,9 @@ app.get('/getUser', (req, res) => {
   })
 });
 
-app.get('/getUser/:lastname', (req, res) => {
+app.get('/getUsers/:lastname', (req, res) => {
   var lastname = req.params.lastname;
+  console.log(lastname);
   mysqlConn.query("select * from users where LastName = ?", lastname, (err, results, fields) => {
     if (err){
       console.log(err);
@@ -79,6 +80,7 @@ app.get('/getEx', (req, res) => {
 
 app.get('/getExercises/:name', (req, res) => {
   var name = req.params.name;
+  console.log('XXXX????', name);
   mysqlConn.query("select * from clean_exercises name = ?", name, (err, results, fields) => {
     if (err){
       console.log(err);
