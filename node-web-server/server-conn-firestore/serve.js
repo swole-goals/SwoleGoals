@@ -233,6 +233,31 @@ app.post('/updateInfo', bodyparser.json(), (req, res) => {
   });
 });
 
+app.post('/addClgtoGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  //res.json(req.body);
+  const clgRef = db.collection('groups').doc(req.body.gname);
+  clgRef.get().then((docSnapshot) => {
+    if (docSnapshot.get('challenge') != null) {
+      console.log('challenge already exist in your group');
+      res.json('exists');
+    } else {
+      clgRef.set({
+        challenge: req.body.cname
+      }).then(() => {
+        console.log('creat challenge in this group');
+      }).then(() => clgRef.get().then((docSnapshot) => {
+        res.json(docSnapshot.data())
+      })).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
+
+
+
 app.post('/addChallenge', bodyparser.json(), (req, res) => {
     console.log(req.body);
     const challengeRef = db.collection('Challenges').doc(req.body[0]);

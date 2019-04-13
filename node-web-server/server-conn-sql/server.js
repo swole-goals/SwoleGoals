@@ -14,12 +14,12 @@ app.use(bodyparser.json());
 
 var mysql = require('mysql');	
 var mysqlConn = mysql.createConnection({
-     //host     : 'localhost',
-     //port     : 3307,
+     host     : 'localhost',
+     port     : 3307,
      user     : 'root',
      password : 'swolegoals',
      database : 'exercises',
-     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
+     //socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 /*
@@ -67,7 +67,7 @@ app.get('/getUser/:lastname', (req, res) => {
 
 // get all info from exercises
 app.get('/getEx', (req, res) => {
-  mysqlConn.query("select * from bodybuilding_exercises", (err, results, fields) => {
+  mysqlConn.query("select * from clean_exercises", (err, results, fields) => {
     if (err){
       console.log(err);
     }else{
@@ -79,7 +79,7 @@ app.get('/getEx', (req, res) => {
 
 app.get('/getExercises/:name', (req, res) => {
   var name = req.params.name;
-  mysqlConn.query("select * from bodybuilding_exercises name = ?", name, (err, results, fields) => {
+  mysqlConn.query("select * from clean_exercises name = ?", name, (err, results, fields) => {
     if (err){
       console.log(err);
     }else{
