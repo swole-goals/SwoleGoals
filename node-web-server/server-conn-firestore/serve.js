@@ -218,18 +218,14 @@ app.post('/addChallenge', bodyparser.json(), (req, res) => {
       }else {
         challengeRef.set({
           challengeName: req.body[0],
-          exercises: "1",
-          reps: "2"
+          exercises: "1"
         });
         for (let i = 0; i < req.body[1].length; i++) {
           console.log(req.body[1][i]);
           console.log(req.body[2][i]);
           challengeRef.update({
-            exercises: admin.firestore.FieldValue.arrayUnion('[' + req.body[1][i] + ']{' + String(req.body[2][i]) + '}  '),
-            reps: admin.firestore.FieldValue.arrayUnion(req.body[2][i])
-          }).then(challengeRef.update({
-            reps: admin.firestore.FieldValue.arrayUnion(req.body[2][i])
-          }))/*.then(() => {
+            exercises: admin.firestore.FieldValue.arrayUnion('[' + req.body[1][i] + ']{' + String(req.body[2][i]) + '}')
+          })/*.then(() => {
                     challengeRef.get().then((docSnapshot) => {
                         res.json(docSnapshot.data());
                     });
