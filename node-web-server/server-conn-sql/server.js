@@ -81,7 +81,7 @@ app.get('/getEx', (req, res) => {
 app.get('/getExercises/:name', (req, res) => {
   var name = req.params.name;
   console.log('XXXX????', name);
-  mysqlConn.query("select * from clean_exercises name = ?", name, (err, results, fields) => {
+  mysqlConn.query("select * from clean_exercises where name = ?", name, (err, results, fields) => {
     if (err){
       console.log(err);
     }else{
