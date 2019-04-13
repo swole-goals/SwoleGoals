@@ -36,8 +36,12 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.getUser(this.userEmail).subscribe(res => {
       this.user = res;
       this.groupName = this.user.groupID;
-      console.log(this.user);
-      this.getGroupMembers();
+      if(this.groupName!=null){
+        this.getGroupMembers();
+      }
+      else {
+        this.loggedIn = true;
+      }
     })
   }
   
@@ -51,7 +55,6 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.getGroup(this.groupName).subscribe(res => {
       this.group = res;
       this.loggedIn = true;
-      console.log(this.group.users);
     })
   }
 
