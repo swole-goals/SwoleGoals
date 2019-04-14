@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChartModule } from 'angular-highcharts';
 import { ExerciseCurrentComponent } from './exercise-current/exercise-current.component';
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
+import { ChallengeFirebaseComponent } from './challenge-firebase/challenge-firebase.component';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
@@ -52,7 +53,8 @@ export function getAuthServiceConfigs() {
     ChallengeCreationMenuComponent,
     ExerciseTableComponent,
     ExerciseCurrentComponent,
-    ExerciseResultComponent
+    ExerciseResultComponent,
+    ChallengeFirebaseComponent
   ],
   imports: [
     BrowserModule,
@@ -104,6 +106,10 @@ export function getAuthServiceConfigs() {
       {
         path: 'friends',
         component: FriendsComponent
+      },
+      {
+        path: 'challenge-firebase',
+        component: ChallengeFirebaseComponent
       },
       {
         path: 'app-login',

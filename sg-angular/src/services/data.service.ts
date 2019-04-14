@@ -84,5 +84,9 @@ export class DataService {
     return this.groupMembers;
   }
 
+  getChallengeExercisesArray() {
+    
+  }
+
 
 }
