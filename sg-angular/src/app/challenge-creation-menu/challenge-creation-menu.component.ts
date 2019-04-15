@@ -6,6 +6,7 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel} from "@angular/cdk/collections";
 import {ChallengeCreationService} from "./challenge-creation.service";
 import {DataService} from "../../services/data.service";
+import {Challenge} from "./challenge";
 
 export interface PeriodicElement {
   name: string;
@@ -34,6 +35,8 @@ export class ChallengeCreationMenuComponent implements OnInit {
   currentFilter: string;
   challengeName = '';
   groupName: String;
+  ans: Challenge;
+
 
   constructor(private exerciseService: ExerciseListService,
               private challengeCreationService: ChallengeCreationService,
@@ -119,11 +122,11 @@ export class ChallengeCreationMenuComponent implements OnInit {
     });
 
     this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
-      let ans = res.challenge;
-      //console.log(ans);
-      if (ans !== 'exists'){
-        this.dataService.setChallengeName(ans);
-        console.log(ans);
+      this.ans = res;
+      if (this.ans.challenge !== 'exists'){
+        this.ans = res;
+        this.dataService.setChallengeName(this.ans.challenge);
+        console.log(this.ans.challenge);
       }else{
         alert('A challenge already exists in your group');
       }

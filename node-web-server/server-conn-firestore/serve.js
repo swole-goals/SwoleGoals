@@ -240,7 +240,14 @@ app.post('/addClgtoGroup', bodyparser.json(), (req, res) => {
   clgRef.get().then((docSnapshot) => {
     if (docSnapshot.get('challenge') != null) {
       console.log('challenge already exist in your group');
-      res.json('exists');
+      //res.json('exists');
+      clgRef.set({
+        challenge: 'exists'
+      }).then(() => clgRef.get().then((docSnapshot) => {
+        res.json(docSnapshot.data())
+      })).catch((err) => {
+        console.log('get an error:', err);
+      })
     } else {
       clgRef.set({
         challenge: req.body.cname
