@@ -11,32 +11,36 @@ import { User } from './user';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  group: Group;
-  user: User;
-  userData: object;
-  groupName: String;
-  userEmail: String;
-  userName: String;
-  image: String;
   loggedIn: boolean;
-  constructor(private dataService: DataService, private userProfileService: UserProfileService, private http: HttpClient) {
+  groupName: String;
+  groupMembers: Array<string>;
+  userName: String;
+  userEmail: String;
+  image: String;
+  age: Number;
+  height: Number;
+  weight: Number;
+  constructor(private userProfileService: UserProfileService, private http: HttpClient) {
   }
 
   ngOnInit() {
     this.loggedIn = false;
-    this.userData = this.dataService.getUserData();
-    this.userName = this.dataService.getUserName();
-    this.userEmail = this.dataService.getUserEmail();
-    if(this.userEmail!=null){
+    if(DataService.getUserEmail()!=null){
       this.getUserInfo();
     }
   }
 
   getUserInfo(){
-    this.userProfileService.getUser(this.userEmail).subscribe(res => {
-      this.user = res;
-      this.groupName = this.user.groupID;
-      if(this.groupName!=null){
+    this.userProfileService.getUser(DataService.getUserEmail()).subscribe(res => {
+      DataService.setUserData(res);
+      this.age = DataService.getUserAge();
+      this.height = DataService.getUserHeight();
+      this.weight = DataService.getUserWeight();
+      this.groupName = DataService.getUserGroup();
+      this.userEmail = DataService.getUserEmail();
+      this.image = DataService.getUserImage();
+      this.userName = DataService.getUserName();
+      if(this.groupName!=="null" && this.groupName!=null){
         this.getGroupMembers();
       }
       else {
@@ -53,7 +57,8 @@ export class UserProfileComponent implements OnInit {
 
   getGroupMembers() {
     this.userProfileService.getGroup(this.groupName).subscribe(res => {
-      this.group = res;
+      DataService.setGroupData(res);
+      this.groupMembers = DataService.getGroupUsers();
       this.loggedIn = true;
     })
   }
@@ -63,6 +68,7 @@ export class UserProfileComponent implements OnInit {
     this.getGroupMembers();
     this.userProfileService.createGroup(this.groupName).subscribe((response) => {
       console.log('response from post data is ', response);
+      DataService.setGroupData(response);
     }, (error) => {
       console.log('error during post is ', error)
     })
@@ -99,7 +105,11 @@ export class UserProfileComponent implements OnInit {
   updateUserInfo() {
     console.log("Updating User Info");
     console.log("Group: ", this.groupName);
-    this.userProfileService.updateUser(this.user.age, this.user.height, this.user.weight, this.groupName).subscribe((response) => {
+    DataService.setUserGroup(this.groupName);
+    DataService.setUserAge(this.age);
+    DataService.setUserHeight(this.height);
+    DataService.setUserWeight(this.weight);
+    this.userProfileService.updateUser().subscribe((response) => {
       console.log('response from post data is ', response);
     }, (error) => {
       console.log('error during post is ', error)
