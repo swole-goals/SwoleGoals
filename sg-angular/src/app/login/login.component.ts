@@ -1,7 +1,6 @@
 import { AppComponent } from './../app.component';
 import { UserProfileComponent } from './../user-profile/user-profile.component';
 import { DataService } from './../../services/data.service';
-import { UserInfo } from './../friends/friendsinfo';
 import { LoginService } from './login.service';
 import { Component, OnInit, AfterViewInit, Renderer, ViewChild, ElementRef } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
@@ -22,8 +21,7 @@ export class LoginComponent implements OnInit {
   userInfo : object;
   userImage : string;
   message : string;
-  constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService, 
-    private dataService : DataService, private render : Renderer,
+  constructor(private socialAuthService: AuthService, private router: Router, private loginService : LoginService, private render : Renderer,
     private first : ElementRef, private appComponent: AppComponent) { }
  
   ngOnInit() {
@@ -49,17 +47,15 @@ export class LoginComponent implements OnInit {
         this.loginService.postAPIData(userData).subscribe((response)=>{
           console.log('response from post data is ', response);
           this.userInfo = response;
-          this.dataService.setUserData(response);
-          this.dataService.setUserImage(this.userImage);
+          DataService.setUserData(response);
           this.appComponent.loggedIn=true;
           if (this.userInfo != null) {
             this.router.navigate(['/app-user-profile']);
           }
-          console.log('current logged in user is ', this.dataService.getUserData())
+          console.log('current logged in user is ', DataService.getUserData())
         },(error)=>{
           console.log('error during post is ', error)
         })
-
       }
     );
 

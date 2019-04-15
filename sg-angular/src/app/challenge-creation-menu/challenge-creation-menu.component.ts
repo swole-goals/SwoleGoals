@@ -39,8 +39,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
 
   constructor(private exerciseService: ExerciseListService,
-              private challengeCreationService: ChallengeCreationService,
-              private dataService: DataService) {
+              private challengeCreationService: ChallengeCreationService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
       this.dataSource1 = new MatTableDataSource(res);
       this.dataSource1.paginator = this.paginator;
@@ -113,7 +112,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
     this.challengeCreationService.postAPIdata(challengeData).subscribe((response) => {
         let challengeInfo = response;
         if (challengeInfo !== 'exists') {
-          this.dataService.setChallengeData(response);
+          DataService.setChallengeData(response);
           console.log('challenge created');
           alert('Challenge Created');
         } else {
@@ -125,7 +124,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
       this.ans = res;
       if (this.ans.challenge !== 'exists'){
         this.ans = res;
-        this.dataService.setChallengeName(this.ans.challenge);
+        DataService.setChallengeName(this.ans.challenge);
         console.log(this.ans.challenge);
       }else{
         alert('A challenge already exists in your group');
@@ -135,7 +134,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
 
   ngOnInit() { 
-    this.groupName = this.dataService.getUserGroup();
+    this.groupName = DataService.getGroupData().name;
   }
 
 }
