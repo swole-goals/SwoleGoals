@@ -142,7 +142,7 @@ export class UserProfileComponent implements OnInit {
       'current challenge.')) {
       let groupAndChallenge = [];
       groupAndChallenge.push(DataService.getUserGroup());
-      groupAndChallenge.push(this.selectedChallenge.selected[0].challengeName);
+      groupAndChallenge.push(this.selectedChallenge.selected[0][0]);
       console.log(groupAndChallenge);
       this.setGroupChallengeService.postAPIdata(groupAndChallenge).subscribe((res) => {
           DataService.setChallengeName(String(res));

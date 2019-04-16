@@ -108,6 +108,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
     challengeData.push(this.challengeName);
     challengeData.push(exerciseNames);
     challengeData.push(this.exerciseReps);
+    challengeData.push(DataService.getUserGroup());
     console.log(challengeData);
     this.challengeCreationService.postAPIdata(challengeData).subscribe((response) => {
         let challengeInfo = response;
@@ -116,11 +117,11 @@ export class ChallengeCreationMenuComponent implements OnInit {
           console.log('challenge created');
           alert('Challenge Created');
         } else {
-          alert('Challenge name already exists. Please rename your challenge.');
+          alert('Challenge not created: Challenge name already exists. Please rename your challenge.');
         }
     });
 
-    this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
+    /*this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
       this.ans = res;
       if (this.ans.challenge !== 'exists'){
         this.ans = res;
@@ -129,11 +130,11 @@ export class ChallengeCreationMenuComponent implements OnInit {
       }else{
         alert('A challenge already exists in your group');
       }
-    });
+    });*/
   }
 
 
-  ngOnInit() { 
+  ngOnInit() {
     this.groupName = DataService.getGroupData().name;
   }
 
