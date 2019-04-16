@@ -39,7 +39,6 @@ admin.initializeApp({
 const db = admin.firestore();
 
 const express = require('express');
-var session = require('express-session');
 
 var app = express();
 
@@ -373,6 +372,18 @@ app.get('/getCurrentChallenge/:email', bodyparser.json(), (req, res) => {
       })
     }else{
       res.json('user not in group');
+    }
+  })
+})
+
+app.get('/getEx/:challenge', bodyparser.json(), (req, res) => {
+  var challenge = req.params.challenge;
+  challengeRef = db.collection('Challenges').doc(challenge);
+  challengeRef.get().then((docSnapshot) =>{
+    if (docSnapshot.exists){
+      res.json(docSnapshot.data());
+    }else{
+      console.log('Data not exists.');
     }
   })
 })
