@@ -24,7 +24,6 @@ export abstract class DataService {
   static logOut(){
     DataService.challengeData = {};
   }
-
   static setUserAge(val: Number){
     DataService.user.age = val;
   }
@@ -47,13 +46,7 @@ export abstract class DataService {
   static setGroupName(val: String){
     DataService.group.name = val;
   }
-  static setChallengeData(val : object){
-    DataService.challengeData = val;
-  }
 
-  static setChallengeName(name: String){
-    DataService.challengeName = name;
-  }
 
   static getUserData(){
     return DataService.user;
@@ -61,6 +54,10 @@ export abstract class DataService {
   static getUserName(){
     return DataService.user.name;
   }
+  getchallengeName(): String {
+    return DataService.challengeName;
+  }
+
   static getUserEmail(){
     return DataService.user.email;
   }
@@ -88,7 +85,13 @@ export abstract class DataService {
   static getGroupName(){
     return DataService.group.name;
   }
-
+  
+  static setChallengeData(val : object){
+    DataService.challengeData = val;
+  }
+  static setChallengeName(name: String){
+    DataService.challengeName = name;
+  }
   static getChallengeName(){
     return DataService.challengeName;
   }

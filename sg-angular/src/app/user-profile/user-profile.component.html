@@ -11,6 +11,10 @@
 						<a class="nav-link" id="pills-groups-tab" data-toggle="pill" href="#pills-groups" role="tab"
 							aria-controls="pills-groups" aria-selected="false">Group</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="pills-challenges-tab" data-toggle="pill" href="#pills-challenges"
+							role="tab" aria-controls="pills-challenges" aria-selected="false">Challenges</a>
+					</li>
 				</ul>
 				<div class="tab-content" id="pills-tabContent">
 					<div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
@@ -67,7 +71,7 @@
 									<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
 								</form>
 							</div>
-							<div class="col">
+							<div class="col-lg-6">
 								<h4>Group Members</h4>
 								<ul *ngIf="groupMembers.length>1" class="list-group">
 									<li *ngFor="let user of groupMembers" class="list-group-item">
@@ -78,6 +82,38 @@
 									<p>You are the only member in your group! Share your group name with your friends!
 									</p>
 								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="pills-challenges" role="tabpanel" aria-labelledby="pills-groups-tab">
+						<div class="row">
+							<div class="col">
+								<h4>Challenges</h4>
+								<div style="height:200px; overflow: auto; width:400px;  border: 2px solid #5E4485;">
+									<table mat-table [dataSource]="dataSource" width="100%">
+										<ng-container matColumnDef="select">
+											<th mat-header-cell *matHeaderCellDef></th>
+											<td mat-cell *matCellDef="let row">
+												<mat-checkbox (click)="$event.stopPropagation()"
+													(change)="$event ? selectedChallenge.toggle(row) : null"
+													[checked]="selectedChallenge.isSelected(row)"
+													[aria-label]="checkboxLabel(row)">
+												</mat-checkbox>
+											</td>
+										</ng-container>
+
+										<ng-container matColumnDef="challenge">
+											<td mat-cell *matCellDef="let challenge"> {{challenge}} </td>
+										</ng-container>
+
+										<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+									</table>
+								</div>
+								<button class="btn btn-primary" (click)="setChallenge()"
+									[disabled]="(!(selectedChallenge.selected.length > 0))">
+									Set Challenge
+								</button>
 							</div>
 						</div>
 					</div>
