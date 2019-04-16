@@ -1,31 +1,27 @@
-<div *ngIf="loggedIn" class="container-fluid">
+<div *ngIf="loggedIn && hasGroup" class="container-fluid">
 	<div id="body">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-8">
 				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
 							role="tab" aria-controls="pills-profile" aria-selected="true">Profile</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="pills-friends-tab" data-toggle="pill" href="#pills-friends" role="tab"
-							aria-controls="pills-friends" aria-selected="false">Friends</a>
+						<a class="nav-link" id="pills-groups-tab" data-toggle="pill" href="#pills-groups" role="tab"
+							aria-controls="pills-groups" aria-selected="false">Group</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="pills-groups-tab" data-toggle="pill" href="#pills-groups" role="tab"
-							aria-controls="pills-groups" aria-selected="false">Groups</a>
+						<a class="nav-link" id="pills-challenges-tab" data-toggle="pill" href="#pills-challenges"
+							role="tab" aria-controls="pills-challenges" aria-selected="false">Challenges</a>
 					</li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-challenges-tab" data-toggle="pill" href="#pills-challenges" role="tab"
-               aria-controls="pills-challenges" aria-selected="false">Challenges</a>
-          </li>
 				</ul>
 				<div class="tab-content" id="pills-tabContent">
 					<div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
 						aria-labelledby="pills-profile-tab">
 						<div class="row">
 							<div class="col-4">
-								<img src="{{user.image}}" alt="profile image" class="img-thumbnail">
+								<img src="{{image}}" alt="profile image" class="img-thumbnail">
 							</div>
 							<div class="col-8">
 								<h5>{{userName}}</h5>
@@ -37,7 +33,7 @@
 												<p>Age:</p>
 											</div>
 											<div class="col-2">
-												<input class="form-control" [(ngModel)]="user.age" name="age" />
+												<input class="form-control" [(ngModel)]="age" name="age" />
 											</div>
 										</div>
 										<div class="form-row">
@@ -45,7 +41,7 @@
 												<p>Height:</p>
 											</div>
 											<div class="col-2">
-												<input class="form-control" [(ngModel)]="user.height" name="height" />
+												<input class="form-control" [(ngModel)]="height" name="height" />
 											</div>
 										</div>
 										<div class="form-row">
@@ -53,7 +49,7 @@
 												<p>Weight:</p>
 											</div>
 											<div class="col-2">
-												<input class="form-control" [(ngModel)]="user.weight" name="weight" />
+												<input class="form-control" [(ngModel)]="weight" name="weight" />
 											</div>
 										</div>
 									</div>
@@ -62,148 +58,106 @@
 								</form>
 							</div>
 						</div>
-
-					</div>
-					<div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab">
-						<button (click)="getUsers()" class="btn btn-primary">Get</button>
 					</div>
 					<div class="tab-pane fade" id="pills-groups" role="tabpanel" aria-labelledby="pills-groups-tab">
-            <div class="row">
-              <div class="col">
-                <h4>Your Group</h4>
-                <form>
-                  <div class="form-group">
-                    <input class="form-control" id="groupNameInput" [(ngModel)]="groupName" name="groupName">
-                  </div>
-                  <button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
-                </form>
-              </div>
-              <div class="col">
-                <h4>Group Members</h4>
-                <ul class="list-group">
-                  <li *ngFor="let user of group.users" class="list-group-item">
-                    {{user}}
-                  </li>
-                </ul>
-              </div>
-            </div>
-					</div>
-          <div class="tab-pane fade" id="pills-challenges" role="tabpanel" aria-labelledby="pills-groups-tab">
-            <div class="row">
-              <div class="col">
-                <h4>Challenges</h4>
-                <div style="height:200px; overflow: auto; width:400px;  border: 2px solid #5E4485;">
-                  <table mat-table [dataSource]="dataSource" width="100%">
-
-                    <ng-container matColumnDef="select">
-                      <th mat-header-cell *matHeaderCellDef></th>
-                      <td mat-cell *matCellDef="let row">
-                        <mat-checkbox (click)="$event.stopPropagation()"
-                                      (change)="$event ? selectedChallenge.toggle(row) : null"
-                                      [checked]="selectedChallenge.isSelected(row)"
-                                      [aria-label]="checkboxLabel(row)">
-                        </mat-checkbox>
-                      </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="challenge">
-                      <th mat-header-cell *matHeaderCellDef> Challenge Name </th>
-                      <td mat-cell *matCellDef="let challenge"> {{challenge[0]}} </td>
-                    </ng-container>
-
-
-
-                    <ng-container matColumnDef="group">
-                      <th mat-header-cell *matHeaderCellDef> Created by Group </th>
-                      <td mat-cell *matCellDef="let group">{{group[1]}}</td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                  </table>
-                </div>
-                <button class="btn btn-primary" (click)="setChallenge()" [disabled]="(!(selectedChallenge.selected.length > 0))">
-                  Set Challenge
-                </button>
-              </div>
-            </div>
-          </div>
-
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="row">
-					<div class="col-3">
-						<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-							aria-orientation="vertical">
-							<a class="nav-link active" id="v-pills-weight-tab" data-toggle="pill" href="#v-pills-weight"
-								role="tab" aria-controls="v-pills-weight" aria-selected="true">Weight</a>
-							<a class="nav-link" id="v-pills-activity-tab" data-toggle="pill" href="#v-pills-activity"
-								role="tab" aria-controls="v-pills-activity" aria-selected="false">Activity</a>
-							<a class="nav-link" id="v-pills-ranking-tab" data-toggle="pill" href="#v-pills-ranking"
-								role="tab" aria-controls="v-pills-ranking" aria-selected="false">Ranking</a>
+						<div class="row">
+							<div class="col">
+								<h4>Your Group</h4>
+								<form>
+									<div class="form-group">
+										<input class="form-control" id="groupNameInput" [(ngModel)]="groupName"
+											name="groupName">
+									</div>
+									<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
+								</form>
+							</div>
+							<div class="col-lg-6">
+								<h4>Group Members</h4>
+								<ul *ngIf="groupMembers.length>1" class="list-group">
+									<li *ngFor="let user of groupMembers" class="list-group-item">
+										{{user}}
+									</li>
+								</ul>
+								<ul *ngIf="groupMembers.length<=1" class="list-group">
+									<p>You are the only member in your group! Share your group name with your friends!
+									</p>
+								</ul>
+							</div>
 						</div>
 					</div>
-					<div class="col-9">
-						<div class="tab-content" id="v-pills-tabContent">
-							<div class="tab-pane fade show active" id="v-pills-weight" role="tabpanel"
-								aria-labelledby="v-pills-weight-tab">WEIGHT GRAPHIC
-								<img src="assets\images\graphic.jpg" alt="weight image" class="img-thumbnail">
-							</div>
-							<div class="tab-pane fade" id="v-pills-activity" role="tabpanel"
-								aria-labelledby="v-pills-activity-tab">
-								ACTIVITY GRAPHIC
-								<img src="assets\images\graphic.jpg" alt="weight image" class="img-thumbnail">
-							</div>
-							<div class="tab-pane fade" id="v-pills-ranking" role="tabpanel"
-								aria-labelledby="v-pills-ranking-tab">
-								RANKING GRAPHIC
-								<img src="assets\images\graphic.jpg" alt="weight image" class="img-thumbnail">
+					<div class="tab-pane fade" id="pills-challenges" role="tabpanel" aria-labelledby="pills-groups-tab">
+						<div class="row">
+							<div class="col">
+								<h4>Challenges</h4>
+								<div style="height:200px; overflow: auto; width:400px;  border: 2px solid #5E4485;">
+									<table mat-table [dataSource]="dataSource" width="100%">
+
+										<ng-container matColumnDef="select">
+											<th mat-header-cell *matHeaderCellDef></th>
+											<td mat-cell *matCellDef="let row">
+												<mat-checkbox (click)="$event.stopPropagation()"
+													(change)="$event ? selectedChallenge.toggle(row) : null"
+													[checked]="selectedChallenge.isSelected(row)"
+													[aria-label]="checkboxLabel(row)">
+												</mat-checkbox>
+											</td>
+										</ng-container>
+
+										<ng-container matColumnDef="challenge">
+											<th mat-header-cell *matHeaderCellDef> Challenge Name </th>
+											<td mat-cell *matCellDef="let challenge"> {{challenge[0]}} </td>
+										</ng-container>
+
+
+
+										<ng-container matColumnDef="group">
+											<th mat-header-cell *matHeaderCellDef> Created by Group </th>
+											<td mat-cell *matCellDef="let group">{{group[1]}}</td>
+										</ng-container>
+
+										<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+										<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+									</table>
+								</div>
+								<button class="btn btn-primary" (click)="setChallenge()"
+									[disabled]="(!(selectedChallenge.selected.length > 0))">
+									Set Challenge
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
-
-
-
-
-	<div id="footer">
-		<table class="table table-hover table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Name (Groups)</th>
-					<th scope="col">Date Joined</th>
-					<th scope="col">Progress</th>
-					<th scope="col">Ranking</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">Running (Burgendy)</th>
-					<td>5/18/17</td>
-					<td>50%</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<th scope="row">Cycling (Burgendy)</th>
-					<td>08/17/17</td>
-					<td>34%</td>
-					<td>4</td>
-				</tr>
-				<tr>
-					<th scope="row">Push Ups (Burgendy)</th>
-					<td>02/17/19</td>
-					<td>98%</td>
-					<td>1</td>
-				</tr>
-			</tbody>
-		</table>
-
+</div>
+<div *ngIf="loggedIn && !hasGroup" class="container">
+	<div id="body">
+		<div class="row">
+			<div class="col">
+				<div class="alert alert-primary" role="alert">
+					Welcome to Swole Goals!<br>
+					<br>
+					You will need to join a group to continue.<br>
+					If a friend has already made a group, enter their group name here.<br>
+					Otherwise, enter your own group name and a new group will be created.
+				</div>
+				<form>
+					<div class="form-group">
+						<input class="form-control" id="groupNameInput" [(ngModel)]="groupName" name="groupName">
+					</div>
+					<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngIf="!loggedIn" class="container">
+	<div id="body">
+		<div class="row">
+			<div class="alert alert-danger" role="alert">
+				Please Login
+			</div>
+		</div>
 	</div>
 </div>

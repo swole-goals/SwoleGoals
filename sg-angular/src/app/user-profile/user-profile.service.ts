@@ -16,8 +16,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserProfileService {
-  userEmail
-  constructor(private dataService: DataService, private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   postAPIGroupAdd(groupName, userEmail) {
     console.log("Reached postAPIDataGroup with groupName: ", groupName)
@@ -27,8 +26,8 @@ export class UserProfileService {
     console.log("Reached postAPIDataGroup with groupName: ", groupName)
     return this.httpClient.post(environment.fireStoreURL + '/removeFriendFromGroup', { 'groupName': groupName, 'userEmail': userEmail })
   }
-  createGroup(groupName) {
-    return this.httpClient.post(environment.fireStoreURL + '/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userEmail}` })
+  createGroup(groupName): Observable<Group> {
+    return this.httpClient.post<Group>(environment.fireStoreURL + '/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${DataService.getUserEmail()}` }, httpOptions)
   }
   getUser(userEmail: String) : Observable<User> {
     return this.httpClient.post<User>(environment.fireStoreURL + '/getUser', { 'userEmail': `${userEmail}` }, httpOptions)
@@ -36,9 +35,8 @@ export class UserProfileService {
   getUsers() : Observable<Array<String>> {
     return this.httpClient.post<Array<String>>(environment.fireStoreURL + '/getUsers', { 'userEmail': 'rkoripalli1@gmail.com'}, httpOptions)
   }
-  updateUser(userAge, userHeight, userWeight, userGroup) {
-    this.userEmail = this.dataService.getUserEmail();
-    return this.httpClient.post(environment.fireStoreURL + '/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}`, 'userGroup': `${userGroup}` })
+  updateUser() {
+    return this.httpClient.post(environment.fireStoreURL + '/updateInfo', { 'userEmail': `${DataService.getUserEmail()}`, 'userAge': `${DataService.getUserAge()}`, 'userHeight': `${DataService.getUserHeight()}`, 'userWeight': `${DataService.getUserWeight()}`, 'userGroup': `${DataService.getUserGroup()}` })
   }
   getGroup(groupName: String) : Observable<Group> {
     return this.httpClient.post<Group>(environment.fireStoreURL + '/getGroup', { 'groupName': `${groupName}` }, httpOptions)

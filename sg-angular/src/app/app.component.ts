@@ -14,10 +14,9 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginP
 export class AppComponent implements OnInit {
   title = 'sg-angular';
   loggedIn = false;
-  userInfo : object;
-  userImage : string;
 
   ngOnInit() {
+    this.router.navigate(['/app-splash']);
     if (isDevMode()) {
       console.log('👋 Development!');
     } else {
@@ -25,13 +24,13 @@ export class AppComponent implements OnInit {
     }
   }
 
-  constructor(private dataService : DataService, private router : Router, private socialAuthService: AuthService, 
+  constructor(private router : Router, private socialAuthService: AuthService, 
     private loginService : LoginService) {}
 
   logOut(){
-    this.dataService.logOut();
+    DataService.logOut();
     this.loggedIn = false;
-    console.log("After logged out", this.dataService.getUserName());
+    console.log("After logged out", DataService.getUserData());
   }
 
   logIn(socialPlatform : string){
@@ -45,14 +44,11 @@ export class AppComponent implements OnInit {
       socialPlatformProvider = LinkedinLoginProvider.PROVIDER_ID;
     }
     this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
-      this.userImage = userData.image;
-
       this.loginService.postAPIData(userData).subscribe((response) => {
-        this.userInfo = response;
-        this.dataService.setUserData(response);
-        this.dataService.setUserImage(this.userImage);
+        DataService.setUserData(response);
+        console.log(DataService.getUserData());
         this.loggedIn = true;
-        if (this.userInfo != null){
+        if (response != null){
           this.router.navigate(['/app-user-profile']);
         }
       },(error) => {

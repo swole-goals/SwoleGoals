@@ -4,10 +4,11 @@ import { Component, OnChanges, DoCheck, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Group } from './group';
 import { User } from './user';
-import {GetChallengesService} from "../../services/get-challenges.service";
-import {SetGroupChallengeService} from "../../services/set-group-challenge.service";
-import {SelectionModel} from "@angular/cdk/collections";
-import {PeriodicElement} from "../challenge-creation-menu/challenge-creation-menu.component";
+import { Router } from '@angular/router';
+import { GetChallengesService } from 'src/services/get-challenges.service';
+import { SetGroupChallengeService } from 'src/services/set-group-challenge.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { PeriodicElement } from '../challenge-creation-menu/challenge-creation-menu.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,20 +16,21 @@ import {PeriodicElement} from "../challenge-creation-menu/challenge-creation-men
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  group: Group;
-  user: User;
-  userData: object;
-  groupName: String;
-  userEmail: String;
-  userName: String;
-  image: String;
   loggedIn: boolean;
+  hasGroup: boolean;
+  groupName: String;
+  groupMembers: Array<string>;
+  userName: String;
+  userEmail: String;
+  image: String;
+  age: Number;
+  height: Number;
+  weight: Number;
   dataSource;
   displayedColumns: string[] = ['select', 'challenge', 'group'];
   selectedChallenge = new SelectionModel(false, []);
 
-  constructor(private dataService: DataService,
-              private userProfileService: UserProfileService,
+  constructor(private userProfileService: UserProfileService,
               private http: HttpClient,
               private getChallengesService: GetChallengesService,
               private setGroupChallengeService: SetGroupChallengeService) {
@@ -39,20 +41,31 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loggedIn = false;
-    this.userData = this.dataService.getUserData();
-    this.userName = this.dataService.getUserName();
-    this.userEmail = this.dataService.getUserEmail();
-    if(this.userEmail!=null){
+    this.hasGroup = false;
+    if(DataService.getUserEmail()!=null){
       this.getUserInfo();
     }
   }
 
   getUserInfo(){
-    this.userProfileService.getUser(this.userEmail).subscribe(res => {
-      this.user = res;
-      this.groupName = this.user.groupID;
-      console.log(this.user);
-      this.getGroupMembers();
+    this.userProfileService.getUser(DataService.getUserEmail()).subscribe(res => {
+      DataService.setUserData(res);
+      this.age = DataService.getUserAge();
+      this.height = DataService.getUserHeight();
+      this.weight = DataService.getUserWeight();
+      this.groupName = DataService.getUserGroup();
+      this.userEmail = DataService.getUserEmail();
+      this.image = DataService.getUserImage();
+      this.userName = DataService.getUserName();
+      console.log(this.groupName);
+      if(this.groupName!="null" && this.groupName!=null){
+        console.log(this.groupName);
+        this.getGroupMembers();
+      }
+      else {
+        console.log("Logged In");
+        this.loggedIn = true;
+      }
     })
   }
   
@@ -64,9 +77,10 @@ export class UserProfileComponent implements OnInit {
 
   getGroupMembers() {
     this.userProfileService.getGroup(this.groupName).subscribe(res => {
-      this.group = res;
+      DataService.setGroupData(res);
+      this.groupMembers = DataService.getGroupUsers();
+      this.hasGroup = true;
       this.loggedIn = true;
-      console.log(this.group.users);
     })
   }
 
@@ -75,19 +89,20 @@ export class UserProfileComponent implements OnInit {
     this.getGroupMembers();
     this.userProfileService.createGroup(this.groupName).subscribe((response) => {
       console.log('response from post data is ', response);
+      DataService.setGroupData(response);
     }, (error) => {
       console.log('error during post is ', error)
     })
   }
 
-  // addFriendToGroup(friendEmail: string) {
+  // add  dToGroup(  dEmail: string) {
   //   this.userData = this.dataService.getUserData();
-  //   this.dataService.addFriendToGroup(friendEmail);
+  //   this.dataService.add  dToGroup(  dEmail);
 
-  //   this.userProfileService.postAPIGroupAdd("FINAL_GROUP", friendEmail).subscribe((response) => {
-  //     console.log('response from addFriendToGroup ', response);
+  //   this.userProfileService.postAPIGroupAdd("FINAL_GROUP",   dEmail).subscribe((response) => {
+  //     console.log('response from add  dToGroup ', response);
   //   }, (error) => {
-  //     console.log('error during add friend to group ', error)
+  //     console.log('error during add   d to group ', error)
   //   })
 
   //   this.groupMembers = this.dataService.getGroupMembers();
@@ -95,14 +110,14 @@ export class UserProfileComponent implements OnInit {
   //   console.log("CURRENT GROUP MEMBERS: ", this.groupMembers);
   // }
 
-  // removeFriendFromGroup(friendEmail: string) {
+  // remove  dFromGroup(  dEmail: string) {
   //   this.userData = this.dataService.getUserData();
-  //   this.dataService.removeFriendFromGroup(friendEmail);
+  //   this.dataService.remove  dFromGroup(  dEmail);
 
-  //   this.userProfileService.postAPIGroupRemove("FINAL_GROUP", friendEmail).subscribe((response) => {
-  //     console.log('response from removeFriendFromGroup ', response);
+  //   this.userProfileService.postAPIGroupRemove("FINAL_GROUP",   dEmail).subscribe((response) => {
+  //     console.log('response from remove  dFromGroup ', response);
   //   }), (error) => {
-  //     console.log('error during remove friend from group ', error)
+  //     console.log('error during remove   d from group ', error)
   //   }
   //   this.groupMembers = this.dataService.getGroupMembers();
   //   console.log("CURRENT GROUP MEMBERS: ", this.groupMembers);
@@ -111,7 +126,11 @@ export class UserProfileComponent implements OnInit {
   updateUserInfo() {
     console.log("Updating User Info");
     console.log("Group: ", this.groupName);
-    this.userProfileService.updateUser(this.user.age, this.user.height, this.user.weight, this.groupName).subscribe((response) => {
+    DataService.setUserGroup(this.groupName);
+    DataService.setUserAge(this.age);
+    DataService.setUserHeight(this.height);
+    DataService.setUserWeight(this.weight);
+    this.userProfileService.updateUser().subscribe((response) => {
       console.log('response from post data is ', response);
     }, (error) => {
       console.log('error during post is ', error)
@@ -122,11 +141,11 @@ export class UserProfileComponent implements OnInit {
     if (confirm('Are you sure you want to set your Challenge? This will remove all progress your group has made on your ' +
       'current challenge.')) {
       let groupAndChallenge = [];
-      groupAndChallenge.push(this.dataService.getUserGroup());
+      groupAndChallenge.push(DataService.getUserGroup());
       groupAndChallenge.push(this.selectedChallenge.selected[0].challengeName);
       console.log(groupAndChallenge);
       this.setGroupChallengeService.postAPIdata(groupAndChallenge).subscribe((res) => {
-          this.dataService.setchallengeName(String(res));
+          DataService.setChallengeName(String(res));
       });
     }
   }

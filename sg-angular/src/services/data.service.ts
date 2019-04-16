@@ -1,97 +1,119 @@
+import { Group } from './../app/user-profile/group';
+import { User } from './../app/user-profile/user';
 import { Injectable } from '@angular/core';
-
-import { FriendUpdateService } from 'src/app/friends/friendupdate.service';
-
-import {visitAll} from "@angular/compiler";
- 
+import {visitAll} from "@angular/compiler"; 
 //import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export abstract class DataService {
 
-
-  userData;
-  challengeData;
-  challengeName: string;
-  userImage: String;
-  groupID: String;
-  groupData;
-  groupMembers : Array<string>;
+  static group: Group;
+  static user: User;
+  static challengeData;
+  static groupMembers : Array<string>;
+  static challengeName: String;
 
   constructor() {
-    this.userData = {};
-    this.groupMembers = [];
-    this.challengeData = {};
+    DataService.group;
+    DataService.groupMembers = [];
+    DataService.challengeData = {};
    }
 
-  logOut(){
-    this.userData = {};
-    this.challengeData = {};
+  static logOut(){
+    DataService.challengeData = {};
   }
-  setUserData(val : object){
-    this.userData = val;
+  static setUserAge(val: Number){
+    DataService.user.age = val;
   }
-
-  setChallengeData(val : object){
-    this.challengeData = val;
+  static setUserHeight(val: Number){
+    DataService.user.height = val;
   }
-
-  getchallengeName(): string {
-    return this.challengeName;
+  static setUserWeight(val: Number){
+    DataService.user.weight = val;
   }
-
-  setchallengeName(value: string) {
-    this.challengeName = value;
+  static setUserGroup(val: String){
+    DataService.user.groupID = val;
   }
-
-  getUserData(){
-    return this.userData;
-  }
-  getUserEmail(){
-    return this.userData.email;
-  }
-  getUserName(){
-    return this.userData.name;
-  }
-  getUserAge(){
-    return this.userData.age;
-  }
-  setUserImage(image : String){
-    this.userImage = image;
-  }
-  getUserImage(){
-    return this.userImage;
-  }
-  getUserGroup(){
-    return this.userData.groupID;
-  }
-  getUserHeight(){
-    return this.userData.height;
-  }
-  getUserWeight(){
-    return this.userData.weight;
+  static setUserData(val: User){
+    DataService.user = val;
   }
 
-  addFriendToGroup(val : string){
-    var index = this.groupMembers.indexOf(val);
+  static setGroupData(val: Group){
+    DataService.group = val;
+  }
+  static setGroupName(val: String){
+    DataService.group.name = val;
+  }
+
+
+  static getUserData(){
+    return DataService.user;
+  }
+  static getUserName(){
+    return DataService.user.name;
+  }
+  getchallengeName(): String {
+    return DataService.challengeName;
+  }
+
+  static getUserEmail(){
+    return DataService.user.email;
+  }
+  static getUserImage(){
+    return DataService.user.image;
+  }
+  static getUserGroup(){
+    return DataService.user.groupID;
+  }
+  static getUserAge(){
+    return DataService.user.age;
+  }
+  static getUserHeight(){
+    return DataService.user.height;
+  }
+  static getUserWeight(){
+    return DataService.user.weight;
+  }
+  static getGroupData(){
+    return DataService.group;
+  }
+  static getGroupUsers(){
+    return DataService.group.users;
+  }
+  static getGroupName(){
+    return DataService.group.name;
+  }
+  
+  static setChallengeData(val : object){
+    DataService.challengeData = val;
+  }
+  static setChallengeName(name: String){
+    DataService.challengeName = name;
+  }
+  static getChallengeName(){
+    return DataService.challengeName;
+  }
+
+  static addFriendToGroup(val : string){
+    var index = DataService.groupMembers.indexOf(val);
     console.log("index should be -1", index);
     if (index == -1) {
-      this.groupMembers.push(val);
+      DataService.groupMembers.push(val);
     }
-    console.log('Group Members after Add: ', this.groupMembers)
+    console.log('Group Members after Add: ', DataService.groupMembers)
   }
-  removeFriendFromGroup(val : string){
-    var index = this.groupMembers.indexOf(val);
+  static removeFriendFromGroup(val : string){
+    var index = DataService.groupMembers.indexOf(val);
     console.log('index is: ', index);
     if (index != -1) {
-      this.groupMembers.splice(index, 1);
+      DataService.groupMembers.splice(index, 1);
     }
-    console.log('Group Members after Remove: ', this.groupMembers)
+    console.log('Group Members after Remove: ', DataService.groupMembers)
   }
-  getGroupMembers() {
-    console.log("getGroupMembers returns: ", this.groupMembers)
-    return this.groupMembers;
+  static getGroupMembers() {
+    console.log("getGroupMembers returns: ", DataService.groupMembers)
+    return DataService.groupMembers;
   }
 }

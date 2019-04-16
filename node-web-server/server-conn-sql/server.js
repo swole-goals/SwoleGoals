@@ -19,7 +19,7 @@ var mysqlConn = mysql.createConnection({
      user     : 'root',
      password : 'swolegoals',
      database : 'exercises',
-    //  socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
+     //socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 /*
@@ -51,8 +51,9 @@ app.get('/getUser', (req, res) => {
   })
 });
 
-app.get('/getUser/:lastname', (req, res) => {
+app.get('/getUsers/:lastname', (req, res) => {
   var lastname = req.params.lastname;
+  console.log(lastname);
   mysqlConn.query("select * from users where LastName = ?", lastname, (err, results, fields) => {
     if (err){
       console.log(err);
@@ -67,19 +68,19 @@ app.get('/getUser/:lastname', (req, res) => {
 
 // get all info from exercises
 app.get('/getEx', (req, res) => {
-  mysqlConn.query("select * from bodybuilding_exercises", (err, results, fields) => {
+  mysqlConn.query("select * from clean_exercises", (err, results, fields) => {
     if (err){
       console.log(err);
     }else{
-      console.log("get exercises info successfully.");
+      console.log("get ex info successfully.");
       res.send(results);
     }
   })
 });
 
-app.get('/getEx/:name', (req, res) => {
+app.get('/getExercises/:name', (req, res) => {
   var name = req.params.name;
-  mysqlConn.query("select * from bodybuilding_exercises name = ?", name, (err, results, fields) => {
+  mysqlConn.query("select * from clean_exercises where name = ?", name, (err, results, fields) => {
     if (err){
       console.log(err);
     }else{
