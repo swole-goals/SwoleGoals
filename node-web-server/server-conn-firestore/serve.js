@@ -8,6 +8,7 @@
 
 // const db = admin.firestore();
 // // ...
+
 const admin = require('firebase-admin');
 const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
@@ -276,7 +277,8 @@ app.post('/addChallenge', bodyparser.json(), (req, res) => {
       }else {
         challengeRef.set({
           challengeName: req.body[0],
-          exercises: "1"
+          exercises: "1",
+          createdByGroup: req.body[3]
         });
         for (let i = 0; i < req.body[1].length; i++) {
           console.log(req.body[1][i]);
@@ -305,9 +307,9 @@ app.get('/getChallenges', (req, res) => {
   let challenges = [];
   db.collection("Challenges").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
-      challenges.push(String(doc.id));
-      console.log(doc.id);
-      console.log(challenges.length);
+      var challenge = [String(doc.id), doc.get("createdByGroup")];
+      console.log(challenge);
+      challenges.push(challenge);
      // console.log(doc.id);
     });
     res.json(challenges);

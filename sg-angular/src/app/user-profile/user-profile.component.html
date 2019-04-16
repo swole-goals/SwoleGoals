@@ -91,6 +91,7 @@
 								<h4>Challenges</h4>
 								<div style="height:200px; overflow: auto; width:400px;  border: 2px solid #5E4485;">
 									<table mat-table [dataSource]="dataSource" width="100%">
+
 										<ng-container matColumnDef="select">
 											<th mat-header-cell *matHeaderCellDef></th>
 											<td mat-cell *matCellDef="let row">
@@ -103,11 +104,19 @@
 										</ng-container>
 
 										<ng-container matColumnDef="challenge">
-											<td mat-cell *matCellDef="let challenge"> {{challenge}} </td>
+											<th mat-header-cell *matHeaderCellDef> Challenge Name </th>
+											<td mat-cell *matCellDef="let challenge"> {{challenge[0]}} </td>
 										</ng-container>
 
-										<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
+
+										<ng-container matColumnDef="group">
+											<th mat-header-cell *matHeaderCellDef> Created by Group </th>
+											<td mat-cell *matCellDef="let group">{{group[1]}}</td>
+										</ng-container>
+
+										<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+										<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 									</table>
 								</div>
 								<button class="btn btn-primary" (click)="setChallenge()"
