@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   image: String;
   loggedIn: boolean;
   dataSource;
-  displayedColumns: string[] = ['select', 'challenge'];
+  displayedColumns: string[] = ['select', 'challenge', 'group'];
   selectedChallenge = new SelectionModel(false, []);
 
   constructor(private dataService: DataService,
@@ -123,7 +123,7 @@ export class UserProfileComponent implements OnInit {
       'current challenge.')) {
       let groupAndChallenge = [];
       groupAndChallenge.push(this.dataService.getUserGroup());
-      groupAndChallenge.push(this.selectedChallenge.selected[0]);
+      groupAndChallenge.push(this.selectedChallenge.selected[0].challengeName);
       console.log(groupAndChallenge);
       this.setGroupChallengeService.postAPIdata(groupAndChallenge).subscribe((res) => {
           this.dataService.setchallengeName(String(res));
