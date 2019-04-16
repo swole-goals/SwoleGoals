@@ -44,11 +44,29 @@ var session = require('express-session');
 var app = express();
 
 
-
 var bodyparser = require('body-parser');
 var cors = require('cors');//cors is used to allow cross platform services
 app.use(cors());
 app.use(bodyparser.json());
+
+/*
+var mongoose = require('mongoose');
+var expressSession = require('express-session');
+var MongoStore = require('connect-mongo');
+
+mongoose.connect(db_url, function (err) {
+    if (err) {
+        console.log(err);
+    }
+});
+
+app.use(expressSession({
+    secret: process.env.SESSION_SECRET || 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+*/
 
 app.get('/', (req, res) => {
   res.send("Hello from Firestore!");
