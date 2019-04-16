@@ -45,6 +45,9 @@ export class UserService {
     return this.user.weight;
   }
 
+  login(loginData): Observable<User>{
+    return this.httpClient.post<User>(environment.fireStoreURL+'/addUser', {'name' : `${loginData.name}`, 'email' : `${loginData.email}`, 'image' : `${loginData.image}`});
+  }
   //Do not call this directly except for during login. Instead call indirectly using the methods below
   setUserData(val: User) {
     this.user = val;
