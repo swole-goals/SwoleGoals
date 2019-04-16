@@ -39,8 +39,11 @@ admin.initializeApp({
 const db = admin.firestore();
 
 const express = require('express');
+var session = require('express-session');
 
 var app = express();
+
+
 
 var bodyparser = require('body-parser');
 var cors = require('cors');//cors is used to allow cross platform services
@@ -261,9 +264,6 @@ app.post('/addClgtoGroup', bodyparser.json(), (req, res) => {
   });
 });
 
-
-
-
 app.post('/addChallenge', bodyparser.json(), (req, res) => {
     console.log(req.body);
     const challengeRef = db.collection('Challenges').doc(req.body[0]);
@@ -330,6 +330,35 @@ app.post('/setGroupChallenge', bodyparser.json(), (req, res) => {
     }
   });
 });
+
+app.get('/getCurrentChallenge/:email', bodyparser.json(), (req, res) => {
+  var email = req.params.email;
+  const userRef = db.collection('users').doc(email);
+  userRef.get().then((docSnapshot1) => {
+    var groupID = docSnapshot1.get('groupID');
+    if (groupID != null){
+      groupRef = db.collection('groups').doc(groupID);
+      groupRef.get().then((docSnapshot2) => {
+        var challenge = docSnapshot2.get('challenge');
+        if (challenge != null){
+          challengeRef = db.collection('Challenges').doc(challenge);
+          challengeRef.get().then((docSnapshot3) => {
+            if (docSnapshot3.exists){
+              res.json(docSnapshot3.data());
+            }else{
+              res.json('challenge not exisits');
+            }
+          })
+        }else{
+          res.json('challenge not exisits');
+        }
+      })
+    }else{
+      res.json('user not in group');
+    }
+  })
+})
+
 
 
   //findUser info
