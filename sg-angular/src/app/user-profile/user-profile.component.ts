@@ -4,6 +4,10 @@ import { Component, OnChanges, DoCheck, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Group } from './group';
 import { User } from './user';
+import {GetChallengesService} from "../../services/get-challenges.service";
+import {SetGroupChallengeService} from "../../services/set-group-challenge.service";
+import {SelectionModel} from "@angular/cdk/collections";
+import {PeriodicElement} from "../challenge-creation-menu/challenge-creation-menu.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -19,7 +23,18 @@ export class UserProfileComponent implements OnInit {
   userName: String;
   image: String;
   loggedIn: boolean;
-  constructor(private dataService: DataService, private userProfileService: UserProfileService, private http: HttpClient) {
+  dataSource;
+  displayedColumns: string[] = ['select', 'challenge'];
+  selectedChallenge = new SelectionModel(false, []);
+
+  constructor(private dataService: DataService,
+              private userProfileService: UserProfileService,
+              private http: HttpClient,
+              private getChallengesService: GetChallengesService,
+              private setGroupChallengeService: SetGroupChallengeService) {
+    this.getChallengesService.getAPIdata().subscribe(res => {
+      this.dataSource = res;
+    });
   }
 
   ngOnInit() {
@@ -101,5 +116,33 @@ export class UserProfileComponent implements OnInit {
     }, (error) => {
       console.log('error during post is ', error)
     })
+  }
+
+  setChallenge(){//
+    if (confirm('Are you sure you want to set your Challenge? This will remove all progress your group has made on your ' +
+      'current challenge.')) {
+      let groupAndChallenge = [];
+      groupAndChallenge.push(this.dataService.getUserGroup());
+      groupAndChallenge.push(this.selectedChallenge.selected[0]);
+      console.log(groupAndChallenge);
+      this.setGroupChallengeService.postAPIdata(groupAndChallenge).subscribe((res) => {
+          this.dataService.setchallengeName(String(res));
+      });
+    }
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: PeriodicElement): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selectedChallenge.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selectedChallenge.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
   }
 }

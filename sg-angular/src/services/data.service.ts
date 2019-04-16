@@ -11,8 +11,10 @@ import {visitAll} from "@angular/compiler";
 })
 export class DataService {
 
+
   userData;
   challengeData;
+  challengeName: string;
   userImage: String;
   groupID: String;
   groupData;
@@ -34,6 +36,14 @@ export class DataService {
 
   setChallengeData(val : object){
     this.challengeData = val;
+  }
+
+  getchallengeName(): string {
+    return this.challengeName;
+  }
+
+  setchallengeName(value: string) {
+    this.challengeName = value;
   }
 
   getUserData(){

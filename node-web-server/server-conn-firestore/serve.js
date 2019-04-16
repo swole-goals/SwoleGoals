@@ -164,7 +164,8 @@ app.post('/addFriendToGroup', bodyparser.json(), (req, res) => {
     } else {
       groupRef.set({
         name: req.body.groupName,
-        users: req.body.userEmail
+        users: req.body.userEmail,
+        challenge: '' //
       }).then(() => {
         console.log('Created Group!');
       }).catch((err) => {
@@ -266,6 +267,37 @@ app.post('/addChallenge', bodyparser.json(), (req, res) => {
 
     });
 
+});
+
+app.get('/getChallenges', (req, res) => {
+  let challenges = [];
+  db.collection("Challenges").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      challenges.push(String(doc.id));
+      console.log(doc.id);
+      console.log(challenges.length);
+     // console.log(doc.id);
+    });
+    res.json(challenges);
+  });
+});
+
+app.post('/setGroupChallenge', bodyparser.json(), (req, res) => {
+  console.log(req.body.group);
+  console.log(req.body.challenge);
+  const userRef = db.collection('groups').doc(req.body.group);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      userRef.update({
+        challenge: req.body.challenge
+      }).then(() => {
+        console.log('Updated challenge!');
+        res.json(req.body.challenge);
+      }).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
 });
 
 
