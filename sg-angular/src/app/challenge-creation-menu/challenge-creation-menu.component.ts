@@ -7,6 +7,7 @@ import { SelectionModel} from "@angular/cdk/collections";
 import {ChallengeCreationService} from "./challenge-creation.service";
 import {DataService} from "../../services/data.service";
 import {Challenge} from "./challenge";
+import { UserService } from 'src/services/user.service';
 
 export interface PeriodicElement {
   name: string;
@@ -39,7 +40,8 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
 
   constructor(private exerciseService: ExerciseListService,
-              private challengeCreationService: ChallengeCreationService) {
+              private challengeCreationService: ChallengeCreationService,
+              private userService: UserService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
       this.dataSource1 = new MatTableDataSource(res);
       this.dataSource1.paginator = this.paginator;
@@ -108,7 +110,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
     challengeData.push(this.challengeName);
     challengeData.push(exerciseNames);
     challengeData.push(this.exerciseReps);
-    challengeData.push(DataService.getUserGroup());
+    challengeData.push(this.userService.getUserGroup());
     console.log(challengeData);
     this.challengeCreationService.postAPIdata(challengeData).subscribe((response) => {
         let challengeInfo = response;
