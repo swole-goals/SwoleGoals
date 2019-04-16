@@ -170,11 +170,32 @@ app.get('/getChallengeExercises/:name', bodyparser.json(), (req, res) => {
 app.post('/addGroup', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
+  const userRef = db.collection('users').doc(req.body.userEmail);
+
+  //removing user from previous group
+  userRef.get().then((doc) => {
+    const previousGroupRef = db.collection('groups').doc(doc.get('groupID'));
+    if(previousGroupRef != null) {
+      previousGroupRef.get().then((doc) => {
+        if (doc.exists) {
+          previousGroupRef.update({
+            users: admin.firestore.FieldValue.arrayRemove(req.body.userEmail)
+          });
+        }
+      }).catch((err) => {
+        console.log('got an error:', err);
+      });
+    }
+  }).catch((err) => {
+    console.log('got and error:', err);
+  }) ;
+
+  //adding user to group or creating new group
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
       groupRef.update({
         users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
-      }) 
+      });
       console.log('Group already exists, adding user to group');
     } else {
       groupRef.set({
