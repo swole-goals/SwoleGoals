@@ -21,11 +21,11 @@
 						aria-labelledby="pills-profile-tab">
 						<div class="row">
 							<div class="col-4">
-								<img src="{{image}}" alt="profile image" class="img-thumbnail">
+								<img src="{{userService.getUserImage()}}" alt="profile image" class="img-thumbnail">
 							</div>
 							<div class="col-8">
-								<h5>{{userName}}</h5>
-								<p>{{userEmail}}</p>
+								<h5>{{userService.user.name}}</h5>
+								<p>{{userService.user.email}}</p>
 								<form>
 									<div class="form-group">
 										<div class="form-row">

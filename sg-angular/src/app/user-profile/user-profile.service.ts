@@ -5,7 +5,8 @@ import { environment } from '../../environments/environment';
 import { Group } from './group'
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './user'
+import { User } from '../../services/user'
+import { UserService } from 'src/services/user.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,7 +17,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserProfileService {
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private userService: UserService) { }
 
   postAPIGroupAdd(groupName, userEmail) {
     console.log("Reached postAPIDataGroup with groupName: ", groupName)
@@ -27,16 +28,7 @@ export class UserProfileService {
     return this.httpClient.post(environment.fireStoreURL + '/removeFriendFromGroup', { 'groupName': groupName, 'userEmail': userEmail })
   }
   createGroup(groupName): Observable<Group> {
-    return this.httpClient.post<Group>(environment.fireStoreURL + '/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${DataService.getUserEmail()}` }, httpOptions)
-  }
-  getUser(userEmail: String) : Observable<User> {
-    return this.httpClient.post<User>(environment.fireStoreURL + '/getUser', { 'userEmail': `${userEmail}` }, httpOptions)
-  }
-  getUsers() : Observable<Array<String>> {
-    return this.httpClient.post<Array<String>>(environment.fireStoreURL + '/getUsers', { 'userEmail': 'rkoripalli1@gmail.com'}, httpOptions)
-  }
-  updateUser() {
-    return this.httpClient.post(environment.fireStoreURL + '/updateInfo', { 'userEmail': `${DataService.getUserEmail()}`, 'userAge': `${DataService.getUserAge()}`, 'userHeight': `${DataService.getUserHeight()}`, 'userWeight': `${DataService.getUserWeight()}`, 'userGroup': `${DataService.getUserGroup()}` })
+    return this.httpClient.post<Group>(environment.fireStoreURL + '/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userService.getUserEmail()}` }, httpOptions)
   }
   getGroup(groupName: String) : Observable<Group> {
     return this.httpClient.post<Group>(environment.fireStoreURL + '/getGroup', { 'groupName': `${groupName}` }, httpOptions)
