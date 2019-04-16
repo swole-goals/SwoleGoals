@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   loggedIn = false;
 
   ngOnInit() {
+    this.router.navigate(['/app-splash']);
     if (isDevMode()) {
       console.log('👋 Development!');
     } else {

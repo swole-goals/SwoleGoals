@@ -4,6 +4,7 @@ import { Component, OnChanges, DoCheck, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Group } from './group';
 import { User } from './user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,6 +13,7 @@ import { User } from './user';
 })
 export class UserProfileComponent implements OnInit {
   loggedIn: boolean;
+  hasGroup: boolean;
   groupName: String;
   groupMembers: Array<string>;
   userName: String;
@@ -25,6 +27,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loggedIn = false;
+    this.hasGroup = false;
     if(DataService.getUserEmail()!=null){
       this.getUserInfo();
     }
@@ -40,10 +43,13 @@ export class UserProfileComponent implements OnInit {
       this.userEmail = DataService.getUserEmail();
       this.image = DataService.getUserImage();
       this.userName = DataService.getUserName();
-      if(this.groupName!=="null" && this.groupName!=null){
+      console.log(this.groupName);
+      if(this.groupName!="null" && this.groupName!=null){
+        console.log(this.groupName);
         this.getGroupMembers();
       }
       else {
+        console.log("Logged In");
         this.loggedIn = true;
       }
     })
@@ -59,6 +65,7 @@ export class UserProfileComponent implements OnInit {
     this.userProfileService.getGroup(this.groupName).subscribe(res => {
       DataService.setGroupData(res);
       this.groupMembers = DataService.getGroupUsers();
+      this.hasGroup = true;
       this.loggedIn = true;
     })
   }

@@ -16,7 +16,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserProfileService {
-  userEmail
   constructor(private httpClient: HttpClient) { }
 
   postAPIGroupAdd(groupName, userEmail) {

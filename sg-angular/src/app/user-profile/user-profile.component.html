@@ -1,19 +1,15 @@
-<div *ngIf="loggedIn" class="container-fluid">
+<div *ngIf="loggedIn && hasGroup" class="container-fluid">
 	<div id="body">
 		<div class="row">
-			<div class="col-lg-6">
+			<div class="col-lg-8">
 				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
 							role="tab" aria-controls="pills-profile" aria-selected="true">Profile</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" id="pills-friends-tab" data-toggle="pill" href="#pills-friends" role="tab"
-							aria-controls="pills-friends" aria-selected="false">Friends</a>
-					</li>
-					<li class="nav-item">
 						<a class="nav-link" id="pills-groups-tab" data-toggle="pill" href="#pills-groups" role="tab"
-							aria-controls="pills-groups" aria-selected="false">Groups</a>
+							aria-controls="pills-groups" aria-selected="false">Group</a>
 					</li>
 				</ul>
 				<div class="tab-content" id="pills-tabContent">
@@ -58,106 +54,65 @@
 								</form>
 							</div>
 						</div>
-
-					</div>
-					<div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab">
-						<button (click)="getUsers()" class="btn btn-primary">Get</button>
 					</div>
 					<div class="tab-pane fade" id="pills-groups" role="tabpanel" aria-labelledby="pills-groups-tab">
-            <div class="row">
-              <div class="col">
-                <h4>Your Group</h4>
-                <form>
-                  <div class="form-group">
-                    <input class="form-control" id="groupNameInput" [(ngModel)]="groupName" name="groupName">
-                  </div>
-                  <button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
-                </form>
-              </div>
-              <div class="col">
-                <h4>Group Members</h4>
-                <ul class="list-group">
-                  <li *ngFor="let user of groupMembers" class="list-group-item">
-                    {{user}}
-                  </li>
-                </ul>
-              </div>
-            </div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-6">
-				<div class="row">
-					<div class="col-3">
-						<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
-							aria-orientation="vertical">
-							<a class="nav-link active" id="v-pills-weight-tab" data-toggle="pill" href="#v-pills-weight"
-								role="tab" aria-controls="v-pills-weight" aria-selected="true">Weight</a>
-							<a class="nav-link" id="v-pills-activity-tab" data-toggle="pill" href="#v-pills-activity"
-								role="tab" aria-controls="v-pills-activity" aria-selected="false">Activity</a>
-							<a class="nav-link" id="v-pills-ranking-tab" data-toggle="pill" href="#v-pills-ranking"
-								role="tab" aria-controls="v-pills-ranking" aria-selected="false">Ranking</a>
-						</div>
-					</div>
-					<div class="col-9">
-						<div class="tab-content" id="v-pills-tabContent">
-							<div class="tab-pane fade show active" id="v-pills-weight" role="tabpanel"
-								aria-labelledby="v-pills-weight-tab">WEIGHT GRAPHIC
-								<img src="assets\images\graphic.jpg" alt="weight image" class="img-thumbnail">
+						<div class="row">
+							<div class="col">
+								<h4>Your Group</h4>
+								<form>
+									<div class="form-group">
+										<input class="form-control" id="groupNameInput" [(ngModel)]="groupName"
+											name="groupName">
+									</div>
+									<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
+								</form>
 							</div>
-							<div class="tab-pane fade" id="v-pills-activity" role="tabpanel"
-								aria-labelledby="v-pills-activity-tab">
-								ACTIVITY GRAPHIC
-								<img src="assets\images\graphic.jpg" alt="weight image" class="img-thumbnail">
-							</div>
-							<div class="tab-pane fade" id="v-pills-ranking" role="tabpanel"
-								aria-labelledby="v-pills-ranking-tab">
-								RANKING GRAPHIC
-								<img src="assets\images\graphic.jpg" alt="weight image" class="img-thumbnail">
+							<div class="col">
+								<h4>Group Members</h4>
+								<ul *ngIf="groupMembers.length>1" class="list-group">
+									<li *ngFor="let user of groupMembers" class="list-group-item">
+										{{user}}
+									</li>
+								</ul>
+								<ul *ngIf="groupMembers.length<=1" class="list-group">
+									<p>You are the only member in your group! Share your group name with your friends!
+									</p>
+								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
-
-
-
-
-	<div id="footer">
-		<table class="table table-hover table-striped">
-			<thead>
-				<tr>
-					<th scope="col">Name (Groups)</th>
-					<th scope="col">Date Joined</th>
-					<th scope="col">Progress</th>
-					<th scope="col">Ranking</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">Running (Burgendy)</th>
-					<td>5/18/17</td>
-					<td>50%</td>
-					<td>3</td>
-				</tr>
-				<tr>
-					<th scope="row">Cycling (Burgendy)</th>
-					<td>08/17/17</td>
-					<td>34%</td>
-					<td>4</td>
-				</tr>
-				<tr>
-					<th scope="row">Push Ups (Burgendy)</th>
-					<td>02/17/19</td>
-					<td>98%</td>
-					<td>1</td>
-				</tr>
-			</tbody>
-		</table>
-
+</div>
+<div *ngIf="loggedIn && !hasGroup" class="container">
+	<div id="body">
+		<div class="row">
+			<div class="col">
+				<div class="alert alert-primary" role="alert">
+					Welcome to Swole Goals!<br>
+					<br>
+					You will need to join a group to continue.<br>
+					If a friend has already made a group, enter their group name here.<br>
+					Otherwise, enter your own group name and a new group will be created.
+				</div>
+				<form>
+					<div class="form-group">
+						<input class="form-control" id="groupNameInput" [(ngModel)]="groupName" name="groupName">
+					</div>
+					<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngIf="!loggedIn" class="container">
+	<div id="body">
+		<div class="row">
+			<div class="alert alert-danger" role="alert">
+				Please Login
+			</div>
+		</div>
 	</div>
 </div>
