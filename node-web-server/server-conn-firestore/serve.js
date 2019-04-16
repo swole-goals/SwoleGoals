@@ -52,8 +52,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/addUser', bodyparser.json(), (req, res) => {
-  console.log(req.body);
-  //res.json(req.body);
   const userRef = db.collection('users').doc(req.body.email);
   userRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
@@ -74,14 +72,32 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
       }).then(() => userRef.get().then((docSnapshot) => {
         res.json(docSnapshot.data())
       })).catch((err) => {
-        console.log('get an error:', err);
+        console.log('Error:', err);
+      });
+    }
+  });
+});
+
+app.post('/updateUser', bodyparser.json(), (req, res) => {
+  // console.log(req.body);
+  const userRef = db.collection('users').doc(req.body.email);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      userRef.update({
+        age: req.body.age,
+        height: req.body.height,
+        weight: req.body.weight,
+        groupID: req.body.groupID
+      }).then(() => {
+        console.log('Updated user info!');
+      }).catch((err) => {
+        console.log('Error:', err);
       });
     }
   });
 });
 
 app.post('/getUser', bodyparser.json(), (req, res) => {
-  console.log(req.body);
   const userRef = db.collection('users').doc(req.body.userEmail);
   userRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
@@ -209,25 +225,6 @@ app.post('/removeFriendFromGroup', bodyparser.json(), (req, res) => {
         groupID: admin.firestore.FieldPath.arrayRemove(req.body.groupName)
       }).then(() => {
         console.log('Added User to Group!');
-      }).catch((err) => {
-        console.log('get an error:', err);
-      });
-    }
-  });
-});
-
-app.post('/updateInfo', bodyparser.json(), (req, res) => {
-  console.log(req.body);
-  const userRef = db.collection('users').doc(req.body.userEmail);
-  userRef.get().then((docSnapshot) => {
-    if (docSnapshot.exists) {
-      userRef.update({
-        age: req.body.userAge,
-        height: req.body.userHeight,
-        weight: req.body.userWeight,
-        groupID: req.body.userGroup
-      }).then(() => {
-        console.log('Updated user info!');
       }).catch((err) => {
         console.log('get an error:', err);
       });

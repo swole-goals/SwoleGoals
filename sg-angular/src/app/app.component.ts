@@ -1,9 +1,9 @@
 import { LoginService } from './login/login.service';
-//import { LoginComponent } from './login/login.component';
 import { Router } from '@angular/router';
 import { DataService } from './../services/data.service';
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
+import { UserService } from 'src/services/user.service';
 
 
 @Component({
@@ -25,16 +25,14 @@ export class AppComponent implements OnInit {
   }
 
   constructor(private router : Router, private socialAuthService: AuthService, 
-    private loginService : LoginService) {}
+    private loginService : LoginService, private userService: UserService) {}
 
   logOut(){
     DataService.logOut();
     this.loggedIn = false;
-    console.log("After logged out", DataService.getUserData());
   }
 
   logIn(socialPlatform : string){
-    //this.loginComponent.socialSignIn('google');
     let socialPlatformProvider;
     if (socialPlatform == "facebook"){
       socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
@@ -45,8 +43,8 @@ export class AppComponent implements OnInit {
     }
     this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
       this.loginService.postAPIData(userData).subscribe((response) => {
-        DataService.setUserData(response);
-        console.log(DataService.getUserData());
+        console.log(response);
+        this.userService.setUserData(response);
         this.loggedIn = true;
         if (response != null){
           this.router.navigate(['/app-user-profile']);
