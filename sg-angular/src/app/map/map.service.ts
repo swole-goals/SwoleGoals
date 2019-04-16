@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from "rxjs/operators";
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
+import { ChallengeInfo } from './challengeinfo';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,10 @@ export class MapService {
           image1: e.image2,
           image2: e.image2
         })));
+  }
+  getChallenge(email: string) {
+  	return this.httpClient.get(environment.fireStoreURL+`/getCurrentChallenge/`+email);
+  	
   }
 }
 

@@ -5,6 +5,10 @@
 			<div class="row">
 				<div class="col-6">
 				<table>
+					<ng-container *ngFor="let exercise of reps">
+						<td><button (click)="aboutExercise(500)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
+						
+					</ng-container>
 				<tr>
 					<td><button (click)="aboutExercise(500)" type="button" class="btn btn-primary tile">{{exercisesList[200].name}}</button></td>
 					<td><button (click)="aboutExercise(501)" type="button" class="btn btn-primary tile">{{exercisesList[201].name}}</button></td>
