@@ -57,15 +57,20 @@ export class ResultsComponent implements OnInit {
     this.challengeName = this.dataService.getChallengeData;
   }
 
+  /* Create a ChallengeResult Object to contain user results. */
   createChallengeResultObject() {
-
-    /* Set class exerciseList variable. */
-    this.getChallengeExerciseList();
-    //this.getGroupUsers();
-
+    this.populateChallengeResultObject();
   }
 
-  getChallengeExerciseList() {
+  /* Update User's Result for specific Exercise. */
+  updateChallengeResultsUserExercise(exerciseName: string, results: string) {
+    this.exerciseName = "[Rope Climb]{8}";
+    this.results = 123456789;
+    this.postChallengeResults();
+  }
+
+  populateChallengeResultObject() {
+    //TODO: Replace this with grabbing challenge and groupID from DataService.
     this.challengeName = "Challenge20";
     this.groupName = "ResultTestGroup";
 
@@ -97,7 +102,7 @@ export class ResultsComponent implements OnInit {
     
   }
 
-  getGroupUsers() {
+  /*getGroupUsers() {
     this.groupName = "ResultTestGroup";
     this.httpClient.post<Group>(environment.fireStoreURL+'/getGroupUsers',
     {
@@ -112,19 +117,12 @@ export class ResultsComponent implements OnInit {
       console.log('error during getGroupUsers ', error)
     })
     
-  }
-
-  /* Update User's Result for specific Exercise. */
-  updateChallengeResultsUserExercise(exerciseName: string, results: string) {
-    this.exerciseName = "[Rope Climb]{8}";
-    this.results = 123456789;
-    this.postChallengeResults();
-  }
+  }*/
 
   /* POST ChallengeResults Object to firestore server. */
   postChallengeResults() {
     /* TODO: Remove below to test grabbing info from DataService */
-    this.groupName = "testGroupID15";
+    this.groupName = "testGroupID18";
     this.challengeName = "testChallengeName";
     this.userEmail = "testUserEmail";
     this.results = "testResults";

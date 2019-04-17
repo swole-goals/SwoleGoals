@@ -93,24 +93,54 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
     if (docSnapshot.exists) {
       console.log('document already exists');
       res.json(docSnapshot.data());
-      var resultListQuery = resRef.where("resultList", "==", true);
       
+      const {challengeName, groupID, resultList} = docSnapshot.data();
+      resRef.update({
+        groupID: 'testing UPDATE',
+        //resultList: 'isthischanging' ???
 
-
-      
+      }).then(() => {
+        console.log('Updated challengeResult successfully!');
+      }).then(() => resRef.get().then((docSnapshot) => {
+        res.json(docSnapshot.data())
+      })).catch((err) => {
+        console.log('get an error:', err);
+      });
     } else {
       var arrOfResultObj = [];
       var arrOfUserEmail = [];
+      var arrOfUserObj = [];
+
+      var resultObj = {
+        exerciseName: 'exerciseName',
+        userObj: []
+      };
+      var userObj = {
+        userEmail: 'fakeemail@gmail.com',
+        result: -1
+      }
+      /*
       var resultObj = {
         exerciseName: 'exerciseName',
         userEmail: 'user1@gmail.com',
       };
       for (k=0; k<req.body.groupUsers.length;k++) {
-          arrOfUserEmail.push(req.body.groupUsers[k]);
+        arrOfUserEmail.push(req.body.groupUsers[k]);
       }
       for (i=0; i<req.body.exerciseList.length;i++) {
         resultObj.exerciseName = req.body.exerciseList[i];
         resultObj.userEmail = arrOfUserEmail;
+        arrOfResultObj.push(resultObj);
+      }
+      */
+      for (k=0; k<req.body.groupUsers.length;k++) {
+        userObj.userEmail = req.body.groupUsers[k];
+        userObj.result = -1;
+        arrOfUserObj.push(userObj);
+      }
+      for (i=0; i<req.body.exerciseList.length;i++) {
+        resultObj.exerciseName = req.body.exerciseList[i];
+        resultObj.userObj = arrOfUserObj;
         arrOfResultObj.push(resultObj);
       }
       var docData = {
@@ -123,7 +153,7 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
       resRef.set({
         docData
       }).then(() => {
-        console.log('Added groupName successfully!');
+        console.log('Created challengeResult successfully!');
       }).then(() => resRef.get().then((docSnapshot) => {
         res.json(docSnapshot.data())
       })).catch((err) => {
