@@ -1,4 +1,4 @@
 export interface Group {
-    name: String;
+    name: string;
     users: Array<string>;
 }

@@ -1,10 +1,10 @@
 export interface User {
   age: Number
-  email: String
-  image: String
-  friends: Array<String>
-  groupID: String
+  email: string
+  image: string
+  friends: Array<string>
+  groupID: string
   height: Number
-  name: String
+  name: string
   weight: Number
 }

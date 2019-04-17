@@ -152,7 +152,7 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="!loggedIn" class="container">
+<div *ngIf="!userService.isloggedIn()" class="container">
 	<div id="body">
 		<div class="row">
 			<div class="alert alert-danger" role="alert">

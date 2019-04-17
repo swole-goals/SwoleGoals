@@ -6,6 +6,7 @@ import { SetGroupChallengeService } from 'src/services/set-group-challenge.servi
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../challenge-creation-menu/challenge-creation-menu.component';
 import { UserService } from 'src/services/user.service';
+import { GroupService } from 'src/services/group.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,9 +14,7 @@ import { UserService } from 'src/services/user.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  loggedIn: boolean;
-  hasGroup: boolean;
-  groupName: String;
+  groupName: string;
   groupMembers: Array<string>;
   age: Number;
   height: Number;
@@ -26,6 +25,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userProfileService: UserProfileService,
     private userService: UserService,
+    private groupService: GroupService,
     private getChallengesService: GetChallengesService,
     private setGroupChallengeService: SetGroupChallengeService) {
     this.getChallengesService.getAPIdata().subscribe(res => {
@@ -34,9 +34,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedIn = false;
-    this.hasGroup = false;
-    if (this.userService.getUserEmail() != null) {
+    if (this.userService.isLoggedIn()) {
       this.getUserInfo();
     }
   }
@@ -46,33 +44,22 @@ export class UserProfileComponent implements OnInit {
     this.age = this.userService.getUserAge();
     this.height = this.userService.getUserHeight();
     this.weight = this.userService.getUserWeight();
-    if (this.groupName != "null" && this.groupName != null) {
+    if (this.userService.hasGroup()) {
+      console.log("Getting group members")
       this.getGroupMembers();
-    }
-    else {
-      console.log("Logged In");
-      this.loggedIn = true;
     }
   }
 
   getGroupMembers() {
-    this.userProfileService.getGroup(this.groupName).subscribe(res => {
-      DataService.setGroupData(res);
-      this.groupMembers = DataService.getGroupUsers();
-      this.hasGroup = true;
-      this.loggedIn = true;
-    })
+    this.groupService.getGroupData(this.groupName);
+    this.groupMembers = this.groupService.getGroupMembers();
   }
 
   joinGroup() {
+    this.groupService.getGroupData(this.groupName)
+    this.groupService.addUsertoGroup(this.userService.getUserEmail());
     this.updateUserInfo();
     this.getGroupMembers();
-    this.userProfileService.createGroup(this.groupName).subscribe((response) => {
-      console.log('response from post data is ', response);
-      DataService.setGroupData(response);
-    }, (error) => {
-      console.log('error during post is ', error)
-    })
   }
 
   updateUserInfo() {

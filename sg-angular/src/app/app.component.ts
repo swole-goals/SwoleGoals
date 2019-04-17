@@ -12,7 +12,6 @@ import { UserService } from 'src/services/user.service';
 })
 export class AppComponent implements OnInit {
   title = 'sg-angular';
-  loggedIn = false;
 
   ngOnInit() {
     this.router.navigate(['/app-splash']);
@@ -28,7 +27,7 @@ export class AppComponent implements OnInit {
 
   logOut(){
     DataService.logOut();
-    this.loggedIn = false;
+    this.userService.logout();
   }
 
   logIn(socialPlatform : string){
@@ -42,10 +41,10 @@ export class AppComponent implements OnInit {
     }
     this.socialAuthService.signIn(socialPlatformProvider).then((loginData) => {
       this.userService.login(loginData).subscribe((response) => {
-        console.log(response);
-        this.userService.setUserData(response);
-        this.loggedIn = true;
         if (response != null){
+          this.userService.setUserData(response);
+          this.userService.setLoggedIn();
+          console.log(this.userService.isLoggedIn())
           this.router.navigate(['/app-user-profile']);
         }
       },(error) => {

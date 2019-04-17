@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from './../../services/data.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Group } from './group'
+import { Group } from '../../services/group'
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../../services/user'
@@ -27,10 +27,5 @@ export class UserProfileService {
     console.log("Reached postAPIDataGroup with groupName: ", groupName)
     return this.httpClient.post(environment.fireStoreURL + '/removeFriendFromGroup', { 'groupName': groupName, 'userEmail': userEmail })
   }
-  createGroup(groupName): Observable<Group> {
-    return this.httpClient.post<Group>(environment.fireStoreURL + '/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userService.getUserEmail()}` }, httpOptions)
-  }
-  getGroup(groupName: String) : Observable<Group> {
-    return this.httpClient.post<Group>(environment.fireStoreURL + '/getGroup', { 'groupName': `${groupName}` }, httpOptions)
-  }
+
 }

@@ -82,7 +82,7 @@ app.post('/addUser', bodyparser.json(), (req, res) => {
 });
 
 app.post('/updateUser', bodyparser.json(), (req, res) => {
-  // console.log(req.body);
+  console.log(req.body.email);
   const userRef = db.collection('users').doc(req.body.email);
   userRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
@@ -123,34 +123,7 @@ app.post('/getUsers', bodyparser.json(), (req, res) => {
   });
 });
 
-app.post('/getGroup', bodyparser.json(), (req, res) => {
-  console.log(req.body);
-  const groupRef = db.collection('groups').doc(req.body.groupName);
-  groupRef.get().then((docSnapshot) => {
-    if (docSnapshot.exists) {
-      res.json(docSnapshot.data());
-    } else{
-      console.log('Group does not exist!');
-    }
-  });
-});
-
-
-app.get('/getChallengeExercises/:name', bodyparser.json(), (req, res) => {
-  var challengeName = req.params.name;
-  const challengeRef = db.collection('Challenges').doc(challengeName);
-  challengeRef.get().then((docSnapshot) => {
-    if (docSnapshot.exists) {
-      console.log('challenge exists');
-      res.json(docSnapshot.data());
-    }else{
-      console.log('No such challenge exist.');
-    }
-  });
-});
-
-
-app.post('/addGroup', bodyparser.json(), (req, res) => {
+app.post('/updateGroup', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
@@ -172,65 +145,29 @@ app.post('/addGroup', bodyparser.json(), (req, res) => {
   });
 });
 
-app.post('/addFriendToGroup', bodyparser.json(), (req, res) => {
-  console.log(req.body);
+app.post('/getGroup', bodyparser.json(), (req, res) => {
+  console.log(req.body.groupName);
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      groupRef.update({
-        users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
-      }) 
-      console.log('Group already exists');
-    } else {
-      groupRef.set({
-        name: req.body.groupName,
-        users: req.body.userEmail,
-        challenge: '' //
-      }).then(() => {
-        console.log('Created Group!');
-      }).catch((err) => {
-        console.log('get an error:', err);
-      });
-    }
-  });
-  const userRef = db.collection('users').doc(req.body.userEmail);
-  userRef.get().then((docSnapshot) => {
-    if (docSnapshot.exists) {
-      userRef.update({
-        groupID: req.body.groupName
-      }).then(() => {
-        console.log('Added User to Group!');
-      }).catch((err) => {
-        console.log('get an error:', err);
-      });
+      console.log(docSnapshot.data())
+      res.json(docSnapshot.data());
+    } else{
+      res.json(null);
+      console.log('Group does not exist!');
     }
   });
 });
 
-
-
-app.post('/removeFriendFromGroup', bodyparser.json(), (req, res) => {
-  const groupRef = db.collection('groups').doc(req.body.groupName);
-  groupRef.get().then((docSnapshot) => {
+app.get('/getChallengeExercises/:name', bodyparser.json(), (req, res) => {
+  var challengeName = req.params.name;
+  const challengeRef = db.collection('Challenges').doc(challengeName);
+  challengeRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      groupRef.update({
-        users: admin.firestore.FieldValue.arrayRemove(req.body.userEmail)
-      })
-      console.log('Group already exists');
-    } else {
-      console.log('Group does not exist to delete from.')
-    }
-  });
-  const userRef = db.collection('users').doc(req.body.userEmail);
-  userRef.get().then((docSnapshot) => {
-    if (docSnapshot.exists) {
-      userRef.update({
-        groupID: admin.firestore.FieldPath.arrayRemove(req.body.groupName)
-      }).then(() => {
-        console.log('Added User to Group!');
-      }).catch((err) => {
-        console.log('get an error:', err);
-      });
+      console.log('challenge exists');
+      res.json(docSnapshot.data());
+    }else{
+      console.log('No such challenge exist.');
     }
   });
 });

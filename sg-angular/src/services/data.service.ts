@@ -1,4 +1,4 @@
-import { Group } from './../app/user-profile/group';
+import { Group } from './group';
 import { Injectable } from '@angular/core';
 import {visitAll} from "@angular/compiler"; 
 //import { BehaviorSubject } from 'rxjs';
@@ -8,13 +8,11 @@ import {visitAll} from "@angular/compiler";
 })
 export abstract class DataService {
 
-  static group: Group;
   static challengeData;
   static groupMembers : Array<string>;
   static challengeName: String;
 
   constructor() {
-    DataService.group;
     DataService.groupMembers = [];
     DataService.challengeData = {};
    }
@@ -23,26 +21,10 @@ export abstract class DataService {
     DataService.challengeData = {};
   }
 
-  static setGroupData(val: Group){
-    DataService.group = val;
-  }
-  static setGroupName(val: String){
-    DataService.group.name = val;
-  }
-
   getchallengeName(): String {
     return DataService.challengeName;
   }
-  static getGroupData(){
-    return DataService.group;
-  }
-  static getGroupUsers(){
-    return DataService.group.users;
-  }
-  static getGroupName(){
-    return DataService.group.name;
-  }
-  
+
   static setChallengeData(val : object){
     DataService.challengeData = val;
   }
@@ -69,8 +51,5 @@ export abstract class DataService {
     }
     console.log('Group Members after Remove: ', DataService.groupMembers)
   }
-  static getGroupMembers() {
-    console.log("getGroupMembers returns: ", DataService.groupMembers)
-    return DataService.groupMembers;
-  }
+
 }

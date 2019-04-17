@@ -8,6 +8,7 @@ import {ChallengeCreationService} from "./challenge-creation.service";
 import {DataService} from "../../services/data.service";
 import {Challenge} from "./challenge";
 import { UserService } from 'src/services/user.service';
+import { GroupService } from 'src/services/group.service';
 
 export interface PeriodicElement {
   name: string;
@@ -41,6 +42,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
   constructor(private exerciseService: ExerciseListService,
               private challengeCreationService: ChallengeCreationService,
+              private groupService: GroupService,
               private userService: UserService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
       this.dataSource1 = new MatTableDataSource(res);
@@ -137,7 +139,6 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
 
   ngOnInit() {
-    this.groupName = DataService.getGroupData().name;
+    this.groupName = this.groupService.getGroupName();
   }
-
 }

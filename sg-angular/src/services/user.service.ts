@@ -13,47 +13,63 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class UserService {
-  user: User;
-  constructor(private httpClient: HttpClient) { 
+  private user: User;
+  private loggedIn: boolean;
+  constructor(private httpClient: HttpClient) { }
+
+  login(loginData): Observable<User>{
+    return this.httpClient.post<User>(environment.fireStoreURL+'/addUser', {'name' : `${loginData.name}`, 'email' : `${loginData.email}`, 'image' : `${loginData.image}`});
+  }
+  logout(){
+    this.loggedIn = false;
+  }
+  setLoggedIn(){
+    this.loggedIn = true;
+  }
+  isLoggedIn(): boolean{
+    return this.loggedIn;
+  }
+  hasGroup(): boolean{
+    if(this.user.groupID!=null){
+      return true;
+    }
+    return false;
   }
 
-  getUserData() : User {
+  getUserData(): User {
     this.httpClient.post<User>(environment.fireStoreURL + '/getUser', { 'userEmail': `${this.getUserEmail()}` }, httpOptions).subscribe(res => {
       this.user = res;
     });
     return this.user;
   }
-  getUserName(){
+  getUserName(): string{
     return this.user.name;
   }
-  getUserEmail(){
+  getUserEmail(): string{
     return this.user.email;
   }
-  getUserImage(){
+  getUserImage(): string{
     return this.user.image;
   }
-  getUserGroup(){
+  getUserGroup(): string{
     return this.user.groupID;
   }
-  getUserAge(){
+  getUserAge(): Number{
     return this.user.age;
   }
-  getUserHeight(){
+  getUserHeight(): Number{
     return this.user.height;
   }
-  getUserWeight(){
+  getUserWeight(): Number{
     return this.user.weight;
   }
 
-  login(loginData): Observable<User>{
-    return this.httpClient.post<User>(environment.fireStoreURL+'/addUser', {'name' : `${loginData.name}`, 'email' : `${loginData.email}`, 'image' : `${loginData.image}`});
-  }
   //Do not call this directly except for during login. Instead call indirectly using the methods below
   setUserData(val: User) {
     this.user = val;
-    return this.httpClient.post(environment.fireStoreURL + '/updateUser', this.getUserData(), httpOptions).subscribe(res => {});
+    return this.httpClient.post(environment.fireStoreURL + '/updateUser', this.user, httpOptions).subscribe(res => {});
   }
-  setUserGroup(val: String){
+  setUserGroup(val: string){
     this.user.groupID = val;
     this.setUserData(this.user);
   }
