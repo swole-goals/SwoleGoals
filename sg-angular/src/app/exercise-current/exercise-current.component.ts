@@ -19,6 +19,7 @@ export class ExerciseCurrentComponent implements OnInit {
   public image1Url: string = '';
   public image2Url: string = '';
   public resultsUrl: string = '';
+  public mapUrl: string = '/app-map';
   private route: ActivatedRoute;
   private router: Router;
   constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService) {
