@@ -11,6 +11,7 @@ import { ExerciseTableComponent } from './exercise-table/exercise-table.componen
 import { SplashComponent } from './splash/splash.component';
 import { FriendsComponent } from './friends/friends.component';
 import { LoginComponent } from './login/login.component';
+import { ResultsComponent } from './results/results.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
 import { ChallengeCreationMenuComponent } from './challenge-creation-menu/challenge-creation-menu.component';
 
@@ -25,7 +26,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ChartModule } from 'angular-highcharts';
 import { ExerciseCurrentComponent } from './exercise-current/exercise-current.component';
 import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
-import { ChallengeFirebaseComponent } from './challenge-firebase/challenge-firebase.component';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
@@ -50,11 +50,11 @@ export function getAuthServiceConfigs() {
     SplashComponent,
     FriendsComponent,
     LoginComponent,
+    ResultsComponent,
     ChallengeCreationMenuComponent,
     ExerciseTableComponent,
     ExerciseCurrentComponent,
     ExerciseResultComponent,
-    ChallengeFirebaseComponent
   ],
   imports: [
     BrowserModule,
@@ -108,12 +108,12 @@ export function getAuthServiceConfigs() {
         component: FriendsComponent
       },
       {
-        path: 'challenge-firebase',
-        component: ChallengeFirebaseComponent
-      },
-      {
         path: 'app-login',
         component: LoginComponent
+      },
+      {
+        path: 'results',
+        component: ResultsComponent
       },
       {
         path: '',

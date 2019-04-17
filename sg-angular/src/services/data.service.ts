@@ -34,6 +34,10 @@ export class DataService {
     this.challengeData = val;
   }
 
+  getChallengeData(val : object){
+    return this.challengeData;
+  }
+
   getUserData(){
     return this.userData;
   }

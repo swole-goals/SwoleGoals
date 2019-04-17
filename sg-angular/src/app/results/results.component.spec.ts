@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChallengeFirebaseComponent } from './challenge-firebase.component';
+import { ResultsComponent } from './results.component';
 
-describe('ChallengeFirebaseComponent', () => {
-  let component: ChallengeFirebaseComponent;
-  let fixture: ComponentFixture<ChallengeFirebaseComponent>;
+describe('ResultsComponent', () => {
+  let component: ResultsComponent;
+  let fixture: ComponentFixture<ResultsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChallengeFirebaseComponent ]
+      declarations: [ ResultsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChallengeFirebaseComponent);
+    fixture = TestBed.createComponent(ResultsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

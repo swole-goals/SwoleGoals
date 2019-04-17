@@ -1,23 +1,13 @@
-import { Injectable } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { DataService } from '../../services/data.service';
+import { DataService } from './../../services/data.service';
+import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class ChallengeFirebaseComponent implements OnInit {
-  public exerciseArray: Array<string>;
-
+export class ResultsService {
   constructor(private httpClient : HttpClient) { }
-
-
-  ngOnInit() {
-  }
 
   //TODO: Write Firestore server code to support functions below. 
 

@@ -64,6 +64,75 @@ app.get('/', (req, res) => {
   res.send("Hello from Firestore!");
 });
 
+app.post('/getChallengeExerciseList', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('Challenges').doc(req.body.challengeName);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('Returned Challenge Exercise List');
+      res.json(docSnapshot.data());
+    } 
+  });
+});
+
+app.post('/getGroupUsers', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('groups').doc(req.body.groupName);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('Returned Group Users');
+      res.json(docSnapshot.data());
+    } 
+  });
+});
+
+app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const resRef = db.collection('Results').doc(req.body.groupName);
+  resRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('document already exists');
+      res.json(docSnapshot.data());
+      var resultListQuery = resRef.where("resultList", "==", true);
+      
+
+
+      
+    } else {
+      var arrOfResultObj = [];
+      var arrOfUserEmail = [];
+      var resultObj = {
+        exerciseName: 'exerciseName',
+        userEmail: 'user1@gmail.com',
+      };
+      for (k=0; k<req.body.groupUsers.length;k++) {
+          arrOfUserEmail.push(req.body.groupUsers[k]);
+      }
+      for (i=0; i<req.body.exerciseList.length;i++) {
+        resultObj.exerciseName = req.body.exerciseList[i];
+        resultObj.userEmail = arrOfUserEmail;
+        arrOfResultObj.push(resultObj);
+      }
+      var docData = {
+        groupID: req.body.groupName,
+        challengeName: req.body.challengeName,
+        resultList: arrOfResultObj,
+        //resultsList: req.body.exerciseList
+      };
+
+      resRef.set({
+        docData
+      }).then(() => {
+        console.log('Added groupName successfully!');
+      }).then(() => resRef.get().then((docSnapshot) => {
+        res.json(docSnapshot.data())
+      })).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
 app.post('/addUser', bodyparser.json(), (req, res) => {
   console.log(req.body);
   //res.json(req.body);
@@ -196,7 +265,7 @@ app.post('/addChallenge', bodyparser.json(), (req, res) => {
                 }).catch((err) => {
                     console.log('get an error:', err);
                 });
-        }
+              }
         }
 
     });
