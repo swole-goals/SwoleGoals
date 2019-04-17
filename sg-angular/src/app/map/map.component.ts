@@ -25,7 +25,11 @@ export class MapComponent implements OnInit {
  	aboutExercise(index: number) {
 		this.exerciseAbout = "Muscles: " + this.exercisesList[index].muscles;
 	}
-
+	
+	performExercise(name: string) {
+		window.location.href = '/app-exercise-current/' + this.challenge.challengeName + '/' + name;		
+	}
+	
   	ngOnInit() {
         	this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
                 	this.exercisesList = res;
@@ -37,10 +41,10 @@ export class MapComponent implements OnInit {
 			this.challenge.challengeName = (res as ChallengeInfo).challengeName;
 			this.challenge.exercises = (res as ChallengeInfo).exercises;
 			for(let exercise of this.challenge.exercises) {
-				let nameBegin = exercise.indexOf('{') + 1;
-				let nameEnd = exercise.indexOf('}');
-				let repsBegin = exercise.indexOf('[') + 1;
-				let repsEnd = exercise.indexOf(']');
+				let nameBegin = exercise.indexOf('[') + 1;
+				let nameEnd = exercise.indexOf(']');
+				let repsBegin = exercise.indexOf('{') + 1;
+				let repsEnd = exercise.indexOf('}');
 				let n = exercise.substring(nameBegin, nameEnd);
 				let r = exercise.substring(nameBegin, nameEnd);
 				let er = new ExerciseReps();
