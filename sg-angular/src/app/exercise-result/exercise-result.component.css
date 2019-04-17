@@ -1,0 +1,16 @@
+.btn-result {
+	font-size: 100px;
+	width: 200px;
+	height: 200px;
+	text-align: center;
+}
+.col-centered {
+	width: 1000px;
+	margin: 0 auto;
+	float: none;
+}
+.input-reps {
+	width: 100%;
+	font-size: 75px;
+	text-align: center;
+}
