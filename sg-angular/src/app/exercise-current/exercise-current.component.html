@@ -35,7 +35,7 @@
   <br/>
   <div class="row">
     <div class="col-lg-4 col-md-4" align="right">
-	    <a class="btn btn-primary btn-lg active" href={{mapUrl}}>Back to Game Map</a>
+	    <button class="btn btn-primary" (click)="backToMap()">Back to Game Map</button>
     </div>
     <div class="col-lg-4 col-md-4">
       <div class="progress" style="height: 38px;">
@@ -43,7 +43,7 @@
       </div>
     </div>
     <div class="col-lg-4 col-md-4">
-      <a href={{resultsUrl}} class="btn btn-success btn-lg active" role="button" aria-pressed="true">Complete</a>
+      	<button class="btn btn-success" (click)="toResults()">Complete</button>
     </div>
   </div>
 </div>

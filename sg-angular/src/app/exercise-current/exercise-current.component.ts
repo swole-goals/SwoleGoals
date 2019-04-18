@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ExerciseCurrentService } from './exercise-current.service';
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exercise-current',
@@ -22,9 +23,14 @@ export class ExerciseCurrentComponent implements OnInit {
   public mapUrl: string = '/app-map';
   private route: ActivatedRoute;
   private router: Router;
-  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService) {
+  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService, private router: Router) {
   }
-
+  backToMap() {
+ 	this.router.navigate(['/app-map']); 	
+  }
+  toResults() {
+  	this.router.navigate([this.resultsUrl]);
+  }
   ngOnInit() {
   	this.challenge = this.activatedRoute.snapshot.paramMap.get('challenge');
 	this.name = this.activatedRoute.snapshot.paramMap.get('exercise');
