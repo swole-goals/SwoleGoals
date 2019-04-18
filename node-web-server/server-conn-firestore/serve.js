@@ -145,7 +145,7 @@ app.post('/updateGroup', bodyparser.json(), (req, res) => {
   const userRef = db.collection('users').doc(req.body.userEmail);
 
   //removing user from previous group
-  userRef.get().then((doc) => {
+/*  userRef.get().then((doc) => {
     const previousGroupRef = db.collection('groups').doc(doc.get('groupID'));
     if(previousGroupRef != null) {
       previousGroupRef.get().then((doc) => {
@@ -160,7 +160,7 @@ app.post('/updateGroup', bodyparser.json(), (req, res) => {
     }
   }).catch((err) => {
     console.log('got and error:', err);
-  }) ;
+  }) ;*/
 
   //adding user to group or creating new group
   groupRef.get().then((docSnapshot) => {
@@ -190,8 +190,8 @@ app.post('/updateGroup', bodyparser.json(), (req, res) => {
           oldGroupRef.delete();
         }
         else {
-          oldGroupRef.set({ //else update it
-          users: req.body.oldGroupUsers
+          oldGroupRef.update({
+              users: admin.firestore.FieldValue.arrayRemove(req.body.userEmail)
         })}
       }
     });

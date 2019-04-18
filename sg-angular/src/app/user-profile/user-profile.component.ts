@@ -63,7 +63,7 @@ export class UserProfileComponent implements OnInit {
     this.showGroupMembers();
   }
   createNewGroup() {
-    this.groupService.setGroupData(this.userService.getUserEmail(), null,null, this.groupName);
+    this.groupService.setGroupData(this.userService.getUserEmail(), null, this.groupName);
     this.userService.setUserGroup(this.groupName);
     this.showGroupMembers();
   }

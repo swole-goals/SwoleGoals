@@ -34,22 +34,14 @@ export class GroupService {
   }
   updateGroup(email: string, oldGroup: string, newGroup: string){
     if(oldGroup!=newGroup){
-      var array: Array<string>;
       this.getGroup(oldGroup).subscribe(req=>{
-        array=req.users
-        var index = array.indexOf(email);
-        console.log(array)
-        if (index > -1) {
-          array.splice(index, 1);
-        }
-        console.log(array)
-        this.setGroupData(email, oldGroup, array, newGroup);
+        this.setGroupData(email, oldGroup, newGroup);
       })
     }
     else {
       this.getGroup(newGroup).subscribe(res=>{
         if(res==null){
-          this.setGroupData(email, null, null, newGroup);
+          this.setGroupData(email, null, newGroup);
         }
       });
     }
@@ -59,9 +51,9 @@ export class GroupService {
     return this.httpClient.post<Group>(environment.fireStoreURL + '/getGroup', { 'groupName': `${name}` }, httpOptions)
   }
   //Do not call directly
-  setGroupData(email: string, oldGroup: string, oldGroupUsers: Array<string>, newGroup: string) {
+  setGroupData(email: string, oldGroup: string, newGroup: string) {
     console.log(email,oldGroup,newGroup);
-    return this.httpClient.post<Group>(environment.fireStoreURL + '/updateGroup', { 'groupName': `${newGroup}`, 'oldGroup': `${oldGroup}`, 'oldGroupUsers': JSON.stringify(oldGroupUsers), 'userEmail': `${email}`}, httpOptions).subscribe(res=>{
+    return this.httpClient.post<Group>(environment.fireStoreURL + '/updateGroup', { 'groupName': `${newGroup}`, 'oldGroup': `${oldGroup}`,  'userEmail': `${email}`}, httpOptions).subscribe(res=>{
       this.getGroup(newGroup).subscribe(res=>{
         this.group = res;
       });
