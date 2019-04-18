@@ -35,7 +35,9 @@ export class MapComponent implements OnInit {
                 	this.exercisesList = res;
 		});
 		this.userEmail = this.userService.getUserEmail();
-		this.userEmail = "caikaibo7@gmail.com";
+		console.log(this.userEmail);
+		if(!this.userEmail)
+			this.userEmail = "rkoripalli@utexas.edu";
 		this.exerciseService.getChallenge(this.userEmail).subscribe(res => {
 			this.challenge = new ChallengeInfo();
 			this.challenge.challengeName = (res as ChallengeInfo).challengeName;

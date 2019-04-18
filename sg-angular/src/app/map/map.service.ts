@@ -31,7 +31,6 @@ export class MapService {
   }
   getChallenge(email: string) {
   	return this.httpClient.get(environment.fireStoreURL+`/getCurrentChallenge/`+email);
-  	
   }
 }
 
