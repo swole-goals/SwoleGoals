@@ -21,7 +21,6 @@ export class ExerciseCurrentComponent implements OnInit {
   public resultsUrl: string = '';
   public mapUrl: string = '/app-map';
   private route: ActivatedRoute;
-  private router: Router;
   constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService, private router: Router) {
   }
   backToMap() {
