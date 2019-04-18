@@ -3,8 +3,9 @@ import { ResultsService } from './results.service';
 import { DataService } from '../../services/data.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Challenge, Group } from "./results.classes";
+import { Challenge, Group, UserObj, ResultObj } from "./results.classes";
 import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ExerciseListComponent } from '../exercise-list/exercise-list.component';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -36,7 +37,7 @@ export class ResultsComponent implements OnInit {
 
   results; /* Updated by user through frontend! */
   exerciseName; /* TODO: Grab the exerciseName from the Challenges Collections during GameMap. */
-
+  userResultArr: Array<string>; /* Unique variable to this function passed to update firestore. */
   constructor(private dataService : DataService, private resultsService : ResultsService, private httpClient : HttpClient) {
     var userData = this.dataService.getUserData();
   }
@@ -55,6 +56,8 @@ export class ResultsComponent implements OnInit {
     /* Need groupID, userEmail, and challengeName to update Challenge Results. */
     this.groupName = this.dataService.getUserGroup();
     this.challengeName = this.dataService.getChallengeData;
+    this.userResultArr = [];
+
   }
 
   /* Create a ChallengeResult Object to contain user results. */
@@ -64,14 +67,13 @@ export class ResultsComponent implements OnInit {
 
   /* Update User's Result for specific Exercise. */
   updateChallengeResultsUserExercise(exerciseName: string, results: string) {
-    this.exerciseName = "[Rope Climb]{8}";
-    this.results = 123456789;
-    this.postChallengeResults();
-  }
+    this.userResultArr = [];
+    this.exerciseName = "[Barbell Bench Press - Medium Grip]{7}";
+    this.results = 55555;
+    this.userEmail = "vivian@gmail.com";
 
-  populateChallengeResultObject() {
     //TODO: Replace this with grabbing challenge and groupID from DataService.
-    this.challengeName = "Challenge20";
+    this.challengeName = "Challenge21";
     this.groupName = "ResultTestGroup";
 
     this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList', 
@@ -91,6 +93,53 @@ export class ResultsComponent implements OnInit {
         this.groupUsers = response.users;
         console.log("this groupUsers: ", this.groupUsers);
         console.log("this resp.groupUsers: ", response.users);
+        
+        /* Update exerciseList and userEmail list. */
+        for (let i=0; i<this.exerciseList.length;i++) {
+          for (let k=0; k<this.groupUsers.length;k++) {
+            if (this.exerciseList[i] === this.exerciseName
+              && this.groupUsers[k] === this.userEmail) {
+                console.log("FOUND MATCHING EXERCISE.");
+                console.log("FOUND MATCHING USER.");
+                this.userResultArr.push(this.groupUsers[k] + "{" + <string>this.results + "}");
+            } else {
+              this.userResultArr.push(this.groupUsers[k]);
+            } 
+          }
+        }
+        
+        console.log("USER RESULT ARR:", this.userResultArr);
+        this.postChallengeResults();
+      },(error)=>{
+        console.log('error during getGroupUsers ', error)
+      })
+
+    },(error)=>{
+      console.log('error during getChallengeExerciseList ', error)
+    })
+     
+  }
+
+  populateChallengeResultObject() {
+    //TODO: Replace this with grabbing challenge and groupID from DataService.
+    this.challengeName = "Challenge21";
+    this.groupName = "ResultTestGroup";
+
+    this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList', 
+    {
+      'challengeName':this.challengeName, 
+    }).subscribe((response)=>{
+      console.log('response from getChallengeExerciseList ', response);
+      this.exerciseList = response.exercises;
+      console.log("this resp.exList: ", response.exercises);
+      
+      this.httpClient.post<Group>(environment.fireStoreURL+'/getGroupUsers',
+      {
+        'groupName':this.groupName, 
+      }).subscribe((response)=>{
+        console.log('response from getGroupUsers ', response);
+        this.groupUsers = response.users;
+        console.log("this resp.groupUsers: ", response.users);
         this.postChallengeResults();
       },(error)=>{
         console.log('error during getGroupUsers ', error)
@@ -102,27 +151,10 @@ export class ResultsComponent implements OnInit {
     
   }
 
-  /*getGroupUsers() {
-    this.groupName = "ResultTestGroup";
-    this.httpClient.post<Group>(environment.fireStoreURL+'/getGroupUsers',
-    {
-      'groupName':this.groupName, 
-    }).subscribe((response)=>{
-      console.log('response from getGroupUsers ', response);
-      this.groupUsers = response.users;
-      console.log("this groupUsers: ", this.groupUsers);
-      console.log("this resp.groupUsers: ", response.users);
-      this.postChallengeResults();
-    },(error)=>{
-      console.log('error during getGroupUsers ', error)
-    })
-    
-  }*/
-
   /* POST ChallengeResults Object to firestore server. */
   postChallengeResults() {
     /* TODO: Remove below to test grabbing info from DataService */
-    this.groupName = "testGroupID18";
+    this.groupName = "testGroupID32";
     this.challengeName = "testChallengeName";
     this.userEmail = "testUserEmail";
     this.results = "testResults";
@@ -143,6 +175,7 @@ export class ResultsComponent implements OnInit {
         'userEmail':this.userEmail,
         'results':this.results,
         'exerciseList':this.exerciseList,
+        'userResultArr':this.userResultArr
     }).subscribe((response)=>{
       console.log('response from updateChallengeResults ', response);
     },(error)=>{

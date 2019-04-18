@@ -12,7 +12,7 @@ const admin = require('firebase-admin');
 const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
 
-const private_key = `./swolegoalsFirestore-a6f94cd05c59.json`;
+const private_key = `./swolegoalsfirestore-4ad9a0ac617c.json`;
 if(!fs.existsSync(private_key)){
   const projectId = 'swolegoalsFirestore';
   const storage = new Storage({
@@ -93,14 +93,38 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
     if (docSnapshot.exists) {
       console.log('document already exists');
       res.json(docSnapshot.data());
-      
-      const {challengeName, groupID, resultList} = docSnapshot.data();
-      resRef.update({
-        groupID: 'testing UPDATE',
-        //resultList: 'isthischanging' ???
+      var arrOfResultObj = [];
+      var arrOfUserObj = [];
 
+      var idx = 0;
+      var numUsers = req.body.groupUsers.length;
+      for (let i=0; i<req.body.exerciseList.length;i++) {
+        var arrOfUserObj = [];
+        for (let k=0; k<numUsers;k++) {
+          var userObj = {
+            userEmail: req.body.userResultArr[k + idx],
+          }
+          arrOfUserObj.push(userObj);
+        }
+        idx=idx+3;
+
+        var resultObj = {
+          exerciseName: req.body.exerciseList[i],
+          userObj: arrOfUserObj
+        };
+        arrOfResultObj.push(resultObj);
+      }
+
+      var docData = {
+        groupID: req.body.groupName,
+        challengeName: req.body.challengeName,
+        resultList: arrOfResultObj,
+      };
+
+      resRef.set({
+        docData
       }).then(() => {
-        console.log('Updated challengeResult successfully!');
+        console.log('Created challengeResult successfully!');
       }).then(() => resRef.get().then((docSnapshot) => {
         res.json(docSnapshot.data())
       })).catch((err) => {
@@ -108,7 +132,6 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
       });
     } else {
       var arrOfResultObj = [];
-      var arrOfUserEmail = [];
       var arrOfUserObj = [];
 
       var resultObj = {
@@ -119,35 +142,24 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
         userEmail: 'fakeemail@gmail.com',
         result: -1
       }
-      /*
-      var resultObj = {
-        exerciseName: 'exerciseName',
-        userEmail: 'user1@gmail.com',
-      };
-      for (k=0; k<req.body.groupUsers.length;k++) {
-        arrOfUserEmail.push(req.body.groupUsers[k]);
-      }
-      for (i=0; i<req.body.exerciseList.length;i++) {
-        resultObj.exerciseName = req.body.exerciseList[i];
-        resultObj.userEmail = arrOfUserEmail;
-        arrOfResultObj.push(resultObj);
-      }
-      */
-      for (k=0; k<req.body.groupUsers.length;k++) {
-        userObj.userEmail = req.body.groupUsers[k];
-        userObj.result = -1;
+      for (let k=0; k<req.body.groupUsers.length;k++) {
+        var userObj = {
+          userEmail: req.body.groupUsers[k],
+        }
         arrOfUserObj.push(userObj);
       }
-      for (i=0; i<req.body.exerciseList.length;i++) {
-        resultObj.exerciseName = req.body.exerciseList[i];
-        resultObj.userObj = arrOfUserObj;
+      for (let i=0; i<req.body.exerciseList.length;i++) {
+        var exName = req.body.exerciseList[i];
+        var resultObj = {
+          exerciseName: req.body.exerciseList[i],
+          userObj: arrOfUserObj
+        };
         arrOfResultObj.push(resultObj);
       }
       var docData = {
         groupID: req.body.groupName,
         challengeName: req.body.challengeName,
         resultList: arrOfResultObj,
-        //resultsList: req.body.exerciseList
       };
 
       resRef.set({
