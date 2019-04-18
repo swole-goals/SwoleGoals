@@ -6,6 +6,7 @@ import { SetGroupChallengeService } from 'src/services/set-group-challenge.servi
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../challenge-creation-menu/challenge-creation-menu.component';
 import { UserService } from 'src/services/user.service';
+import { GroupService } from 'src/services/group.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,9 +14,7 @@ import { UserService } from 'src/services/user.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  loggedIn: boolean;
-  hasGroup: boolean;
-  groupName: String;
+  groupName: string;
   groupMembers: Array<string>;
   age: Number;
   height: Number;
@@ -25,7 +24,8 @@ export class UserProfileComponent implements OnInit {
   selectedChallenge = new SelectionModel(false, []);
 
   constructor(private userProfileService: UserProfileService,
-    private userService: UserService,
+    public userService: UserService,
+    private groupService: GroupService,
     private getChallengesService: GetChallengesService,
     private setGroupChallengeService: SetGroupChallengeService) {
     this.getChallengesService.getAPIdata().subscribe(res => {
@@ -34,55 +34,45 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loggedIn = false;
-    this.hasGroup = false;
-    if (this.userService.getUserEmail() != null) {
+    if (this.userService.isLoggedIn()) {
       this.getUserInfo();
     }
   }
 
+  showGroupMembers() {
+    this.groupService.getGroup(this.groupName).subscribe(res=>{
+      if(res!=null){
+        this.groupService.setGroup(res);
+        this.groupMembers = this.groupService.getGroupMembers();
+      }
+    });
+  }
+
   getUserInfo() {
-    this.groupName = this.userService.getUserGroup();
     this.age = this.userService.getUserAge();
     this.height = this.userService.getUserHeight();
     this.weight = this.userService.getUserWeight();
-    if (this.groupName != "null" && this.groupName != null) {
-      this.getGroupMembers();
-    }
-    else {
-      console.log("Logged In");
-      this.loggedIn = true;
+    if (this.userService.hasGroup()) {
+      this.groupName = this.userService.getUserGroup();
+      this.showGroupMembers();
     }
   }
-
-  getGroupMembers() {
-    this.userProfileService.getGroup(this.groupName).subscribe(res => {
-      DataService.setGroupData(res);
-      this.groupMembers = DataService.getGroupUsers();
-      this.hasGroup = true;
-      this.loggedIn = true;
-    })
-  }
-
   joinGroup() {
-    this.updateUserInfo();
-    this.getGroupMembers();
-    this.userProfileService.createGroup(this.groupName).subscribe((response) => {
-      console.log('response from post data is ', response);
-      DataService.setGroupData(response);
-    }, (error) => {
-      console.log('error during post is ', error)
-    })
+    this.groupService.updateGroup(this.userService.getUserEmail(), this.userService.getUserGroup(), this.groupName);
+    this.userService.setUserGroup(this.groupName);
+    this.showGroupMembers();
+  }
+  createNewGroup() {
+    this.groupService.setGroupData(this.userService.getUserEmail(), null, this.groupName);
+    this.userService.setUserGroup(this.groupName);
+    this.showGroupMembers();
   }
 
   updateUserInfo() {
-    console.log("Updating User Info");
-    console.log("Group: ", this.groupName);
-    this.userService.setUserGroup(this.groupName);
     this.userService.setUserInfo(this.age, this.height, this.weight);
   }
 
-  setChallenge() {//
+  setChallenge() {
     if (confirm('Are you sure you want to set your Challenge? This will remove all progress your group has made on your ' +
       'current challenge.')) {
       let groupAndChallenge = [];

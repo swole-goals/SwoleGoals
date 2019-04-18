@@ -21,6 +21,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 
 import { ChartModule } from 'angular-highcharts';
+import { ExerciseCurrentComponent } from './exercise-current/exercise-current.component';
+import { ExerciseResultComponent } from './exercise-result/exercise-result.component';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
@@ -44,7 +46,9 @@ export function getAuthServiceConfigs() {
     ExerciseListComponent,
     SplashComponent,
     ChallengeCreationMenuComponent,
-    ExerciseTableComponent
+    ExerciseTableComponent,
+    ExerciseCurrentComponent,
+    ExerciseResultComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +80,14 @@ export function getAuthServiceConfigs() {
       {
         path: 'app-exercise-table',
         component: ExerciseTableComponent
+      },
+      {
+        path: 'app-exercise-current/:challenge/:exercise',
+	component: ExerciseCurrentComponent
+      },
+      {
+        path: 'app-exercise-result/:challenge/:exercise',
+	component: ExerciseResultComponent
       },
       {
         path: 'app-map',

@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 col-md-12">
+      <h4>Current Challenge: {{challenge}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12" align="center">
+      <h1 style="text-align: center;">Do {{name}} for {{reps}} Repetitions</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4" align="right"> 
+      <div class="card" style="width: 18rem;">
+	      <img src={{image1Url}} class="card-img-top" alt="No Start Image">
+  	<div class="card-body">
+    	  <p class="card-text">Start Position</p>
+  	</div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4" align="center">
+      <p>Description: {{description}}</p>
+      
+    </div>
+    <div class="col-lg-4 col-md-4" align="left">
+      <img id="image2" src="">
+      <div class="card" style="width: 18rem;">
+	      <img src={{image2Url}} class="card-img-top" alt="No End Image">
+  	<div class="card-body">
+    	  <p class="card-text">End Position</p>
+  	</div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-lg-4 col-md-4" align="right">
+	    <a class="btn btn-primary btn-lg active" href={{mapUrl}}>Back to Game Map</a>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <div class="progress" style="height: 38px;">
+	      <div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">Progress: {{progress}}%</div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <a href={{resultsUrl}} class="btn btn-success btn-lg active" role="button" aria-pressed="true">Complete</a>
+    </div>
+  </div>
+</div>

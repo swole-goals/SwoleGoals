@@ -1,4 +1,5 @@
 export interface Group {
-    name: String;
+    name: string;
+    challenge: string;
     users: Array<string>;
 }
