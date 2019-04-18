@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ExerciseCurrentService } from './exercise-current.service';
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exercise-current',
