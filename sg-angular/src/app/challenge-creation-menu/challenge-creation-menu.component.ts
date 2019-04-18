@@ -6,6 +6,9 @@ import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel} from "@angular/cdk/collections";
 import {ChallengeCreationService} from "./challenge-creation.service";
 import {DataService} from "../../services/data.service";
+import {Challenge} from "./challenge";
+import { UserService } from 'src/services/user.service';
+import { GroupService } from 'src/services/group.service';
 
 export interface PeriodicElement {
   name: string;
@@ -32,10 +35,15 @@ export class ChallengeCreationMenuComponent implements OnInit {
   exercisesToRemove = [];
   exerciseReps = [];
   currentFilter: string;
+  challengeName = '';
+  groupName: String;
+  ans: Challenge;
+
 
   constructor(private exerciseService: ExerciseListService,
               private challengeCreationService: ChallengeCreationService,
-              private dataService: DataService) {
+              private groupService: GroupService,
+              private userService: UserService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
       this.dataSource1 = new MatTableDataSource(res);
       this.dataSource1.paginator = this.paginator;
@@ -92,26 +100,47 @@ export class ChallengeCreationMenuComponent implements OnInit {
   }
 
   createChallenge(){
+    if (this.groupName ===  null){
+      alert('Please create your group or join a group first.');
+      return;
+    }
     let exerciseNames = [];
     let challengeData = [];
     for(let exercise of this.selectedExercises){
       exerciseNames.push(exercise.name);
     }
+    challengeData.push(this.challengeName);
     challengeData.push(exerciseNames);
     challengeData.push(this.exerciseReps);
+    challengeData.push(this.userService.getUserGroup());
     console.log(challengeData);
-    this.challengeCreationService.postAPIdata(challengeData).subscribe((response)=>{
+    this.challengeCreationService.postAPIdata(challengeData).subscribe((response) => {
         let challengeInfo = response;
-        this.dataService.setChallengeData(response);
-        if (challengeInfo != null){
+        if (challengeInfo !== 'exists') {
+          DataService.setChallengeData(response);
           console.log('challenge created');
           alert('Challenge Created');
+        } else {
+          alert('Challenge not created: Challenge name already exists. Please rename your challenge.');
         }
     });
+
+    
+    // this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
+    //   this.ans = res;
+    //   this. ans.exercises;
+    //   if (this.ans.challenge !== 'exists'){
+    //     this.ans = res;
+    //     DataService.setChallengeName(this.ans.challenge);
+    //     console.log(this.ans.challenge);
+    //   }else{
+    //     alert('A challenge already exists in your group');
+    //   }
+    // });
   }
 
 
   ngOnInit() {
+    this.groupName = this.userService.getUserGroup();
   }
-
 }

@@ -1,9 +1,8 @@
-import { LoginService } from './login/login.service';
-//import { LoginComponent } from './login/login.component';
 import { Router } from '@angular/router';
 import { DataService } from './../services/data.service';
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
+import { UserService } from 'src/services/user.service';
 
 
 @Component({
@@ -13,11 +12,9 @@ import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginP
 })
 export class AppComponent implements OnInit {
   title = 'sg-angular';
-  loggedIn = false;
-  userInfo : object;
-  userImage : string;
 
   ngOnInit() {
+    this.router.navigate(['/app-splash']);
     if (isDevMode()) {
       console.log('👋 Development!');
     } else {
@@ -25,38 +22,23 @@ export class AppComponent implements OnInit {
     }
   }
 
-  constructor(private dataService : DataService, private router : Router, private socialAuthService: AuthService, 
-    private loginService : LoginService) {}
+  constructor(private router : Router, private socialAuthService: AuthService, 
+    public userService: UserService) {}
 
   logOut(){
-    this.dataService.logOut();
-    this.loggedIn = false;
-    console.log("After logged out", this.dataService.getUserName());
+    DataService.logOut();
+    this.userService.logout();
   }
 
-  logIn(socialPlatform : string){
-    //this.loginComponent.socialSignIn('google');
-    let socialPlatformProvider;
-    if (socialPlatform == "facebook"){
-      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    }else if(socialPlatform == "google"){
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    } else if (socialPlatform == "linkedin") {
-      socialPlatformProvider = LinkedinLoginProvider.PROVIDER_ID;
-    }
-    this.socialAuthService.signIn(socialPlatformProvider).then((userData) => {
-      this.userImage = userData.image;
-
-      this.loginService.postAPIData(userData).subscribe((response) => {
-        console.log('response from post data is', response);
-        this.userInfo = response;
-        this.dataService.setUserData(response);
-        this.dataService.setUserImage(this.userImage);
-        this.loggedIn = true;
-        if (this.userInfo != null){
+  logIn(){
+    let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    this.socialAuthService.signIn(socialPlatformProvider).then((loginData) => {
+      this.userService.login(loginData).subscribe((response) => {
+        if (response != null){
+          this.userService.setUserData(response);
+          this.userService.setLoggedIn();
           this.router.navigate(['/app-user-profile']);
         }
-        console.log('current logged in user is', this.dataService.getUserName());
       },(error) => {
         console.log('error during post is', error)
       })

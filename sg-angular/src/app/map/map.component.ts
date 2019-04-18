@@ -3,7 +3,7 @@ import { MapService } from './map.service';
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 import { ChallengeInfo } from './challengeinfo';
 import { ExerciseReps } from './exercisereps';
-import { DataService } from './../../services/data.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-map',
@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
 	public challenge: ChallengeInfo;
 	public reps: Array<ExerciseReps> = [];
 	public userEmail: string = '';
-	constructor(private exerciseService: MapService, private dataService: DataService) {
+	constructor(private exerciseService: MapService, private userService: UserService) {
 
   	}
 
@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
         	this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
                 	this.exercisesList = res;
 		});
-		this.userEmail = this.dataService.getUserEmail();
+		this.userEmail = this.userService.getUserEmail();
 		console.log(this.userEmail);
 		if(!this.userEmail)
 			this.userEmail = "rkoripalli@utexas.edu";

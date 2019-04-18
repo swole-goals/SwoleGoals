@@ -90,14 +90,8 @@
 
     </table>
     </div>
-    <!--<div style="height:600px; overflow: auto; width:500px;  border: 2px solid #5E4485;">
-      <mat-selection-list #rows [(ngModel)]="exercisesToRemove">
-        <mat-list-option *ngFor="let exercise of selectedExercises" [value]="exercise">
-          {{exercise.name}}: {{exerciseReps[data.indexOf(exercise)]}} reps
-        </mat-list-option>
-      </mat-selection-list>
-    </div>-->
   </td>
+
 </tr>
 
   <tr>
@@ -113,7 +107,14 @@
       </button>
     </td>
     <td>
-      <button class="btn btn-primary" (click)="createChallenge()" [disabled]="!(selectedExercises.length > 0)">
+      <form class="example-form">
+        <mat-form-field>
+          <input matInput [(ngModel)]="challengeName" [ngModelOptions]="{standalone: true}" placeholder="Challenge Name">
+        </mat-form-field>
+      </form>
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="createChallenge()" [disabled]="(!(selectedExercises.length > 0) || !(challengeName.length > 0))">
         Create Challenge
       </button>
     </td>

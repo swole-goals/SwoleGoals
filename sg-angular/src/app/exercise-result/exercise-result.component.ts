@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './../../services/data.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-exercise-result',
@@ -9,7 +9,7 @@ import { DataService } from './../../services/data.service';
 export class ExerciseResultComponent implements OnInit {
   public repsTotal = 20;
   public userEmail: string = '';
-  constructor(private dataService : DataService) { }
+  constructor(private userService : UserService) { }
   increaseReps() { 
   	this.repsTotal++;
   }
@@ -20,7 +20,7 @@ export class ExerciseResultComponent implements OnInit {
   window.location.href = '/app-map';
   }
   ngOnInit() {
-	this.userEmail = this.dataService.getUserEmail();
+	this.userEmail = this.userService.getUserEmail();
   }
 
 }
