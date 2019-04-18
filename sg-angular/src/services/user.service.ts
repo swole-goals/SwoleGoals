@@ -40,6 +40,7 @@ export class UserService {
     this.httpClient.post<User>(environment.fireStoreURL + '/getUser', { 'userEmail': `${this.getUserEmail()}` }, httpOptions).subscribe(res => {
       this.user = res;
     });
+    console.log(this.user);
     return this.user;
   }
   getUserName(): string{

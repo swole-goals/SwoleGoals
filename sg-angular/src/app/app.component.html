@@ -38,7 +38,7 @@
           <a class="nav-link" data-toggle="tab" routerLink="/app-challenge-creation-menu">Challenge Creation</a>
         </li>
         <li *ngIf="!userService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" (click)="logIn('google')" data-toggle="tab" href="#">Login</a>
+          <a class="nav-link" (click)="logIn()" data-toggle="tab" href="#">Login</a>
         </li>
         <li *ngIf="userService.isLoggedIn()" class="nav-item">
           <a class="nav-link" (click)="logOut()" data-toggle="tab" routerLink = "/app-splash">Logout</a>
