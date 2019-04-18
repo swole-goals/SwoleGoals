@@ -1,18 +1,9 @@
 
-// // set up the firestore
-// const admin = require('firebase-admin');
-
-// admin.initializeApp({
-//   credential: admin.credential.applicationDefault()
-// });
-
-// const db = admin.firestore();
-// // ...
 const admin = require('firebase-admin');
 const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
 
-const private_key = `./swolegoalsFirestore-a6f94cd05c59.json`;
+const private_key = `./swolegoalsfirestore-4ad9a0ac617c.json`;
 if(!fs.existsSync(private_key)){
   const projectId = 'swolegoalsFirestore';
   const storage = new Storage({
@@ -36,19 +27,6 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 const db = admin.firestore();
-
-var docRef = db.collection('users').doc('Kaibo');
-
-var setAda = docRef.set({
-  name: 'Kaibo',
-  age: '25',
-  height: 175,
-  weight: 120,
-  friends: ['user1', 'user2', 'user3']
-});
-
-//console.log(setAda);
-
 
 // set up the router
 const express = require('express');
