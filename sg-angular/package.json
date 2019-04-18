@@ -30,6 +30,7 @@
     "core-js": "^2.5.4",
     "highcharts": "^7.0.3",
     "jquery": "^3.3.1",
+    "newman": "^4.4.1",
     "ng-dynami-social-login": "^1.0.8",
     "rxjs": "^6.4.0",
     "tslib": "^1.9.0",

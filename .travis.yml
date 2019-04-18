@@ -8,7 +8,7 @@ before_install:
 install:
 - npm install
 script:
-- node_modules/.bin/newman run tests/bitcoinz.postman_collection.json -e testing/SwoleGoals.postman_environment.json
+- node_modules/.bin/newman run tests/bitcoinz.postman_collection.json -e ../testing/SwoleGoals.postman_environment.json
 - ng build --prod
 deploy:
   provider: s3
