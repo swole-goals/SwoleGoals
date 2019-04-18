@@ -4,6 +4,8 @@ import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 import { ChallengeInfo } from './challengeinfo';
 import { ExerciseReps } from './exercisereps';
 import { UserService } from 'src/services/user.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-map',
@@ -18,7 +20,7 @@ export class MapComponent implements OnInit {
 	public challenge: ChallengeInfo;
 	public reps: Array<ExerciseReps> = [];
 	public userEmail: string = '';
-	constructor(private exerciseService: MapService, private userService: UserService) {
+	constructor(private exerciseService: MapService, private userService: UserService, private router: Router) {
 
   	}
 
@@ -27,7 +29,8 @@ export class MapComponent implements OnInit {
 	}
 	
 	performExercise(name: string) {
-		window.location.href = '/app-exercise-current/' + this.challenge.challengeName + '/' + name;		
+	//window.location.href = '/app-exercise-current/' + this.challenge.challengeName + '/' + name;		
+		this.router.navigate(['/app-exercise-current/' + this.challenge.challengeName + '/' + name]);
 	}
 	
   	ngOnInit() {
