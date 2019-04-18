@@ -59,8 +59,8 @@ export class GroupService {
     return this.httpClient.post<Group>(environment.fireStoreURL + '/getGroup', { 'groupName': `${name}` }, httpOptions)
   }
   //Do not call directly
-  private setGroupData(email: string, oldGroup: string, oldGroupUsers: Array<string>, newGroup: string) {
-    console.log
+  setGroupData(email: string, oldGroup: string, oldGroupUsers: Array<string>, newGroup: string) {
+    console.log(email,oldGroup,newGroup);
     return this.httpClient.post<Group>(environment.fireStoreURL + '/updateGroup', { 'groupName': `${newGroup}`, 'oldGroup': `${oldGroup}`, 'oldGroupUsers': JSON.stringify(oldGroupUsers), 'userEmail': `${email}`}, httpOptions).subscribe(res=>{
       this.getGroup(newGroup).subscribe(res=>{
         this.group = res;

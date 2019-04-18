@@ -72,6 +72,7 @@ export class UserService {
   }
   setUserGroup(val: string){
     this.user.groupID = val;
+    console.log("Updating GroupID to ", val);
     this.setUserData(this.user);
   }
   setUserInfo(age: Number, height: Number, weight: Number){

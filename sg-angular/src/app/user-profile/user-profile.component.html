@@ -69,6 +69,7 @@
 											name="groupName">
 									</div>
 									<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
+									<button (click)="showGroupMembers()" type="submit" class="btn btn-primary">Refresh</button>
 								</form>
 							</div>
 							<div *ngIf="groupMembers!=null" class="col-lg-6">
@@ -146,7 +147,7 @@
 					<div class="form-group">
 						<input class="form-control" id="groupNameInput" [(ngModel)]="groupName" name="groupName">
 					</div>
-					<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
+					<button (click)="createNewGroup()" type="submit" class="btn btn-primary">Submit</button>
 				</form>
 			</div>
 		</div>

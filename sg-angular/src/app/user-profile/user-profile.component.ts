@@ -47,6 +47,13 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
+  refreshGroupMembers() {
+    this.groupService.getGroup(this.groupName).subscribe(res=>{
+      if(res!=null){
+        this.groupMembers = this.groupService.getGroupMembers();
+      }
+    });
+  }
   getUserInfo() {
     this.age = this.userService.getUserAge();
     this.height = this.userService.getUserHeight();
@@ -58,6 +65,11 @@ export class UserProfileComponent implements OnInit {
   }
   joinGroup() {
     this.groupService.updateGroup(this.userService.getUserEmail(), this.userService.getUserGroup(), this.groupName);
+    this.userService.setUserGroup(this.groupName);
+    this.showGroupMembers();
+  }
+  createNewGroup() {
+    this.groupService.setGroupData(this.userService.getUserEmail(), null,null, this.groupName);
     this.userService.setUserGroup(this.groupName);
     this.showGroupMembers();
   }
