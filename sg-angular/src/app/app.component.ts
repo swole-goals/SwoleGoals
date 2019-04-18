@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   }
 
   constructor(private router : Router, private socialAuthService: AuthService, 
-    private userService: UserService) {}
+    public userService: UserService) {}
 
   logOut(){
     DataService.logOut();

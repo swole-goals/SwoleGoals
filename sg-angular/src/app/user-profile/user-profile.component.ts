@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   selectedChallenge = new SelectionModel(false, []);
 
   constructor(private userProfileService: UserProfileService,
-    private userService: UserService,
+    public userService: UserService,
     private groupService: GroupService,
     private getChallengesService: GetChallengesService,
     private setGroupChallengeService: SetGroupChallengeService) {
@@ -47,13 +47,7 @@ export class UserProfileComponent implements OnInit {
       }
     });
   }
-  refreshGroupMembers() {
-    this.groupService.getGroup(this.groupName).subscribe(res=>{
-      if(res!=null){
-        this.groupMembers = this.groupService.getGroupMembers();
-      }
-    });
-  }
+
   getUserInfo() {
     this.age = this.userService.getUserAge();
     this.height = this.userService.getUserHeight();
