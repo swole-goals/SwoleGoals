@@ -1,14 +1,4 @@
 
-// // set up the firestore
-// const admin = require('firebase-admin');
-
-// admin.initializeApp({
-//   credential: admin.credential.applicationDefault()
-// });
-
-// const db = admin.firestore();
-// // ...
-
 const admin = require('firebase-admin');
 const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
@@ -38,6 +28,7 @@ admin.initializeApp({
 });
 const db = admin.firestore();
 
+// set up the router
 const express = require('express');
 var app = express();
 

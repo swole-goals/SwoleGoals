@@ -4,6 +4,8 @@
 			</div>
 			<div class="row">
 				<div class="col-6">
+				<h1>Challenge:</h1>
+				<h2 id="challenge">{{challenge.challengeName}}</h2>
 				<table>
 					<ng-container *ngFor="let exercise of reps">
 						<tr>
@@ -11,18 +13,6 @@
 						</tr>
 					</ng-container>
 				</table>
-			</div>
-			<div class="col-6">
-				<div style="border-style: solid;
-  border-width: 5px; height: 300px">
-					<h2>Exercise</h2>
-					<p id="tile-about">{{exerciseAbout}}</p>
-					<p id="tile-reps"><strong>Reps:</strong> 9000</p>
-					<p id="tile-pr"><strong>PR:</strong> 9000 + 1</p>
-					
-					<button type="button" class="btn btn-primary">Success</button>
-					<button type="button" class="btn btn-primary">Fail (Do you even lift?)</button>
-				</div>
 			</div>
 			</div>
 		</div>
