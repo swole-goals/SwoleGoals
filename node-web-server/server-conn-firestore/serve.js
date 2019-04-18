@@ -92,19 +92,21 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
   resRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
       console.log('document already exists');
-      res.json(docSnapshot.data());
+      res.json(docSnapshot.data().docData);
       var arrOfResultObj = [];
       var arrOfUserObj = [];
+
+      var resultObj = {
+        exerciseName: 'exerciseName',
+        userObj: []
+      };
 
       var idx = 0;
       var numUsers = req.body.groupUsers.length;
       for (let i=0; i<req.body.exerciseList.length;i++) {
         var arrOfUserObj = [];
         for (let k=0; k<numUsers;k++) {
-          var userObj = {
-            userEmail: req.body.userResultArr[k + idx],
-          }
-          arrOfUserObj.push(userObj);
+          arrOfUserObj.push(req.body.userResultArr[k + idx]);
         }
         idx=idx+3;
 
@@ -138,15 +140,15 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
         exerciseName: 'exerciseName',
         userObj: []
       };
-      var userObj = {
-        userEmail: 'fakeemail@gmail.com',
-        result: -1
-      }
+
+      /*for (let k=0; k<req.body.groupUsers.length;k++) {
+        groupRef.update({
+          arrOfUserObj: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
+        })
+      } */
+
       for (let k=0; k<req.body.groupUsers.length;k++) {
-        var userObj = {
-          userEmail: req.body.groupUsers[k],
-        }
-        arrOfUserObj.push(userObj);
+        arrOfUserObj.push(req.body.groupUsers[k]);
       }
       for (let i=0; i<req.body.exerciseList.length;i++) {
         var exName = req.body.exerciseList[i];
