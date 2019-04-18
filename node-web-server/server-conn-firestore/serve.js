@@ -42,11 +42,29 @@ const express = require('express');
 var app = express();
 
 
-
 var bodyparser = require('body-parser');
 var cors = require('cors');//cors is used to allow cross platform services
 app.use(cors());
 app.use(bodyparser.json());
+
+/*
+var mongoose = require('mongoose');
+var expressSession = require('express-session');
+var MongoStore = require('connect-mongo');
+
+mongoose.connect(db_url, function (err) {
+    if (err) {
+        console.log(err);
+    }
+});
+
+app.use(expressSession({
+    secret: process.env.SESSION_SECRET || 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+*/
 
 app.get('/', (req, res) => {
   res.send("Hello from Firestore!");
@@ -124,6 +142,27 @@ app.post('/getUsers', bodyparser.json(), (req, res) => {
 app.post('/updateGroup', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const groupRef = db.collection('groups').doc(req.body.groupName);
+  const userRef = db.collection('users').doc(req.body.userEmail);
+
+  //removing user from previous group
+  userRef.get().then((doc) => {
+    const previousGroupRef = db.collection('groups').doc(doc.get('groupID'));
+    if(previousGroupRef != null) {
+      previousGroupRef.get().then((doc) => {
+        if (doc.exists) {
+          previousGroupRef.update({
+            users: admin.firestore.FieldValue.arrayRemove(req.body.userEmail)
+          });
+        }
+      }).catch((err) => {
+        console.log('got an error:', err);
+      });
+    }
+  }).catch((err) => {
+    console.log('got and error:', err);
+  }) ;
+
+  //adding user to group or creating new group
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
       groupRef.update({
@@ -305,6 +344,18 @@ app.get('/getCurrentChallenge/:email', bodyparser.json(), (req, res) => {
       })
     }else{
       res.json('user not in group');
+    }
+  })
+})
+
+app.get('/getEx/:challenge', bodyparser.json(), (req, res) => {
+  var challenge = req.params.challenge;
+  challengeRef = db.collection('Challenges').doc(challenge);
+  challengeRef.get().then((docSnapshot) =>{
+    if (docSnapshot.exists){
+      res.json(docSnapshot.data());
+    }else{
+      console.log('Data not exists.');
     }
   })
 })

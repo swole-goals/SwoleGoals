@@ -21,9 +21,9 @@ export class ChallengeCreationService {
     return this.httpClient.post(environment.fireStoreURL+'/addChallenge', challengeData);
   }
 
-  updateInGroup(cname, gname): Observable<Challenge>{
-    console.log(cname, gname);
-    return this.httpClient.post<Challenge>(environment.fireStoreURL+'/addClgtoGroup', { 'cname': `${cname}`, 'gname': `${gname}`}, httpOptions);
-  }
+  // updateInGroup(cname, gname): Observable<Challenge>{
+  //   console.log(cname, gname);
+  //   return this.httpClient.post<Challenge>(environment.fireStoreURL+'/addClgtoGroup', { 'cname': `${cname}`, 'gname': `${gname}`}, httpOptions);
+  // }
 //{'exercises' : `${challengeData[0]}`, 'reps' : `${challengeData[1]}`}
 }

@@ -125,16 +125,18 @@ export class ChallengeCreationMenuComponent implements OnInit {
         }
     });
 
-    /*this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
-      this.ans = res;
-      if (this.ans.challenge !== 'exists'){
-        this.ans = res;
-        DataService.setChallengeName(this.ans.challenge);
-        console.log(this.ans.challenge);
-      }else{
-        alert('A challenge already exists in your group');
-      }
-    });*/
+    
+    // this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
+    //   this.ans = res;
+    //   this. ans.exercises;
+    //   if (this.ans.challenge !== 'exists'){
+    //     this.ans = res;
+    //     DataService.setChallengeName(this.ans.challenge);
+    //     console.log(this.ans.challenge);
+    //   }else{
+    //     alert('A challenge already exists in your group');
+    //   }
+    // });
   }
 
 
