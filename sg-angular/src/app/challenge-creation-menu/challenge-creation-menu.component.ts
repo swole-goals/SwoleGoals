@@ -139,6 +139,6 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
 
   ngOnInit() {
-    this.groupName = this.groupService.getGroupName();
+    this.groupName = this.userService.getUserGroup();
   }
 }

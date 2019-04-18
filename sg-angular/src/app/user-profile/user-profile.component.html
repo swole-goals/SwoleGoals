@@ -1,4 +1,4 @@
-<div *ngIf="loggedIn && hasGroup" class="container-fluid">
+<div *ngIf="userService.isLoggedIn() && userService.hasGroup()" class="container-fluid">
 	<div id="body">
 		<div class="row">
 			<div class="col-lg-8">
@@ -71,7 +71,7 @@
 									<button (click)="joinGroup()" type="submit" class="btn btn-primary">Submit</button>
 								</form>
 							</div>
-							<div class="col-lg-6">
+							<div *ngIf="groupMembers!=null" class="col-lg-6">
 								<h4>Group Members</h4>
 								<ul *ngIf="groupMembers.length>1" class="list-group">
 									<li *ngFor="let user of groupMembers" class="list-group-item">
@@ -131,7 +131,7 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="loggedIn && !hasGroup" class="container">
+<div *ngIf="userService.isLoggedIn() && !userService.hasGroup()" class="container">
 	<div id="body">
 		<div class="row">
 			<div class="col">
@@ -152,7 +152,7 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="!userService.isloggedIn()" class="container">
+<div *ngIf="!userService.isLoggedIn()" class="container">
 	<div id="body">
 		<div class="row">
 			<div class="alert alert-danger" role="alert">

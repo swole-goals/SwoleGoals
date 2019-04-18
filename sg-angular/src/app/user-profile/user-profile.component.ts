@@ -39,37 +39,34 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  showGroupMembers() {
+    this.groupService.getGroup(this.groupName).subscribe(res=>{
+      if(res!=null){
+        this.groupService.setGroup(res);
+        this.groupMembers = this.groupService.getGroupMembers();
+      }
+    });
+  }
   getUserInfo() {
-    this.groupName = this.userService.getUserGroup();
     this.age = this.userService.getUserAge();
     this.height = this.userService.getUserHeight();
     this.weight = this.userService.getUserWeight();
     if (this.userService.hasGroup()) {
-      console.log("Getting group members")
-      this.getGroupMembers();
+      this.groupName = this.userService.getUserGroup();
+      this.showGroupMembers();
     }
   }
-
-  getGroupMembers() {
-    this.groupService.getGroupData(this.groupName);
-    this.groupMembers = this.groupService.getGroupMembers();
-  }
-
   joinGroup() {
-    this.groupService.getGroupData(this.groupName)
-    this.groupService.addUsertoGroup(this.userService.getUserEmail());
-    this.updateUserInfo();
-    this.getGroupMembers();
+    this.groupService.updateGroup(this.userService.getUserEmail(), this.userService.getUserGroup(), this.groupName);
+    this.userService.setUserGroup(this.groupName);
+    this.showGroupMembers();
   }
 
   updateUserInfo() {
-    console.log("Updating User Info");
-    console.log("Group: ", this.groupName);
-    this.userService.setUserGroup(this.groupName);
     this.userService.setUserInfo(this.age, this.height, this.weight);
   }
 
-  setChallenge() {//
+  setChallenge() {
     if (confirm('Are you sure you want to set your Challenge? This will remove all progress your group has made on your ' +
       'current challenge.')) {
       let groupAndChallenge = [];

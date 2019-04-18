@@ -13,7 +13,7 @@ const admin = require('firebase-admin');
 const fs = require('fs');
 const {Storage} = require('@google-cloud/storage');
 
-const private_key = `./swolegoalsFirestore-a6f94cd05c59.json`;
+const private_key = `./swolegoalsfirestore-4ad9a0ac617c.json`;
 if(!fs.existsSync(private_key)){
   const projectId = 'swolegoalsFirestore';
   const storage = new Storage({
@@ -39,8 +39,6 @@ admin.initializeApp({
 const db = admin.firestore();
 
 const express = require('express');
-var session = require('express-session');
-
 var app = express();
 
 
@@ -130,19 +128,35 @@ app.post('/updateGroup', bodyparser.json(), (req, res) => {
     if (docSnapshot.exists) {
       groupRef.update({
         users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
-      }) 
-      console.log('Group already exists, adding user to group');
+      }).then(() => {
+        console.log('Group already exists, adding user to group');
+        res.json(docSnapshot.data());
+      })
     } else {
+      console.log("Creating new group")
       groupRef.set({
         name: req.body.groupName,
-        users: req.body.userEmail
-      }).then(() => {
-        console.log('Created Group!');
+        challenge: null,
+        users: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
       }).catch((err) => {
         console.log('get an error:', err);
       });
     }
   });
+  if(req.body.oldGroup!=null){
+    const oldGroupRef = db.collection('groups').doc(req.body.oldGroup);
+    oldGroupRef.get().then((docSnapshot) => {
+      if (docSnapshot.exists) {
+        if(req.body.oldGroupUsers==='[]'){ //if there are no users in the group, delete it.
+          oldGroupRef.delete();
+        }
+        else {
+          oldGroupRef.set({ //else update it
+          users: req.body.oldGroupUsers
+        })}
+      }
+    });
+  }
 });
 
 app.post('/getGroup', bodyparser.json(), (req, res) => {
@@ -150,7 +164,6 @@ app.post('/getGroup', bodyparser.json(), (req, res) => {
   const groupRef = db.collection('groups').doc(req.body.groupName);
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      console.log(docSnapshot.data())
       res.json(docSnapshot.data());
     } else{
       res.json(null);

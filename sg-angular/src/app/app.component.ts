@@ -30,21 +30,13 @@ export class AppComponent implements OnInit {
     this.userService.logout();
   }
 
-  logIn(socialPlatform : string){
-    let socialPlatformProvider;
-    if (socialPlatform == "facebook"){
-      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-    }else if(socialPlatform == "google"){
-      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-    } else if (socialPlatform == "linkedin") {
-      socialPlatformProvider = LinkedinLoginProvider.PROVIDER_ID;
-    }
+  logIn(){
+    let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
     this.socialAuthService.signIn(socialPlatformProvider).then((loginData) => {
       this.userService.login(loginData).subscribe((response) => {
         if (response != null){
           this.userService.setUserData(response);
           this.userService.setLoggedIn();
-          console.log(this.userService.isLoggedIn())
           this.router.navigate(['/app-user-profile']);
         }
       },(error) => {
