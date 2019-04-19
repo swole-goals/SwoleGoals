@@ -19,11 +19,16 @@ export class ExerciseCurrentComponent implements OnInit {
   public image1Url: string = '';
   public image2Url: string = '';
   public resultsUrl: string = '';
+  public mapUrl: string = '/app-map';
   private route: ActivatedRoute;
-  private router: Router;
-  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService) {
+  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService, private router: Router) {
   }
-
+  backToMap() {
+ 	this.router.navigate(['/app-map']); 	
+  }
+  toResults() {
+  	this.router.navigate([this.resultsUrl]);
+  }
   ngOnInit() {
   	this.challenge = this.activatedRoute.snapshot.paramMap.get('challenge');
 	this.name = this.activatedRoute.snapshot.paramMap.get('exercise');

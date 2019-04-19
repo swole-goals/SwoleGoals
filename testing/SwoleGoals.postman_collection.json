@@ -1,0 +1,217 @@
+{
+	"info": {
+		"name": "SwoleGoals",
+		"_postman_id": "1d09e667-6149-91fd-6740-9824ccb85a0d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getChallengeExercises",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response should contain user1, user2 and user3\", function () { \r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.Group[0]).to.eql(\"user1@gmail.com\",\r",
+							"        \"user1@gmail.com\",\r",
+							"        \"user3@gmail.com\");\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://swolegoalsfirestore.appspot.com/getChallengeExercises/ChallengeTest",
+					"protocol": "https",
+					"host": [
+						"swolegoalsfirestore",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"getChallengeExercises",
+						"ChallengeTest"
+					]
+				},
+				"description": "Adds User to Firestore"
+			},
+			"response": []
+		},
+		{
+			"name": "Check Connection",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response should say Hello\", function () { \r",
+							"    pm.expect(pm.response.text()).to.eql(\"Hello from Firestore!\");\r",
+							"});\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "test@gmail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Test",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"value": "https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2F3.bp.blogspot.com%2F-k9ywGQ05qSk%2FT-8a3E1JXqI%2FAAAAAAAAFMY%2F_NsppaelmPM%2Fs1600%2Fhorse%2Bpicture%2B%25283%2529.jpg&f=1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://swolegoalsfirestore.appspot.com/",
+					"protocol": "https",
+					"host": [
+						"swolegoalsfirestore",
+						"appspot",
+						"com"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Makes sure the connection to the Firestore server is working"
+			},
+			"response": []
+		},
+		{
+			"name": "getCurrentChallenge",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response should contain user1, user2, and user3\", function () { \r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.Group[0]).to.eql(\"user1@gmail.com\",\r",
+							"        \"user1@gmail.com\",\r",
+							"        \"user3@gmail.com\");\r",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://swolegoalsfirestore.appspot.com/getCurrentChallenge/rkoripalli@utexas.edu",
+					"protocol": "https",
+					"host": [
+						"swolegoalsfirestore",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"getCurrentChallenge",
+						"rkoripalli@utexas.edu"
+					]
+				},
+				"description": "Returns all Challenges"
+			},
+			"response": []
+		},
+		{
+			"name": "addUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response is ok\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Email should be test@gmail.com\", function () { \r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.email).to.eql(\"test@gmail.com\")\r",
+							"});\r",
+							"pm.test(\"Name should be Test\", function () { \r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"Test\")\r",
+							"});\r",
+							"pm.test(\"Image should be https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2F3.bp.blogspot.com%2F-k9ywGQ05qSk%2FT-8a3E1JXqI%2FAAAAAAAAFMY%2F_NsppaelmPM%2Fs1600%2Fhorse%2Bpicture%2B%25283%2529.jpg&f=1\", function () { \r",
+							"    jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.image).to.eql(\"https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2F3.bp.blogspot.com%2F-k9ywGQ05qSk%2FT-8a3E1JXqI%2FAAAAAAAAFMY%2F_NsppaelmPM%2Fs1600%2Fhorse%2Bpicture%2B%25283%2529.jpg&f=1\")\r",
+							"});\r",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Test\",\n\t\"email\": \"test@gmail.com\",\n\t\"image\": \"https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2F3.bp.blogspot.com%2F-k9ywGQ05qSk%2FT-8a3E1JXqI%2FAAAAAAAAFMY%2F_NsppaelmPM%2Fs1600%2Fhorse%2Bpicture%2B%25283%2529.jpg&f=1\"\n}"
+				},
+				"url": {
+					"raw": "https://swolegoalsfirestore.appspot.com/addUser",
+					"protocol": "https",
+					"host": [
+						"swolegoalsfirestore",
+						"appspot",
+						"com"
+					],
+					"path": [
+						"addUser"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

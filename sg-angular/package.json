@@ -30,13 +30,14 @@
     "core-js": "^2.5.4",
     "highcharts": "^7.0.3",
     "jquery": "^3.3.1",
+    "newman": "^4.4.1",
     "ng-dynami-social-login": "^1.0.8",
     "rxjs": "^6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.13.3",
+    "@angular-devkit/build-angular": "^0.13.8",
     "@angular/cli": "~7.3.3",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",

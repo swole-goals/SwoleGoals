@@ -11,12 +11,9 @@ import { Component, OnInit } from '@angular/core';
 export class SplashComponent implements OnInit {
 
   constructor(private appComponent : AppComponent) { }
-
   ngOnInit() {
-
   }
-
   logIn(){
-    this.appComponent.logIn('google');
+    this.appComponent.logIn();
   }
 }

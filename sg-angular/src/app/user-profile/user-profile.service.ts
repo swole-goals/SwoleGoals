@@ -2,22 +2,30 @@ import { HttpClient } from '@angular/common/http';
 import { DataService } from './../../services/data.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { Group } from '../../services/group'
+import { HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from '../../services/user'
+import { UserService } from 'src/services/user.service';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  })
+};
 @Injectable({
   providedIn: 'root'
 })
 export class UserProfileService {
-  userEmail
-  constructor(private dataService: DataService, private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private userService: UserService) { }
 
-  createGroup(groupName) {
-    this.userEmail = this.dataService.getUserEmail();
-    console.log("Creating new group: ", groupName);
-    return this.httpClient.post(environment.fireStoreURL+'/addGroup', { 'groupName': `${groupName}`, 'userEmail': `${this.userEmail}` })
+  postAPIGroupAdd(groupName, userEmail) {
+    console.log("Reached postAPIDataGroup with groupName: ", groupName)
+    return this.httpClient.post(environment.fireStoreURL + '/addFriendToGroup', { 'groupName': groupName, 'userEmail': userEmail })
   }
-  updateInfo(userAge,userHeight,userWeight) {
-    this.userEmail = this.dataService.getUserEmail();
-    console.log(environment.fireStoreURL);
-    return this.httpClient.post(environment.fireStoreURL+'/updateInfo', { 'userEmail': `${this.userEmail}`, 'userAge': `${userAge}`, 'userHeight': `${userHeight}`, 'userWeight': `${userWeight}` })
+  postAPIGroupRemove(groupName, userEmail) {
+    console.log("Reached postAPIDataGroup with groupName: ", groupName)
+    return this.httpClient.post(environment.fireStoreURL + '/removeFriendFromGroup', { 'groupName': groupName, 'userEmail': userEmail })
   }
+
 }
