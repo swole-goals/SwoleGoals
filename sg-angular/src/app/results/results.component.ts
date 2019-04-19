@@ -93,6 +93,7 @@ export class ResultsComponent implements OnInit {
         this.groupUsers = response.users;
         console.log("this resp.groupUsers: ", response.users);
 
+        this.userResultArr = [];
           /* This internal array keeps track of user's results! */
         for (let j = 0; j<this.exerciseList.length;j++) {
           for (let i = 0; i<this.groupUsers.length;i++) {
@@ -122,11 +123,11 @@ export class ResultsComponent implements OnInit {
   
 
   /* Update User's Result for specific Exercise. */
-  updateChallengeResultsUserExercise(exerciseName: string, results: string) {
-    exerciseName = "[Bodyweight Flyes]{8}";
-    results = '5555';
-    var userToUpdate = "fakeuser@gmail.com";
-
+  updateChallengeResultsUserExercise(exerciseName: string, results: string, userToUpdate: string) {
+   /* exerciseName = "[Incline Cable Flye]{8}";
+    results = '1234';
+    var userToUpdate = "user3@gmail.com";
+  */
     //TODO: Replace this with grabbing challenge and groupID from DataService.
   
     this.challengeService.getChallengeData().subscribe(res => {

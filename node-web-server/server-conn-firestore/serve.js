@@ -105,7 +105,7 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
         for (let k=0; k<numUsers;k++) {
           arrOfUserObj.push(req.body.userResultArr[k + idx]);
         }
-        idx=idx+3;
+        idx=idx+req.body.groupUsers.length;
 
         var resultObj = {
           exerciseName: req.body.exerciseList[i],
