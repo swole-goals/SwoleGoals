@@ -61,6 +61,119 @@ app.get('/', (req, res) => {
   res.send("Hello from Firestore!");
 });
 
+app.post('/getChallengeExerciseList', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('Challenges').doc(req.body.challengeName);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('Returned Challenge Exercise List');
+      res.json(docSnapshot.data());
+    } 
+  });
+});
+
+app.post('/getGroupUsers', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('groups').doc(req.body.groupName);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('Returned Group Users');
+      res.json(docSnapshot.data());
+    } 
+  });
+});
+
+app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const resRef = db.collection('Results').doc(req.body.groupName);
+  resRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('document already exists');
+      res.json(docSnapshot.data().docData);
+      var arrOfResultObj = [];
+      var arrOfUserObj = [];
+
+      var resultObj = {
+        exerciseName: 'exerciseName',
+        userObj: []
+      };
+
+      var idx = 0;
+      var numUsers = req.body.groupUsers.length;
+      for (let i=0; i<req.body.exerciseList.length;i++) {
+        var arrOfUserObj = [];
+        for (let k=0; k<numUsers;k++) {
+          arrOfUserObj.push(req.body.userResultArr[k + idx]);
+        }
+        idx=idx+3;
+
+        var resultObj = {
+          exerciseName: req.body.exerciseList[i],
+          userObj: arrOfUserObj
+        };
+        arrOfResultObj.push(resultObj);
+      }
+
+      var docData = {
+        groupID: req.body.groupName,
+        challengeName: req.body.challengeName,
+        resultList: arrOfResultObj,
+      };
+
+      resRef.set({
+        docData
+      }).then(() => {
+        console.log('Created challengeResult successfully!');
+      }).then(() => resRef.get().then((docSnapshot) => {
+        res.json(docSnapshot.data())
+      })).catch((err) => {
+        console.log('get an error:', err);
+      });
+    } else {
+      var arrOfResultObj = [];
+      var arrOfUserObj = [];
+
+      var resultObj = {
+        exerciseName: 'exerciseName',
+        userObj: []
+      };
+
+      /*for (let k=0; k<req.body.groupUsers.length;k++) {
+        groupRef.update({
+          arrOfUserObj: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
+        })
+      } */
+
+      for (let k=0; k<req.body.groupUsers.length;k++) {
+        arrOfUserObj.push(req.body.groupUsers[k]);
+      }
+      for (let i=0; i<req.body.exerciseList.length;i++) {
+        var exName = req.body.exerciseList[i];
+        var resultObj = {
+          exerciseName: req.body.exerciseList[i],
+          userObj: arrOfUserObj
+        };
+        arrOfResultObj.push(resultObj);
+      }
+      var docData = {
+        groupID: req.body.groupName,
+        challengeName: req.body.challengeName,
+        resultList: arrOfResultObj,
+      };
+
+      resRef.set({
+        docData
+      }).then(() => {
+        console.log('Created challengeResult successfully!');
+      }).then(() => resRef.get().then((docSnapshot) => {
+        res.json(docSnapshot.data())
+      })).catch((err) => {
+        console.log('get an error:', err);
+      });
+    }
+  });
+});
+
 app.post('/addUser', bodyparser.json(), (req, res) => {
   const userRef = db.collection('users').doc(req.body.email);
   userRef.get().then((docSnapshot) => {

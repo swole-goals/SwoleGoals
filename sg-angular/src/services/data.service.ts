@@ -25,6 +25,20 @@ export abstract class DataService {
     return DataService.challengeName;
   }
 
+  getChallengeData(val : object){
+    //return this.challengeData;
+  }
+/* TODO: Figure out how to get this information to ResultsComponent
+  getUserData(){
+    return this.userData;
+  }
+  getUserEmail(){
+    return this.userData.email;
+  }
+  getUserName(){
+    return this.userData.name;
+  }
+  */
   static setChallengeData(val : object){
     DataService.challengeData = val;
   }
