@@ -37,6 +37,9 @@
         <li *ngIf="userService.isLoggedIn()" class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-challenge-creation-menu">Challenge Creation</a>
         </li>
+        <li *ngIf="userService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" data-toggle="tab" routerLink="/results">Results</a>
+        </li>
         <li *ngIf="!userService.isLoggedIn()" class="nav-item">
           <a class="nav-link" (click)="logIn()" data-toggle="tab" href="#">Login</a>
         </li>
