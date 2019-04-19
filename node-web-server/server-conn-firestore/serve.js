@@ -83,6 +83,17 @@ app.post('/getGroupUsers', bodyparser.json(), (req, res) => {
   });
 });
 
+app.post('/getResultObj', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  const userRef = db.collection('Results').doc(req.body.groupName);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      console.log('Returned ResultObj');
+      res.json(docSnapshot.data());
+    } 
+  });
+});
+
 app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const resRef = db.collection('Results').doc(req.body.groupName);

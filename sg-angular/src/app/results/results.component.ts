@@ -67,6 +67,17 @@ export class ResultsComponent implements OnInit {
     this.userResultArr = [];
   }
 
+  printResultObject() {
+    this.getChallengeResultObject("ResultTestGroup").subscribe((res)=>{console.log(res)})
+  }
+
+  getChallengeResultObject(groupName: string) {
+    return this.httpClient.post<ResultObj>(environment.fireStoreURL+'/getResultObj',
+    {
+      'groupName':groupName
+    })
+  }
+
   /* Create a ChallengeResult Object to contain user results. Must be called ONCE for the GameMap. */
   createChallengeResultObject() {
     //TODO: Replace this with grabbing challenge and groupID from DataService.
@@ -351,6 +362,7 @@ export class ResultsComponent implements OnInit {
               
             }
           }
+
 
         },(error)=>{
           console.log('error during updateChallengeResults ', error)
