@@ -144,7 +144,6 @@ export class GithubStatsComponent implements OnInit {
 			if (cs.length != null && cs.length > 0) {
 				cs.forEach(commit => { this.commits.push(commit) });
 				this.loadService(++page);
-				console.log(this.commits);
 			}
 
 			else {//done
@@ -179,7 +178,6 @@ export class GithubStatsComponent implements OnInit {
 				this.gitAccountList[3].commits = commitCounts[3].toString();
 				this.gitAccountList[4].commits = commitCounts[4].toString();
 				this.gitAccountList[5].commits = commitCounts[5].toString();
-				console.log(commitCounts);
 				this.totalCommits = 0;
 				commitCounts.forEach(count => this.totalCommits += count);
 			}
