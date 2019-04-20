@@ -7,8 +7,8 @@
 				<h1>Challenge:</h1>
 				<h2 id="challenge">{{challenge.challengeName}}</h2>
 				<table >
-					<ng-container>
-						<tr *ngFor="let exercise of reps">
+					<ng-container *ngFor="let exercise of reps">
+						<tr>
 							<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
 						</tr>
 					</ng-container>
