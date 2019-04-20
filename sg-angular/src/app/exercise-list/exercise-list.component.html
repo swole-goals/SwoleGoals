@@ -27,78 +27,70 @@
   </div>
 </div>
 -->
-<br />
-<div class="container-fluid">
-<div class="row">
-<div class="col-lg-2" style="background-color: #5E4485;">
-</div>
-<div class="col-lg-4">
-<form>
-	<!--<div class="form-row">-->
-    <div class="form-group">
-      <label for="inputState">Type</label>
-      <select id="inputState" class="form-control" (change)="onChangeType($event.target.value)">
-	<ng-container *ngFor="let type of types">
-	  <option value="{{type}}">{{type}}</option>
-	</ng-container>
-      </select>
-    </div>
-    <!--</div>
+<div class="container-fluid mx-5 mt-5">
+  <h1>Exercises</h1>
+  <div class="row">
+    <div class="col-lg-4">
+      <form>
+        <!--<div class="form-row">-->
+        <div class="form-group">
+          <label for="inputState">Type</label>
+          <select id="inputState" class="form-control" (change)="onChangeType($event.target.value)">
+            <ng-container *ngFor="let type of types">
+              <option value="{{type}}">{{type}}</option>
+            </ng-container>
+          </select>
+        </div>
+        <!--</div>
 	<div class="form-row">-->
-    <div class="form-group">
-      <label for="inputState">Muscles</label>
-      <select id="inputState" class="form-control" (change)="onChangeMuscle($event.target.value)">
-	<ng-container *ngFor="let muscle of muscles">
-	  <option value="{{muscle}}">{{muscle}}</option>
-	</ng-container>
-      </select>
-    </div>
-  <!--</div>
+        <div class="form-group">
+          <label for="inputState">Muscles</label>
+          <select id="inputState" class="form-control" (change)="onChangeMuscle($event.target.value)">
+            <ng-container *ngFor="let muscle of muscles">
+              <option value="{{muscle}}">{{muscle}}</option>
+            </ng-container>
+          </select>
+        </div>
+        <!--</div>
 	<div class="form-row">-->
-    <div class="form-group">
-      <label for="inputState">Equipment</label>
-      <select id="inputState" class="form-control" (change)="onChangeEquipment($event.target.value)">
-	<ng-container *ngFor="let equipment of equipments">
-	  <option value="{{equipment}}">{{equipment}}</option>
-	</ng-container>
-      </select>
+        <div class="form-group">
+          <label for="inputState">Equipment</label>
+          <select id="inputState" class="form-control" (change)="onChangeEquipment($event.target.value)">
+            <ng-container *ngFor="let equipment of equipments">
+              <option value="{{equipment}}">{{equipment}}</option>
+            </ng-container>
+          </select>
+        </div>
+        <!--</div>-->
+      </form>
     </div>
-    <!--</div>-->
-</form>
-</div>
-<div class="col-lg-4">
-	<h3><span class="badge badge-primary">Name</span>: {{selectedExercise.name}}</h3>
-	<p><span class="badge badge-primary">Type</span>: {{selectedExercise.type}}</p>
-	<p><span class="badge badge-primary">Muscles</span>: {{selectedExercise.muscles}}</p>
-	<p><span class="badge badge-primary">Equipment</span>: {{selectedExercise.equipment}}</p>
-	<p><span class="badge badge-primary">Difficulty</span>: {{selectedExercise.review}}</p>
-	<p><span class="badge badge-primary">Review</span>: {{selectedExercise.level}}</p>
-</div>
-<div class="col-lg-2" style="background-color: #5E4485;">
-</div>
-
-</div>
+    <div class="col-lg-4">
+      <h3><span class="badge badge-primary">Name</span>: {{selectedExercise.name}}</h3>
+      <p><span class="badge badge-primary">Type</span>: {{selectedExercise.type}}</p>
+      <p><span class="badge badge-primary">Muscles</span>: {{selectedExercise.muscles}}</p>
+      <p><span class="badge badge-primary">Equipment</span>: {{selectedExercise.equipment}}</p>
+      <p><span class="badge badge-primary">Difficulty</span>: {{selectedExercise.review}}</p>
+      <p><span class="badge badge-primary">Review</span>: {{selectedExercise.level}}</p>
+    </div>
+  </div>
+  <h3>All scraping credits go to bodybuilding.com</h3>
+  <div class="row">
+    <ng-container *ngFor="let exercise of filteredList">
+      <div *ngIf="exercise.image1" class="card mr-2" style="width: 18rem;"
+        (click)="updateSelectedExercise(exercise.name)">
+        <img src={{exercise.image1}} class="card-img-top" alt="Failed to Load Image">
+        <div class="card-body">
+          <h5 class="card-title">{{exercise.name}}</h5>
+          <p class="card-text">Type: {{exercise.type}}</p>
+          <p class="card-text">Muscles: {{exercise.muscles}}</p>
+          <p class="card-text">Equipment: {{exercise.equipment}}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>
 <!--
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
 -->
-<h1>All scraping credits go to bodybuilding.com</h1>
-	<div class="container-fluid ml-2">
-        <div class="container-fluid ml-2">
-            <div class="row">
-		<ng-container *ngFor="let exercise of filteredList">
-			<div *ngIf="exercise.image1" class="card mr-2" style="width: 18rem;" (click)="updateSelectedExercise(exercise.name)">
-			<img src={{exercise.image1}} class="card-img-top" alt="Failed to Load Image">
-                        <div class="card-body">
-                            <h5 class="card-title">{{exercise.name}}</h5>
-                            <p class="card-text">Type: {{exercise.type}}</p>
-                            <p class="card-text">Muscles: {{exercise.muscles}}</p>
-                            <p class="card-text">Equipment: {{exercise.equipment}}</p>
-                        </div>
-                    </div>
-                </ng-container>
-	    </div>
-	</div>
-	</div>
