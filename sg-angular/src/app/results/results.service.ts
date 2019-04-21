@@ -265,6 +265,59 @@ constructor(
   }
 
 
+  /* Create a ChallengeResult Object to contain user results. Must be called ONCE for the GameMap. */
+  createChallengeResultObject() {
+    //TODO: Replace this with grabbing challenge and groupID from DataService.
+    //this.challengeName = "Challenge21";
+    //this.groupName = "ResultChallengeTestGroup";
+    this.challengeService.getChallengeData().subscribe(res => {
+      this.challengeName = res.challengeName;
+      this.groupName = this.userService.getUserGroup();
+      console.log("CHALLENGE NAME: ", this.challengeName);
+      console.log("GROUPNAME: ", this.groupName);
+
+      this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList',
+    {
+      'challengeName':res.challengeName,
+    }).subscribe((response)=>{
+      console.log('response from getChallengeExerciseList ', response);
+      this.exerciseList = response.exercises;
+      console.log("this resp.exList: ", response.exercises);
+      this.httpClient.post<Group>(environment.fireStoreURL+'/getGroupUsers',
+      {
+        'groupName':this.groupName,
+      }).subscribe((response)=>{
+        console.log('response from getGroupUsers ', response);
+        this.groupUsers = response.users;
+        console.log("this resp.groupUsers: ", response.users);
+
+        this.userResultArr = [];
+          /* This internal array keeps track of user's results! */
+        for (let j = 0; j<this.exerciseList.length;j++) {
+          for (let i = 0; i<this.groupUsers.length;i++) {
+            this.userResultArr.push(this.groupUsers[i]);
+          }
+        }
+
+        console.log("USER RESULT ARRAY AFTER INIT", this.userResultArr);
+      
+        this.postChallengeResults();
+
+      },(error)=>{
+        console.log('error during getGroupUsers ', error)
+      })
+
+    },(error)=>{
+      console.log('error during getChallengeExerciseList ', error)
+    })
+
+    })
+
+  console.log("USER RESULT ARRAY AFTER INIT", this.userResultArr);
+
+  }
+
+
   /*
     Sets Points (Number points) awarded to a User (String email) for a specific Exercise (String exerciseName).
     This updates PointsAwardedArray.

@@ -32,6 +32,10 @@ export class MapComponent implements OnInit {
 
   	}
 
+	initializeChallengeResultObject() {
+		this.resultsComponent.createChallengeResultObject();
+	}
+
  	aboutExercise(index: number) {
 		this.exerciseAbout = "Muscles: " + this.exercisesList[index].muscles;
 	}
