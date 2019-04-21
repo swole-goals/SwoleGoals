@@ -58,17 +58,20 @@ export class MapComponent implements OnInit {
                 	this.exercisesList = res;
 		});
 		*/
-		this.groupName = 'ResultTestGroup';		
 		this.resultsComponent.getChallengeResultObject(this.groupName).subscribe(res => {
-			this.results = res;
-			console.log(this.results);
+			try {
+				this.results = res;
+				console.log(this.results);
+			} catch {
+				console.log('error getting results');
+			}
 		});
 		
 		this.userEmail = this.userService.getUserEmail();
 		console.log(this.userEmail);
 		//if(!this.userEmail)
 		//	this.userEmail = "rkoripalli@utexas.edu";
-		/*
+		
 		this.exerciseService.getChallenge(this.userEmail).subscribe(res => {
 			console.log(res);
 			this.challenge = new ChallengeInfo();
@@ -80,14 +83,14 @@ export class MapComponent implements OnInit {
 				let repsBegin = exercise.indexOf('{') + 1;
 				let repsEnd = exercise.indexOf('}');
 				let n = exercise.substring(nameBegin, nameEnd);
-				let r = exercise.substring(nameBegin, nameEnd);
+				let r = exercise.substring(repsBegin, repsEnd);
 				let er = new ExerciseReps();
 				er.name = n;
 				er.reps = r;
 				this.reps.push(er);
 			}
 			});
-			*/
+		
   	}
 
 }
