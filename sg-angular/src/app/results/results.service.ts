@@ -163,7 +163,9 @@ constructor(
           /* Get current state from firestore. */
 
           console.log(this.groupName);
-          console.log(this.challengeName);
+	  console.log(this.challengeName);
+	  this.userEmail = userToUpdate;
+	  this.results = results;
           console.log(this.userEmail);
           console.log(this.results);
           console.log(this.exerciseList);
@@ -233,8 +235,8 @@ constructor(
   /* POST ChallengeResults Object to firestore server. */
   postChallengeResults() {
     /* TODO: Remove below to test grabbing info from DataService */
-    this.userEmail = "testUserEmail";
-    this.results = "testResults";
+    //this.userEmail = "testUserEmail";
+    //this.results = "testResults";
 
     /* TODO: Make sure initialization has same group name as the group name belonging to user! */
 

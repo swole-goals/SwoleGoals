@@ -3,6 +3,7 @@ import { UserService } from 'src/services/user.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ResultsService } from '../results/results.service';
 import { MapService } from '../map/map.service';
+import { ChallengeInfo } from '../map/challengeinfo';
 
 @Component({
   selector: 'app-exercise-result',
@@ -34,13 +35,15 @@ export class ExerciseResultComponent implements OnInit {
 	this.challenge = this.activatedRoute.snapshot.paramMap.get('challenge');
 	this.name = this.activatedRoute.snapshot.paramMap.get('exercise');
 	this.mapService.getChallenge(this.userEmail).subscribe(res => {
-		let exercises = res as Array<string>;
-		for(let exercise of exercises) {
+		let c = (res as ChallengeInfo);
+		console.log(res);
+		for(let exercise of c.exercises) {
         		let nameBegin = exercise.indexOf('[') + 1;
 			let nameEnd = exercise.indexOf(']');
 			let n = exercise.substring(nameBegin, nameEnd);
 			if(this.name == n) {
 				this.unformattedName = exercise;
+				console.log("Exercise (component): " + exercise);
 			}
 		}
 	});

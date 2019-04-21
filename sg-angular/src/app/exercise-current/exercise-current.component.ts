@@ -45,7 +45,7 @@ export class ExerciseCurrentComponent implements OnInit {
 	}
 
 	formattedChallenge = formattedChallenge.slice(0, formattedChallenge.length - 3);
-	this.resultsUrl = `/app-exercise-result/` + formattedChallenge + `/` + formattedExercise;
+	this.resultsUrl = `/app-exercise-result/` + this.challenge + `/` + this.name;
 	this.currentService.getExercise(formattedExercise).subscribe(res => {
 		this.exercisesCurrent = res;
 		this.description = res[0].instructions;
