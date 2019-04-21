@@ -5,8 +5,8 @@ import { ChallengeInfo } from './challengeinfo';
 import { ExerciseReps } from './exercisereps';
 import { UserService } from 'src/services/user.service';
 import { Router } from '@angular/router';
-
-
+import { ResultsService } from '../results/results.service';
+import { ResultObj } from '../results/results.classes';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -20,7 +20,15 @@ export class MapComponent implements OnInit {
 	public challenge: ChallengeInfo;
 	public reps: Array<ExerciseReps> = [];
 	public userEmail: string = '';
-	constructor(private exerciseService: MapService, private userService: UserService, private router: Router) {
+	public groupName: string = '';
+	public age: Number;
+  	public height: Number;
+  	public weight: Number;
+	public results: ResultObj;
+	
+	constructor(private exerciseService: MapService, private userService: UserService, private router: Router
+	, private resultsComponent: ResultsService
+	) {
 
   	}
 
@@ -29,18 +37,38 @@ export class MapComponent implements OnInit {
 	}
 	
 	performExercise(name: string) {
-	//window.location.href = '/app-exercise-current/' + this.challenge.challengeName + '/' + name;		
 		this.router.navigate(['/app-exercise-current/' + this.challenge.challengeName + '/' + name]);
 	}
 	
+	getUserInfo() {
+    		this.age = this.userService.getUserAge();
+    		this.height = this.userService.getUserHeight();
+    		this.weight = this.userService.getUserWeight();
+    		if (this.userService.hasGroup()) {
+			this.groupName = this.userService.getUserGroup();
+			console.log(this.groupName);
+    		}
+  	}
+  
+		
   	ngOnInit() {
-        	this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
+		this.getUserInfo();	
+		/*
+		this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
                 	this.exercisesList = res;
 		});
+		*/
+		this.groupName = 'ResultTestGroup';		
+		this.resultsComponent.getChallengeResultObject(this.groupName).subscribe(res => {
+			this.results = res;
+			console.log(this.results);
+		});
+		
 		this.userEmail = this.userService.getUserEmail();
 		console.log(this.userEmail);
-		if(!this.userEmail)
-			this.userEmail = "rkoripalli@utexas.edu";
+		//if(!this.userEmail)
+		//	this.userEmail = "rkoripalli@utexas.edu";
+		/*
 		this.exerciseService.getChallenge(this.userEmail).subscribe(res => {
 			console.log(res);
 			this.challenge = new ChallengeInfo();
@@ -58,7 +86,8 @@ export class MapComponent implements OnInit {
 				er.reps = r;
 				this.reps.push(er);
 			}
-		});
+			});
+			*/
   	}
 
 }
