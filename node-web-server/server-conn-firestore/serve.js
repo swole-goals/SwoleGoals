@@ -417,6 +417,16 @@ app.get('/getChallenges', (req, res) => {
   });
 });
 
+app.get('/getAllUsers', (req, res) => {
+  let users = [];
+  db.collection("users").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        users.push(doc.data());
+    });
+    res.json(users);
+  });
+});
+
 app.post('/setGroupChallenge', bodyparser.json(), (req, res) => {
   console.log(req.body.group);
   console.log(req.body.challenge);

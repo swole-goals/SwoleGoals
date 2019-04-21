@@ -12,6 +12,7 @@ import { SplashComponent } from './splash/splash.component';
 import { ResultsComponent } from './results/results.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
 import { ChallengeCreationMenuComponent } from './challenge-creation-menu/challenge-creation-menu.component';
+import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
 
 //import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 //import { GoogleLoginProvider, FacebookLoginProvider, LinkedInLoginProvider} from "angularx-social-login";
@@ -51,6 +52,7 @@ export function getAuthServiceConfigs() {
     ExerciseTableComponent,
     ExerciseCurrentComponent,
     ExerciseResultComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +112,10 @@ export function getAuthServiceConfigs() {
       {
         path: 'app-challenge-creation-menu',
         component: ChallengeCreationMenuComponent
+      },
+      {
+        path: 'app-leaderboard',
+        component: LeaderboardComponent
       }
     ]),
   ],
