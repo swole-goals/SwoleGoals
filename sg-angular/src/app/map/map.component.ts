@@ -25,7 +25,8 @@ export class MapComponent implements OnInit {
   	public height: Number;
   	public weight: Number;
 	public results: ResultObj;
-	
+	public groupUsers: Array<String> = [];
+
 	constructor(private exerciseService: MapService, private userService: UserService, private router: Router
 	, private resultsComponent: ResultsService
 	) {
@@ -70,7 +71,10 @@ export class MapComponent implements OnInit {
 				console.log('error getting results');
 			}
 		});
-		
+		this.exerciseService.getGroupMembers(this.groupName).subscribe((response)=>{
+          		//console.log('response from getGroupUsers ', response);
+          		this.groupUsers = response.users;
+          	});	
 		this.userEmail = this.userService.getUserEmail();
 		console.log(this.userEmail);
 		//if(!this.userEmail)

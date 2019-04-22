@@ -1,20 +1,41 @@
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row">
-			<h1>Welcome to the Game Map</h1>
+				<div class="col-lg-3">
+					<h1 id="challenge">{{challenge.challengeName}}</h1>
+				</div>
+				<div class="col-lg-6" align="center">
+					<h1>Welcome to the Game Map</h1>
+				</div>
+				<div class="col-lg-3" align="right">
+					<button (click)="initializeChallengeResultObject()" class="btn btn-warning" style="width:100%;">Click Me for Initializing Challenge Results</button>	
+				</div>
+
 			</div>
 			<div class="row">
-				<div class="col-6">
-				<h1>Challenge:</h1>
-				<h2 id="challenge">{{challenge.challengeName}}</h2>
+				<div class="col-lg-1">
+				</div>
+				<div class="col-lg-5">
+				<h2>Exercises</h2>
 				<table>
+					<tr>
 					<ng-container *ngFor="let exercise of reps">
-						
-						<tr>
-							<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
-						</tr>
+						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
 					</ng-container>
-					<button (click)="initializeChallengeResultObject()" class="btn btn-primary">Click Me for Initializing Challenge Results</button>	
+					</tr>
 				</table>
-			</div>
+				</div>
+				<div class="col-lg-5" align="right">
+					<h2>Group Members</h2>
+					<table>
+						<ng-container *ngFor="let member of groupUsers">
+						<tr>
+							<td><button class="btn btn-success" style="width: 100%;">{{member}}</button></td>
+							<!--<td><div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">Progress: {{progress}}%</div>-->
+						</tr>
+						</ng-container>
+					</table>
+				</div>
+				<div class="col-lg-1">
+				</div>
 			</div>
 		</div>
