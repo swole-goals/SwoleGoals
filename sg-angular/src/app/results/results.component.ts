@@ -43,7 +43,7 @@ export class ResultsComponent implements OnInit {
   userResultArr: Array<string>; /* Unique variable to this function passed to update firestore. */
 
   constructor(
-    private challengeService: ChallengeService, 
+    private challengeService: ChallengeService,
     private groupService: GroupService,
     private userService: UserService,
     private dataService : DataService, private resultsService : ResultsService, private httpClient : HttpClient) {
@@ -87,11 +87,11 @@ export class ResultsComponent implements OnInit {
       this.challengeName = res.challengeName;
       this.groupName = this.userService.getUserGroup();
       console.log("CHALLENGE NAME: ", this.challengeName);
-      console.log("GROUPNAME: ", this.groupName);  
+      console.log("GROUPNAME: ", this.groupName);
 
-      this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList', 
+      this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList',
     {
-      'challengeName':res.challengeName, 
+      'challengeName':res.challengeName,
     }).subscribe((response)=>{
       console.log('response from getChallengeExerciseList ', response);
       this.exerciseList = response.exercises;
@@ -122,10 +122,10 @@ export class ResultsComponent implements OnInit {
 
     },(error)=>{
       console.log('error during getChallengeExerciseList ', error)
-    })  
+    })
 
     })
-   
+
 
     console.log("USER RESULT ARRAY AFTER INIT", this.userResultArr);
 
@@ -140,27 +140,27 @@ export class ResultsComponent implements OnInit {
     var userToUpdate = "user3@gmail.com";
   */
     //TODO: Replace this with grabbing challenge and groupID from DataService.
-  
+
     this.challengeService.getChallengeData().subscribe(res => {
       this.challengeName = res.challengeName;
       this.groupName = this.userService.getUserGroup();
       console.log("CHALLENGE NAME: ", this.challengeName);
-      console.log("GROUPNAME: ", this.groupName);  
+      console.log("GROUPNAME: ", this.groupName);
       this.userResultArr = [];
 
 
-      this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList', 
+      this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList',
       {
-        'challengeName':this.challengeName, 
+        'challengeName':this.challengeName,
       }).subscribe((response)=>{
         //console.log('response from getChallengeExerciseList ', response);
         this.exerciseList = response.exercises;
         //console.log("this exList: ", this.exerciseList);
         //console.log("this resp.exList: ", response.exercises);
-        
+
         this.httpClient.post<Group>(environment.fireStoreURL+'/getGroupUsers',
         {
-          'groupName':this.groupName, 
+          'groupName':this.groupName,
         }).subscribe((response)=>{
           //console.log('response from getGroupUsers ', response);
           this.groupUsers = response.users;
@@ -176,12 +176,12 @@ export class ResultsComponent implements OnInit {
           console.log(this.exerciseList);
           console.log(this.groupUsers);
 
-          this.httpClient.post<ResultObj>(environment.fireStoreURL+'/updateChallengeResults', 
+          this.httpClient.post<ResultObj>(environment.fireStoreURL+'/updateChallengeResults',
           {
               'groupName':this.groupName,
               'groupUsers':this.groupUsers,
-              'challengeName':this.challengeName, 
-              'exerciseName':this.exerciseName, 
+              'challengeName':this.challengeName,
+              'exerciseName':this.exerciseName,
               'userEmail':this.userEmail,
               'results':this.results,
               'exerciseList':this.exerciseList,
@@ -193,7 +193,7 @@ export class ResultsComponent implements OnInit {
             // console.log('RESPONSE ResultList: ', response.resultList);
             this.userResultArr = [];
 
-            
+
             for (let i = 0; i < response.resultList.length; i++) {
               var currExercise = response.resultList[i].exerciseName;
               //console.log("RESPONSE ResultObj", response.resultList[i]);
@@ -211,7 +211,7 @@ export class ResultsComponent implements OnInit {
                   } else {
                   this.userResultArr.push(currUserResult);
                   //console.log(currUserResult);
-                } 
+                }
               }
             }
 
@@ -222,7 +222,7 @@ export class ResultsComponent implements OnInit {
           },(error)=>{
             console.log('error during updateChallengeResults ', error)
           })
-          
+
         },(error)=>{
           console.log('error during getGroupUsers ', error)
         })
@@ -234,8 +234,8 @@ export class ResultsComponent implements OnInit {
     })
 
 
-    
-     
+
+
   }
 
   /* POST ChallengeResults Object to firestore server. */
@@ -270,7 +270,7 @@ export class ResultsComponent implements OnInit {
     })
   }
 
-  getScoreBasedOnReps(expected: string, completed: string) {
+  getScoreBasedOnReps(expected, completed) {
     var expectedInt = +expected; // y: number
     var completedInt = +completed;
 
@@ -335,9 +335,13 @@ export class ResultsComponent implements OnInit {
 
             let str = currExercise;
 
-            let result = str.match( /{\w+}/i );
+            console.log('current', currExercise);
 
-            var currRepsTargeted = (result != null && result[0] != null) ? +result[0] : 0;
+            let regExp = /\{([^)]+)\}/;
+            let expectedResult = regExp.exec(String(str));
+
+            // result[1] contains the parsed string
+            var currRepsTargeted = (expectedResult != null && expectedResult[1] != null) ? +expectedResult[1] : 0;
             console.log("TARGET REPS OUTSIDE: ", currRepsTargeted);
 
             for (let u = 0; u < response.resultList[i].userObj.length; u++) {
@@ -345,23 +349,32 @@ export class ResultsComponent implements OnInit {
               let currUserScore = 0;
               let str = currUserResult;
 
-              let result = str.match( /{\w+}/i );
+              let regExp = /\{([^)]+)\}/;
+              let result = regExp.exec(str);
 
-              if (result != null && result[0] != null) {
-                console.log( result[0] );    
-                currUserScore = result[0];
+
+              if (result != null && result[1] != null) {
+                console.log("inner result", result[1] );
+                currUserScore = +result[1];
                 console.log("FOUND USER REPS COMPLETED: ", currUserScore);
                 console.log("TARGETED REPS IS: ", currRepsTargeted);
               }
 
 
-              /* TODO: Get score for current user. 
+              /* TODO: Get score for current user.
+
                 Call getScoreBasedOnReps(expected: string, completed: string) 
                 and push to var listOfUserScores = [];*/
-              
+
+              listOfUserScores.push(this.getScoreBasedOnReps(currRepsTargeted, currUserScore))
+              //listOfUserScores[u] += +this.getScoreBasedOnReps(currRepsTargeted, currUserScore);
+
+
               
             }
           }
+
+          console.log(listOfUserScores);
 
 
         },(error)=>{
