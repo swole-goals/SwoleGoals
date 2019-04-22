@@ -19,11 +19,11 @@
 				<table>
 					<tr>
 					<ng-container *ngFor="let exercise of reps">
-						<td *ngIf="exercise.indexOf%8 != 0"><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
 						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
-						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
-						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
-					</ng-container>
+						<tr *ngIf="exercise.indexOf%8 <= 8">
+							<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
+						<tr>
+						</ng-container>
 					</tr>
 				</table>
 				</div>
