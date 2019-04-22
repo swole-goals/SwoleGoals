@@ -12,17 +12,20 @@ import { ChallengeInfo } from '../map/challengeinfo';
 })
 export class ExerciseResultComponent implements OnInit {
   public repsTotal = 20;
+  public baseReps = 20;
   public userEmail: string = '';
   public groupName: string = '';
   public challenge: string = '';
   public name: string = '';
   public unformattedName: string = '';
   constructor(private userService : UserService, private router: Router, private resultsComponent: ResultsService, private activatedRoute: ActivatedRoute, private mapService: MapService) { }
-  increaseReps() { 
-  	this.repsTotal++;
+  increaseReps() {
+  	if(this.repsTotal < (this.baseReps * 2)) 
+  		this.repsTotal++;
   }
   decreaseReps() { 
-  	this.repsTotal--;
+  	if(this.repsTotal > 0)
+  		this.repsTotal--;
   }
   submitReps() {
   	console.log(String(this.repsTotal));
@@ -40,8 +43,12 @@ export class ExerciseResultComponent implements OnInit {
 		for(let exercise of c.exercises) {
         		let nameBegin = exercise.indexOf('[') + 1;
 			let nameEnd = exercise.indexOf(']');
+			let repsBegin = exercise.indexOf('{') + 1;
+			let repsEnd = exercise.indexOf('}');
 			let n = exercise.substring(nameBegin, nameEnd);
 			if(this.name == n) {
+				this.repsTotal = Number(exercise.substring(repsBegin, repsEnd));
+				this.baseReps = this.repsTotal;
 				this.unformattedName = exercise;
 				console.log("Exercise (component): " + exercise);
 			}

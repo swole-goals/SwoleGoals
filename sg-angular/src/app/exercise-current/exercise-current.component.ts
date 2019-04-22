@@ -3,6 +3,10 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ExerciseCurrentService } from './exercise-current.service';
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
+import { MapService } from '../map/map.service';
+import { ChallengeInfo } from '../map/challengeinfo';
+import { UserService } from 'src/services/user.service';
+
 
 @Component({
   selector: 'app-exercise-current',
@@ -20,8 +24,9 @@ export class ExerciseCurrentComponent implements OnInit {
   public image2Url: string = '';
   public resultsUrl: string = '';
   public mapUrl: string = '/app-map';
+  public userEmail: string = '';
   private route: ActivatedRoute;
-  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService, private router: Router, private userService: UserService, private mapService: MapService) {
   }
   backToMap() {
  	this.router.navigate(['/app-map']); 	
@@ -32,7 +37,7 @@ export class ExerciseCurrentComponent implements OnInit {
   ngOnInit() {
   	this.challenge = this.activatedRoute.snapshot.paramMap.get('challenge');
 	this.name = this.activatedRoute.snapshot.paramMap.get('exercise');
-	
+	this.userEmail = this.userService.getUserEmail();
 	let formattedExercise = '';
       	for(let word of this.name.split(' ')){
 		formattedExercise += word + `%20`;
@@ -52,6 +57,20 @@ export class ExerciseCurrentComponent implements OnInit {
 		this.image1Url = res[0].image1;
 		this.image2Url = res[0].image2;
 	});
+	this.mapService.getChallenge(this.userEmail).subscribe(res => {
+                let c = (res as ChallengeInfo);
+                console.log(res);
+                for(let exercise of c.exercises) {
+                        let nameBegin = exercise.indexOf('[') + 1;
+                        let nameEnd = exercise.indexOf(']');
+                        let repsBegin = exercise.indexOf('{') + 1;
+                        let repsEnd = exercise.indexOf('}');
+                        let n = exercise.substring(nameBegin, nameEnd);
+                        if(this.name == n) {
+                        	this.reps = Number(exercise.substring(repsBegin, repsEnd));
+                        }
+                }
+        });	
   }
 
 }
