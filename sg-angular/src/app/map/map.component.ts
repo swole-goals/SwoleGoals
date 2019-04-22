@@ -67,7 +67,7 @@ export class MapComponent implements OnInit {
 			try {
 				this.results = res;
 				console.log(this.results);
-			} catch {-->
+			} catch {
 				console.log('error getting results');
 			}
 		});
