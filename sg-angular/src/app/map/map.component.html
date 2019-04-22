@@ -17,6 +17,7 @@
 				<h2>Exercises</h2>
 				<table>
 					<tr>
+						<td><button (click)= "" type="button" class= "btn btn-primary tile">Start</button>
 					<ng-container *ngFor="let exercise of reps">
 						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile" style="background-image: {{image1Url}}">{{exercise.name}}</button></td>
 						</ng-container>
