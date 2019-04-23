@@ -126,6 +126,13 @@ constructor(
     })
   }
 
+  getResultScores(groupName: string) {
+    return this.httpClient.post<ResultObj>(environment.fireStoreURL+'/getResultScores',
+      {
+        'groupName':groupName
+      })
+  }
+
   /* Update User's Result for specific Exercise. */
   updateChallengeResultsUserExercise(exerciseName: string, results: string, userToUpdate: string) {
    /* exerciseName = "[Incline Cable Flye]{8}";

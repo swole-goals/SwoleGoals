@@ -94,6 +94,24 @@ app.post('/getResultObj', bodyparser.json(), (req, res) => {
   });
 });
 
+app.post('/getResultScores', bodyparser.json(), (req, res) => {
+  console.log(req.body);
+  let data = [];
+  const userRef = db.collection('Results').doc(req.body.groupName);
+  userRef.get().then((docSnapshot) => {
+    if (docSnapshot.exists) {
+      /*docSnapshot.get('docData').resultList.forEach(function(doc) {
+        data.push(doc.data());
+      });*/
+      data.push(docSnapshot.get('docData').resultList);
+      console.log('Returned ResultObj');
+      res.json(data);
+    }
+  });
+});
+
+
+
 app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
   console.log(req.body);
   const resRef = db.collection('Results').doc(req.body.groupName);
