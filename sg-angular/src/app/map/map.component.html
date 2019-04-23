@@ -21,32 +21,29 @@
 
 			<div class="row">
 
-				<div class="col-lg-1">
-
-				</div>
 
 				<div class="col-lg-8">
 
 				<h2>Exercises</h2>
-				<div class="table-responsive">
-					<table class="table">
+					<div class="table-responsive">
+						<table class="table">
 
-					<tr>
+							<tr>
 
-					<ng-container *ngFor="let exercise of reps">
+							<ng-container *ngFor="let exercise of reps">
 
-						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile" style="background-color:#9177B8">{{exercise.name}}</button></td>
+								<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile" style="background-color:#9177B8">{{exercise.name}}</button></td>
 
-						</ng-container>
+								</ng-container>
 
-					</tr>
+							</tr>
 
-				</table>
+						</table>
+					</div>
+
 				</div>
 
-				</div>
-
-				<div class="col-lg-3" align="right">
+				<div class="col-lg-5" align="right">
 
 					<h2>Group Members</h2>
 
@@ -65,10 +62,6 @@
 						</ng-container>
 
 					</table>
-
-				</div>
-
-				<div class="col-lg-1">
 
 				</div>
 
