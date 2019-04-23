@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {GetUsersService} from "../../services/get-users.service";
 import {MatTableDataSource} from "@angular/material";
 import {ResultsService} from "../results/results.service";
+import {UserService} from "../../services/user.service";
 
 export interface groupLeaderboardElement {
   userName: string;
@@ -37,55 +38,73 @@ export class LeaderboardComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     private getUsersService: GetUsersService,
-    private resultsService: ResultsService
+    private resultsService: ResultsService,
+    private userService: UserService
   ) {  }
 
   ngOnInit() {
-    let groupMembers = this.groupService.getGroupMembers();
-      GROUP_DATA.splice(0, GROUP_DATA.length);
 
 
+      this.resultsService.getResultScores(this.userService.getUserGroup()).subscribe((res) =>{
+        GROUP_DATA.splice(0, GROUP_DATA.length);
+        let groupMembers = this.groupService.getGroupMembers();
+        let listOfUserScores = [];
 
-      /*let ans = this.resultsService.getListOfUserScores();
-      let length = ans[1];
-      let scores = ans[0];
+        let addedScores: number[] = [];
+        addedScores.length = this.groupService.getGroupMembers().length;
+        addedScores.fill(0);
 
+        for (let exercise of res[0]){
+          let currentExercise = exercise.exerciseName;
+          let regExp = /\{([^)]+)\}/;
+          let expectedResult = regExp.exec(String(currentExercise));
+          let currRepsTargeted = (expectedResult != null && expectedResult[1] != null) ? +expectedResult[1] : 0;
 
-      console.log(length);
-      console.log(scores);
-      console.log(scores.length);
-      console.log(scores.toString());
-      console.log(scores[0]);
-      console.log(scores[1]);*/
+          let index = 0;
+          //console.log("e", exercise);
+          for (let results of exercise.userObj){
+            //console.log("r", results);
+            let result = regExp.exec(results);
+            //console.log("re", result);
+            let currUserScore = 0;
+            if(result != null && +result[1] != null){
+              currUserScore = +result[1];
+              //console.log(result[1]);
+              //addedScores[index] = addedScores[index] + +result[1];
 
+            }
+            listOfUserScores.push(this.getScoreBasedOnReps(currRepsTargeted, currUserScore));
+          }
 
-      let addedScores = [];
-      addedScores.length = groupMembers.length;
-      let index = 0;
-      //console.log(index);
-      /*for (let score of scores){
-        addedScores[(index)%groupMembers.length] += +score;
-        console.log(index);
-        index++
-      }*/
-      console.log('out');
+        }
+        console.log(listOfUserScores);
 
-      /*for(let i = 0; i < scores.length; i++){
-        //console.log('in');
-        addedScores[(i%groupMembers.length)] += +scores[i];
-        //console.log(i%groupMembers.length);
-        //console.log(i);
-      }*/
+        let numberUsers = this.groupService.getGroupMembers().length;
+        let index = 0;
+        for (let score in listOfUserScores){
+          addedScores[index%numberUsers] = addedScores[index%numberUsers] + +score;
+          index++;
+        }
 
-      console.log(addedScores);
+        /*for (let user of groupMembers) {
+          GROUP_DATA.push({userName: user, score: String((Math.random() * 100).toFixed())});
+        }
+        GROUP_DATA.sort(function (a, b) {
+          return <any>b.score - <any>a.score;
+        });*/
 
+        for (let i = 0; i < groupMembers.length; i++){
+          GROUP_DATA.push({userName: groupMembers[i], score: String(addedScores[i])});
+        }
+        GROUP_DATA.sort(function (a, b) {
+          return <any>b.score - <any>a.score;
+        });
 
-      for (let user of groupMembers) {
-        GROUP_DATA.push({userName: user, score: String((Math.random() * 100).toFixed())});
-      }
-      GROUP_DATA.sort(function (a, b) {
-        return <any>b.score - <any>a.score;
       });
+
+
+
+
 
 
     this.getUsersService.getAllUsers().subscribe((res) => {
@@ -103,6 +122,14 @@ export class LeaderboardComponent implements OnInit {
 
   }
 
+
+  getScoreBasedOnReps(expected, completed) {
+    var expectedInt = +expected; // y: number
+    var completedInt = +completed;
+
+    return ((completedInt / expectedInt) * 10);
+
+  }
 
 
 
