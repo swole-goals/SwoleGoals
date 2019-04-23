@@ -1,4 +1,15 @@
+<head>
+ <style>
+ .img {
+  float: left;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
 
+ </style>
+</head>
+<body>
 			<div id="homeCarousel" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
 				<li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
@@ -6,28 +17,41 @@
 				<li data-target="#homeCarousel" data-slide-to="2"></li>
 			</ol>
 			<div class="carousel-inner" role="listbox">
-				<div class="carousel-item active" style="min-width:100%;height:600px;">
-					<img src="../../assets/images/image3.jpg" style="float:center; object-fit:cover;">
+				<div class="carousel-item active" style="width:100%;height:100%;">
+					<img class="img" src="../../assets/images/image3.jpg" style="object-fit:cover; object-position: 50% 50%;">
 					<div class="carousel-caption">
 						<h1>Welcome To Swole Goals</h1>
 						<br>
 						<button type="button" (click)="logIn()" id="yes" class="btn btn-success">Get Started</button>
+						<br>
+						<br>
+						<br>
+						<br>
 					</div>
 				</div>
-				<div class="carousel-item" style="width:100%;height:600px;">
-					<img src="../../assets/images/image2.jpg" style="float:center; object-fit:cover;">
+				<div class="carousel-item" style="width:100%;height:100%;">
+					<img class="img" src="../../assets/images/image2.jpg" style="float:center; object-fit:cover;">
 					<div class="carousel-caption">
 						<h2>Compete with your friends from the comfort of your own home</h2>
 						<br>
 						<button type="button" (click)="logIn()" id="yes" class="btn btn-success">Get Started</button>
+						<br>
+						<br>
+						<br>
+						<br>
 					</div>
 				</div>
-				<div class="carousel-item" style="width:100%;height:600px">
-					<img src="../../assets/images/image1.jpg" style="float:center; object-fit:cover;">
+				<div class="carousel-item" style="width:100%;height:100%">
+					<img class="img" src="../../assets/images/image1.jpg" style="float:center; object-fit:cover;">
 					<div class="carousel-caption">
-						<h2>No matter where you go, your friends are cheering you on!</h2>
+						<h2>No matter where you go, your friends are cheering you on</h2>
 						<br>
 						<button type="button" (click)="logIn()" id="yes" class="btn btn-success">Get Started</button>
+						<br>
+						<br>
+						<br>
+						<br>
+						
 					</div>
 				</div>
 			
@@ -40,5 +64,6 @@
 			</a>
 
 		</div>
+		</body>
 	
 
