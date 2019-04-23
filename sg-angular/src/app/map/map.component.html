@@ -1,44 +1,79 @@
 		<div class="container-fluid">
+
 			<div class="row">
-				<div class="col-lg-9" align="center">
+
+				<div class="col-lg-6" align="center">
+
 					<h1 id="challenge">Welcome to the {{challenge.challengeName}} Map</h1>
+
 				</div>
-				
+
+				<div class="col-lg-3" align="left">
+
+				</div>
+
 				<div class="col-lg-3" align="right">
-					<button (click)="initializeChallengeResultObject()" class="btn btn-warning" style="width:100%;">Initializie Challenge Results</button>	
+
+					<button (click)="initializeChallengeResultObject()" class="btn btn-warning" style="width:100%;">Initialize Challenge Results</button>	
+
 				</div>
+
+
 
 			</div>
-			<div class="row">
-				<div class="col-lg-1">
-				</div>
-				<div class="col-lg-5">
-				<h2>Exercises</h2>
-				<table>
-					<tr>
-						<td><button (click)= "" type="button" class= "btn btn-primary tile">Start</button></td>
-					<ng-container *ngFor="let exercise of reps">
 
-						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile">{{exercise.name}}</button></td>
+			<div class="row">
+
+				<div class="col-lg-1">
+
+				</div>
+
+				<div class="col-lg-5">
+
+				<h2>Exercises</h2>
+
+				<table>
+
+					<tr>
+
+					<ng-container *ngFor="let exercise of reps">
 
 						<td><button (click)="performExercise(exercise.name)" type="button" class="btn btn-primary tile" style="background-color:#9177B8">{{exercise.name}}</button></td>
 
 						</ng-container>
+
 					</tr>
+
 				</table>
+
 				</div>
+
 				<div class="col-lg-5" align="right">
+
 					<h2>Group Members</h2>
+
 					<table>
+
 						<ng-container *ngFor="let member of groupUsers">
+
 						<tr>
+
 							<td><button class="btn btn-success" style="width: 100%;">{{member}}</button></td>
+
 							<!--<td><div class="progress-bar" [ngStyle]="{ 'width': progress + '%' }" role="progressbar" [attr.aria-valuenow]="progress" aria-valuemin="0" aria-valuemax="100">Progress: {{progress}}%</div>-->
+
 						</tr>
+
 						</ng-container>
+
 					</table>
+
 				</div>
+
 				<div class="col-lg-1">
+
 				</div>
+
 			</div>
+
 		</div>
