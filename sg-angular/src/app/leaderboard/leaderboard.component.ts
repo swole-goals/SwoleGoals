@@ -45,18 +45,16 @@ export class LeaderboardComponent implements OnInit {
       GROUP_DATA.splice(0, GROUP_DATA.length);
 
 
-
-      /*let ans = this.resultsService.getListOfUserScores();
-      let length = ans[1];
-      let scores = ans[0];
+      console.log(this.resultsService.getChallengeResultObject(this.groupService.getGroupChallenge()));
+      let scores = this.resultsService.getListOfUserScores();
 
 
-      console.log(length);
+
       console.log(scores);
       console.log(scores.length);
       console.log(scores.toString());
       console.log(scores[0]);
-      console.log(scores[1]);*/
+      console.log(scores[1]);
 
 
       let addedScores = [];

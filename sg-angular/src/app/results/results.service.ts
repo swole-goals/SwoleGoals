@@ -300,7 +300,7 @@ constructor(
         }
 
         console.log("USER RESULT ARRAY AFTER INIT", this.userResultArr);
-      
+
         this.postChallengeResults();
 
       },(error)=>{
@@ -314,6 +314,142 @@ constructor(
     })
 
   console.log("USER RESULT ARRAY AFTER INIT", this.userResultArr);
+
+  }
+
+  public getListOfUserScores():Array<number> {
+    var listOfUserScores = new Array<number>();
+    var max = 0;
+
+    /* TODO: Make sure initialization has same group name as the group name belonging to user! */
+    this.challengeName = this.groupService.getGroupChallenge();
+    this.groupName = this.userService.getUserGroup();
+
+    /*console.log(this.groupName);
+    console.log(this.challengeName);
+    console.log(this.userEmail);
+    console.log(this.results);
+    console.log(this.exerciseList);
+    console.log(this.groupUsers);*/
+
+    this.httpClient.post<Challenge>(environment.fireStoreURL+'/getChallengeExerciseList',
+      {
+        'challengeName':this.challengeName,
+      }).subscribe((response)=>{
+      //console.log('response from getChallengeExerciseList ', response);
+      this.exerciseList = response.exercises;
+      //console.log("this exList: ", this.exerciseList);
+      //console.log("this resp.exList: ", response.exercises);
+
+      this.httpClient.post<Group>(environment.fireStoreURL+'/getGroupUsers',
+        {
+          'groupName':this.groupName,
+        }).subscribe((response)=>{
+        //console.log('response from getGroupUsers ', response);
+        this.groupUsers = response.users;
+        //console.log("this groupUsers: ", this.groupUsers);
+        //console.log("this resp.groupUsers: ", response.users);
+
+        /* Get current state from firestore. */
+
+        /*console.log(this.groupName);
+        console.log(this.challengeName);
+        console.log(this.userEmail);
+        console.log(this.results);
+        console.log(this.exerciseList);
+        console.log(this.groupUsers);*/
+
+        this.httpClient.post<ResultObj>(environment.fireStoreURL+'/updateChallengeResults',
+          {
+            'groupName':this.groupName,
+            'groupUsers':this.groupUsers,
+            'challengeName':this.challengeName,
+            'exerciseName':this.exerciseName,
+            'userEmail':this.userEmail,
+            'results':this.results,
+            'exerciseList':this.exerciseList,
+            'userResultArr':this.userResultArr
+          }).subscribe((response)=>{
+          for (let i = 0; i < response.resultList.length; i++) {
+            var currExercise = response.resultList[i].exerciseName;
+
+            let str = currExercise;
+
+            //console.log('current', currExercise);
+
+            let regExp = /\{([^)]+)\}/;
+            let expectedResult = regExp.exec(String(str));
+
+            // result[1] contains the parsed string
+            var currRepsTargeted = (expectedResult != null && expectedResult[1] != null) ? +expectedResult[1] : 0;
+            //console.log("TARGET REPS OUTSIDE: ", currRepsTargeted);
+
+            for (let u = 0; u < response.resultList[i].userObj.length; u++) {
+              var currUserResult = response.resultList[i].userObj[u];
+              let currUserScore = 0;
+              let str = currUserResult;
+
+              let regExp = /\{([^)]+)\}/;
+              let result = regExp.exec(str);
+
+
+              if (result != null && result[1] != null) {
+                //console.log("inner result", result[1] );
+                currUserScore = +result[1];
+               // console.log("FOUND USER REPS COMPLETED: ", currUserScore);
+                //console.log("TARGETED REPS IS: ", currRepsTargeted);
+              }
+
+
+              /* TODO: Get score for current user.
+
+                Call getScoreBasedOnReps(expected: string, completed: string)
+                and push to var listOfUserScores = [];*/
+
+              listOfUserScores.push(this.getScoreBasedOnReps(currRepsTargeted, currUserScore))
+              //listOfUserScores[u] += +this.getScoreBasedOnReps(currRepsTargeted, currUserScore);
+
+              max = Math.max(max, listOfUserScores.length);
+
+
+
+
+
+            }
+            //console.log("XXXXX", listOfUserScores);
+            //console.log("??????", listOfUserScores.length);
+          }
+
+          //console.log(listOfUserScores);
+
+          // listOfUserScores;
+
+          console.log("xxxx", max);
+
+        },(error)=>{
+          console.log('error during updateChallengeResults ', error)
+        })
+
+      },(error)=>{
+        console.log('error during getGroupUsers ', error)
+      })
+
+    },(error)=>{
+      console.log('error during getChallengeExerciseList ', error)
+    })
+
+
+    return listOfUserScores
+
+    //return listOfUserScores;
+
+  }
+
+  getScoreBasedOnReps(expected, completed) {
+    var expectedInt = +expected; // y: number
+    var completedInt = +completed;
+
+    return ((completedInt / expectedInt) * 10);
 
   }
 
