@@ -1,14 +1,29 @@
-<body>
-    <div class="container-fluid ml-2 mt-4">
-        <h3>About Swole Goals</h3>
-        <h4>
-            <a href="https://github.com/vivianmnguyen/SwoleGoals" target="_blank">Github Repository</a>
-        </h4>
-        <p>
-            Swole Goals is a webapp intended to motivate people to exercise by providing a platform for them to compete
-            against their
-            friends.
-        </p>
+<div class="container-fluid px-5 pt-5">
+    <div>
+        <div class="row justify-content-center">
+            <h1>About Swole Goals</h1>
+        </div>
+        <div class="row justify-content-center">
+            <h5>
+                Swole Goals is a webapp intended to motivate people to exercise by providing a platform for them to
+                compete
+                against their friends.
+            </h5>
+        </div>
+        <div>
+            <a href="https://github.com/swole-goals/SwoleGoals" target="_blank" style="text-decoration:none">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-auto px-1">
+                        <h4>Github Repository</h4>
+                    </div>
+                    <div class="col-auto px-1">
+                        <img src="../../assets/images/GitHub-Mark-32px.png">
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="mt-3">
         <h3>Meet Team Burgundy</h3>
         <div class="row ml-1">
             <div *ngFor="let git of gitAccountList">
@@ -26,35 +41,44 @@
                 </div>
             </div>
         </div>
-        <h3>Stats</h3>
-        <h5>Total Commits: {{totalCommits}}</h5>
-        <h5>Total Open Issues: {{issues.length}}</h5>
-        <h5>Total Unit Tests: 0</h5>
-        <h3>Data Scraping</h3>
-        <div>
-
+    </div>
+    <div>
+        <h3>Stats:</h3>
+        <div class="col">
+            <h5>Total Commits: {{totalCommits}}</h5>
+            <h5>Total Open Issues: {{issues.length}}</h5>
+            <h5>Total Unit Tests: 30</h5>
+        </div>
+    </div>
+    <div class="mt-3">
+        <h3>Data Scraping:</h3>
+        <div class="col">
             <h5>
                 <a href="https://www.bodybuilding.com/exercises/" target="_blank">bodybuilding.com</a>
                 <br />
                 <a href="https://www.strengthlevel.com/" target="_blank">strengthlevel.com</a>
-                <p>Web scraping was done by utilizing Selenium web browser automation. A python script was written which
-                    loops
-                    through each of the muscle groups found on https://www.bodybuilding.com/exercises/finder/? (17
-                    total),
-                    selecting the “Load More” button once on each muscle group, and getting the URLs for each exercise
-                    that
-                    is present on that page by using its xpath. These URLs are then loaded in the browser, and the
-                    exercise
-                    name, exercise type, muscle worked, equipment needed, exercise ranking, exercise instructions,
-                    and both exercise images are located using their xpaths and stored into arrays. The totality of the
-                    data is then written to a tab separated file that then can easily be put into the MySQL database.
-                    strengthlevel.com was scraped similar to bodybuilding.com, but we decided to scrape by modifying two
-                    select tags to parse through all available exercises and obtain performance information based on a
-                    150 pound individual.
-                </p>
             </h5>
-            <p></p>
+
+            <p>Web scraping was done by utilizing Selenium web browser automation. A Python script was written which
+                loops
+                through each of the muscle groups found <a
+                    href="https://www.bodybuilding.com/exercises/finder/?">here</a>
+                (17
+                total),
+                selecting the “Load More” button once on each muscle group, and getting the URLs for each exercise
+                that
+                is present on that page by using its xpath. These URLs are then loaded in the browser, and the
+                exercise
+                name, exercise type, muscle worked, equipment needed, exercise ranking, exercise instructions,
+                and both exercise images are located using their xpaths and stored into arrays. The totality of the
+                data is then written to a tab separated file that then can easily be put into the MySQL database.
+                strengthlevel.com was scraped similar to bodybuilding.com, but we decided to scrape by modifying two
+                select tags to parse through all available exercises and obtain performance information based on a
+                150 pound individual.
+            </p>
         </div>
+    </div>
+    <div class="mt-3">
         <h3>Tools</h3>
         <div class="row">
             <div class="col">
@@ -300,14 +324,15 @@
                             <h5 class="mb-0">
                                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse15"
                                     aria-expanded="false" aria-controls="collapse15">
-                                    Mocha
+                                    Postman
                                 </button>
                             </h5>
                         </div>
                         <div id="collapse15" class="collapse show" aria-labelledby="heading15"
                             data-parent="#accordion3">
                             <div class="card-body">
-                                We are using Mocha to create unit tests
+                                We are using Postman to test our backend API. We exported our Postman collection and are
+                                running the tests using Travis CI and Postman's Newman CLI.
                             </div>
                         </div>
                     </div>
@@ -315,4 +340,4 @@
             </div>
         </div>
     </div>
-</body>
+</div>

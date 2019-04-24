@@ -8,6 +8,7 @@ before_install:
 install:
 - npm install
 script:
+- node_modules/.bin/newman run ../testing/SwoleGoals.postman_collection.json
 - ng build --prod
 deploy:
   provider: s3

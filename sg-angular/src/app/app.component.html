@@ -22,20 +22,23 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-github-stats">About</a>
         </li>
-        <li *ngIf="userService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" data-toggle="tab" routerLink="/app-map">Map</a>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" routerLink="/app-exercise-list">Exercises</a>
         </li>
         <li *ngIf="userService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" data-toggle="tab" routerLink="/app-exercise-list">Exercises</a>
+          <a class="nav-link" data-toggle="tab" routerLink="/app-map">Map</a>
         </li>
         <li *ngIf="userService.isLoggedIn()" class="nav-item">
           <a class="nav-link" data-toggle="tab" routerLink="/app-exercise-table">Performance Table</a>
         </li>
         <li *ngIf="userService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" data-toggle="tab" routerLink="/app-user-profile">Profile</a>
+          <a class="nav-link" data-toggle="tab" routerLink="/app-challenge-creation-menu">Challenge Creation</a>
         </li>
         <li *ngIf="userService.isLoggedIn()" class="nav-item">
-          <a class="nav-link" data-toggle="tab" routerLink="/app-challenge-creation-menu">Challenge Creation</a>
+          <a class="nav-link" data-toggle="tab" routerLink="/app-leaderboard">Leaderboard</a>
+        </li>
+        <li *ngIf="userService.isLoggedIn()" class="nav-item">
+          <a class="nav-link" data-toggle="tab" routerLink="/app-user-profile">Profile</a>
         </li>
         <li *ngIf="!userService.isLoggedIn()" class="nav-item">
           <a class="nav-link" (click)="logIn()" data-toggle="tab" href="#">Login</a>
