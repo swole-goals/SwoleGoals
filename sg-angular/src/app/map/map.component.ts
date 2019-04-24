@@ -3,7 +3,7 @@ import { MapService } from './map.service';
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 import { ChallengeInfo } from './challengeinfo';
 import { ExerciseReps } from './exercisereps';
-import { UserService } from 'src/services/user.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-map',

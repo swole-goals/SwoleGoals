@@ -1,12 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { DataService } from './../../services/data.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Group } from '../../services/group'
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../../services/user'
-import { UserService } from 'src/services/user.service';
+import { UserService } from '../services/user.service';
 
 const httpOptions = {
   headers: new HttpHeaders({

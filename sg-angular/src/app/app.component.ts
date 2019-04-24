@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { DataService } from './../services/data.service';
+import { DataService } from './services/data.service';
 import { Component, OnInit, isDevMode } from '@angular/core';
 import { AuthService, FacebookLoginProvider, GoogleLoginProvider, LinkedinLoginProvider } from 'ng-dynami-social-login';
-import { UserService } from 'src/services/user.service';
+import { UserService } from './services/user.service';
 
 
 @Component({

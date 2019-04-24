@@ -5,10 +5,10 @@ import {expressionChangedAfterItHasBeenCheckedError} from "@angular/core/src/vie
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel} from "@angular/cdk/collections";
 import {ChallengeCreationService} from "./challenge-creation.service";
-import {DataService} from "../../services/data.service";
+import {DataService} from "../services/data.service";
 import {Challenge} from "./challenge";
-import { UserService } from 'src/services/user.service';
-import { GroupService } from 'src/services/group.service';
+import { UserService } from '../services/user.service';
+import { GroupService } from '../services/group.service';
 
 export interface PeriodicElement {
   name: string;
