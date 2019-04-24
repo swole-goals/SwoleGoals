@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ResultsService } from './results.service';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../services/data.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Challenge, Group, UserObj, ResultObj, DocData, UserResultObj } from "./results.classes";
 import { NULL_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ExerciseListComponent } from '../exercise-list/exercise-list.component';
-import { ChallengeService } from 'src/services/challenge.service';
-import { GroupService } from 'src/services/group.service';
-import { UserService } from 'src/services/user.service';
+import { ChallengeService } from '../services/challenge.service';
+import { GroupService } from '../services/group.service';
+import { UserService } from '../services/user.service';
 
 const httpOptions = {
   headers: new HttpHeaders({

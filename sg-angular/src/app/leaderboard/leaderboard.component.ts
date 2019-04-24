@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GroupService} from "../../services/group.service";
+import {GroupService} from "../services/group.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {HttpClient} from "@angular/common/http";
-import {GetUsersService} from "../../services/get-users.service";
+import {GetUsersService} from "../services/get-users.service";
 import {MatTableDataSource} from "@angular/material";
 import {ResultsService} from "../results/results.service";
-import {UserService} from "../../services/user.service";
+import {UserService} from "../services/user.service";
 
 export interface groupLeaderboardElement {
   userName: string;

@@ -5,7 +5,7 @@ import { ExerciseCurrentService } from './exercise-current.service';
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 import { MapService } from '../map/map.service';
 import { ChallengeInfo } from '../map/challengeinfo';
-import { UserService } from 'src/services/user.service';
+import { UserService } from '../services/user.service';
 
 
 @Component({
