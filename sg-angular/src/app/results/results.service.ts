@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { DataService } from './../../services/data.service';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ChallengeService } from 'src/services/challenge.service';
-import { GroupService } from 'src/services/group.service';
-import { UserService } from 'src/services/user.service';
+import { ChallengeService } from '../services/challenge.service';
+import { GroupService } from '../services/group.service';
+import { UserService } from '../services/user.service';
 import { Challenge, Group, UserObj, ResultObj, DocData, UserResultObj } from "./results.classes";
 
 @Injectable({

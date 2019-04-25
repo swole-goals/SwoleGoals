@@ -1,9 +1,0 @@
-1. Open command prompt.
-Type:
-	"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\MySQL\MySQL Server 8.0\MySQL 8.0 Command Line Client.lnk" --user=root --password swolegoals --local_infile
-
-2. Load file with data.
-	LOAD DATA LOCAL INFILE 'C:/Users/Vivian/Documents/swolegoals/users.txt' INTO TABLE user;
-
-3. Run server. Navigate to 'C:\Users\Vivian\Documents\swolegoals' and type in:
-	node index.js

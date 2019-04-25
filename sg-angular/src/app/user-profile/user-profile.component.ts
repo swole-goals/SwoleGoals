@@ -1,12 +1,12 @@
 import { UserProfileService } from './user-profile.service';
-import { DataService } from './../../services/data.service';
+import { DataService } from '../services/data.service';
 import { Component, OnInit } from '@angular/core';
-import { GetChallengesService } from 'src/services/get-challenges.service';
-import { SetGroupChallengeService } from 'src/services/set-group-challenge.service';
+import { GetChallengesService } from '../services/get-challenges.service';
+import { SetGroupChallengeService } from '../services/set-group-challenge.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../challenge-creation-menu/challenge-creation-menu.component';
-import { UserService } from 'src/services/user.service';
-import { GroupService } from 'src/services/group.service';
+import { UserService } from '../services/user.service';
+import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-user-profile',
