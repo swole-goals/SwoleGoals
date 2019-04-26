@@ -261,4 +261,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Google Cloud Private Key
+swolegoalsfirestore*.json
+
 # End of https://www.gitignore.io/api/osx,node,windows,angular,webstorm,visualstudiocode
