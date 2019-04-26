@@ -8,23 +8,21 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ExerciseCurrentService {
-
   constructor(private httpClient: HttpClient) { }
   getExercise(formattedExercise: string) {
-  	return this.httpClient.get(environment.sqlURL+`/getExercises/`+formattedExercise).
-		pipe(
-			map((item: any) => item.map(e => <ExerciseInfo>
-        		{
-          			name: e.name,
-          			type: e.type,
-          			muscles: e.muscles,
-          			equipment: e.equipment,
-          			level: e.level,
-          			review: e.review,
-          			instructions: e.instructions,
-          			image1: e.image2,
-          			image2: e.image2
-        		})));
-
+    return this.httpClient.get(environment.sqlURL+`/getExercises/`+formattedExercise).
+    pipe(
+      map((item: any) => item.map(e => <ExerciseInfo>
+      {
+        name: e.name,
+        type: e.type,
+        muscles: e.muscles,
+        equipment: e.equipment,
+        level: e.level,
+        review: e.review,
+        instructions: e.instructions,
+        image1: e.image2,
+        image2: e.image2
+      })));
   }
 }
