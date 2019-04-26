@@ -16,12 +16,12 @@ var mysql = require('mysql');
 
 // right now is the version for deploy. 
 var mysqlConn = mysql.createConnection({
-     //host     : 'localhost',    //uncommented this two line and commented the socketPath for locally run
-     //port     : 3307,
+     host     : 'localhost',    //uncommented this two line and commented the socketPath for locally run
+     port     : 3307,
      user     : 'root',
      password : 'swolegoals',
      database : 'exercises',
-     socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
+     //socketPath : '/cloudsql/swolegoalsdatabase:us-central1:swolegoalsdb'
 });
 
 /*
