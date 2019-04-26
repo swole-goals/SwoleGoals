@@ -9,7 +9,6 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
 import { ExerciseTableComponent } from './exercise-table/exercise-table.component';
 import { SplashComponent } from './splash/splash.component';
-import { ResultsComponent } from './results/results.component';
 import { DynamiSocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'ng-dynami-social-login';
 import { ChallengeCreationMenuComponent } from './challenge-creation-menu/challenge-creation-menu.component';
 import { LeaderboardComponent } from "./leaderboard/leaderboard.component";
@@ -47,7 +46,6 @@ export function getAuthServiceConfigs() {
     UserProfileComponent,
     ExerciseListComponent,
     SplashComponent,
-    ResultsComponent,
     ChallengeCreationMenuComponent,
     ExerciseTableComponent,
     ExerciseCurrentComponent,
@@ -100,10 +98,6 @@ export function getAuthServiceConfigs() {
       {
         path: 'app-splash',
         component: SplashComponent
-      },
-      {
-        path: 'results',
-        component: ResultsComponent
       },
       {
         path: '',
