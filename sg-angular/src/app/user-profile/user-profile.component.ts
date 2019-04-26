@@ -15,10 +15,6 @@ import { GroupService } from '../services/group.service';
 })
 export class UserProfileComponent implements OnInit {
   groupName: string;
-  groupMembers: Array<string>;
-  age: Number;
-  height: Number;
-  weight: Number;
   dataSource;
   displayedColumns: string[] = ['select', 'challenge', 'group'];
   selectedChallenge = new SelectionModel(false, []);
@@ -33,6 +29,28 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  get groupMembers() {
+    return this.groupService.getGroupMembers();
+  }
+  get age() {
+    return this.userService.getUserAge();
+  }
+  set age(n: Number) {
+    this.userService.setUserInfo(n, this.height, this.weight);
+  }
+  get height() {
+    return this.userService.getUserHeight();
+  }
+  set height(n: Number) {
+    this.userService.setUserInfo(this.age, n, this.weight);
+  }
+  get weight(){
+    return this.userService.getUserWeight();
+  }
+  set weight(n: Number) {
+    this.userService.setUserInfo(this.age, this.height, n);
+  }
+
   ngOnInit() {
     if (this.userService.isLoggedIn()) {
       this.getUserInfo();
@@ -43,15 +61,10 @@ export class UserProfileComponent implements OnInit {
     this.groupService.getGroup(this.groupName).subscribe(res=>{
       if(res!=null){
         this.groupService.setGroup(res);
-        this.groupMembers = this.groupService.getGroupMembers();
       }
     });
   }
-
   getUserInfo() {
-    this.age = this.userService.getUserAge();
-    this.height = this.userService.getUserHeight();
-    this.weight = this.userService.getUserWeight();
     if (this.userService.hasGroup()) {
       this.groupName = this.userService.getUserGroup();
       this.showGroupMembers();
@@ -66,10 +79,6 @@ export class UserProfileComponent implements OnInit {
     this.groupService.setGroupData(this.userService.getUserEmail(), null, this.groupName);
     this.userService.setUserGroup(this.groupName);
     this.showGroupMembers();
-  }
-
-  updateUserInfo() {
-    this.userService.setUserInfo(this.age, this.height, this.weight);
   }
 
   setChallenge() {
