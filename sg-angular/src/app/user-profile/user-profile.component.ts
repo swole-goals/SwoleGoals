@@ -26,7 +26,7 @@ export class UserProfileComponent implements OnInit {
     private groupService: GroupService,
     private challengeService: ChallengeService,
 ) {
-    this.challengeService.getAPIdata().subscribe(res => {
+    this.challengeService.getChallenges().subscribe(res => {
       this.dataSource = res;
     });
   }
@@ -77,7 +77,7 @@ export class UserProfileComponent implements OnInit {
       groupAndChallenge.push(this.userService.getUserGroup());
       groupAndChallenge.push(this.selectedChallenge.selected[0][0]);
       console.log(groupAndChallenge);
-      this.challengeService.postGroupChallengedata(groupAndChallenge).subscribe((res) => {
+      this.challengeService.setGroupChallenge(groupAndChallenge).subscribe((res) => {
       });
     }
   }

@@ -110,7 +110,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
     challengeData.push(this.exerciseReps);
     challengeData.push(this.userService.getUserGroup());
     console.log(challengeData);
-    this.challengeService.postChallengedata(challengeData).subscribe((response) => {
+    this.challengeService.addChallenge(challengeData).subscribe((response) => {
         let challengeInfo = response;
         if (challengeInfo !== 'exists') {
           console.log('challenge created');
