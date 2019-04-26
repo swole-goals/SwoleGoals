@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { ResultsService } from '../results/results.service';
+import { ResultsService } from '../services/results.service';
 import { MapService } from '../map/map.service';
 import { ChallengeInfo } from '../map/challengeinfo';
 

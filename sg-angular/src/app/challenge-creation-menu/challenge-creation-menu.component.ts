@@ -1,14 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ExerciseInfo} from "../exercise-list/exerciseinfo";
 import {ExerciseListService} from "../exercise-list/exercise-list.service";
-import {expressionChangedAfterItHasBeenCheckedError} from "@angular/core/src/view/errors";
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel} from "@angular/cdk/collections";
-import {ChallengeCreationService} from "./challenge-creation.service";
-import {DataService} from "../services/data.service";
-import {Challenge} from "./challenge";
+import {Challenge} from "../services/challenge";
 import { UserService } from '../services/user.service';
-import { GroupService } from '../services/group.service';
+import {ChallengeService} from '../services/challenge.service'
 
 export interface PeriodicElement {
   name: string;
@@ -41,8 +37,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
 
 
   constructor(private exerciseService: ExerciseListService,
-              private challengeCreationService: ChallengeCreationService,
-              private groupService: GroupService,
+              private challengeService: ChallengeService,
               private userService: UserService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
       this.dataSource1 = new MatTableDataSource(res);
@@ -114,29 +109,15 @@ export class ChallengeCreationMenuComponent implements OnInit {
     challengeData.push(this.exerciseReps);
     challengeData.push(this.userService.getUserGroup());
     console.log(challengeData);
-    this.challengeCreationService.postAPIdata(challengeData).subscribe((response) => {
+    this.challengeService.postChallengedata(challengeData).subscribe((response) => {
         let challengeInfo = response;
         if (challengeInfo !== 'exists') {
-          DataService.setChallengeData(response);
           console.log('challenge created');
           alert('Challenge Created');
         } else {
           alert('Challenge not created: Challenge name already exists. Please rename your challenge.');
         }
     });
-
-    
-    // this.challengeCreationService.updateInGroup(this.challengeName, this.groupName).subscribe((res) => {
-    //   this.ans = res;
-    //   this. ans.exercises;
-    //   if (this.ans.challenge !== 'exists'){
-    //     this.ans = res;
-    //     DataService.setChallengeName(this.ans.challenge);
-    //     console.log(this.ans.challenge);
-    //   }else{
-    //     alert('A challenge already exists in your group');
-    //   }
-    // });
   }
 
 

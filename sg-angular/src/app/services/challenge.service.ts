@@ -19,4 +19,19 @@ export class ChallengeService {
   getChallengeData(): Observable<any> {
   	return this.httpClient.get<any>(environment.fireStoreURL+`/getCurrentChallenge/`+this.userService.getUserEmail());
   }
+
+  postChallengedata(challengeData){
+    console.log(challengeData);
+    return this.httpClient.post(environment.fireStoreURL+'/addChallenge', challengeData);
+  }
+
+  getAPIdata(){
+    return this.httpClient.get(environment.fireStoreURL+'/getChallenges');
+  }
+
+  postGroupChallengedata(groupAndChallenge){// [0]: group, [1]: challenge
+    console.log(groupAndChallenge);
+    return this.httpClient.post(environment.fireStoreURL+'/setGroupChallenge', {'group' : `${groupAndChallenge[0]}`,
+      'challenge' : `${groupAndChallenge[1]}`});
+  }
 }

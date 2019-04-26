@@ -5,7 +5,7 @@ import { map } from "rxjs/operators";
 import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 import { ChallengeInfo } from './challengeinfo';
 import { environment } from '../../environments/environment';
-import { Group } from '../results/results.classes';
+import { Group } from '../services/results.classes';
 
 @Injectable({
   providedIn: 'root'

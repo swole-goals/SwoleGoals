@@ -1,12 +1,10 @@
 import { UserProfileService } from './user-profile.service';
-import { DataService } from '../services/data.service';
 import { Component, OnInit } from '@angular/core';
-import { GetChallengesService } from '../services/get-challenges.service';
-import { SetGroupChallengeService } from '../services/set-group-challenge.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../challenge-creation-menu/challenge-creation-menu.component';
 import { UserService } from '../services/user.service';
 import { GroupService } from '../services/group.service';
+import {ChallengeService} from '../services/challenge.service'
 
 @Component({
   selector: 'app-user-profile',
@@ -26,9 +24,9 @@ export class UserProfileComponent implements OnInit {
   constructor(private userProfileService: UserProfileService,
     public userService: UserService,
     private groupService: GroupService,
-    private getChallengesService: GetChallengesService,
-    private setGroupChallengeService: SetGroupChallengeService) {
-    this.getChallengesService.getAPIdata().subscribe(res => {
+    private challengeService: ChallengeService,
+) {
+    this.challengeService.getAPIdata().subscribe(res => {
       this.dataSource = res;
     });
   }
@@ -79,8 +77,7 @@ export class UserProfileComponent implements OnInit {
       groupAndChallenge.push(this.userService.getUserGroup());
       groupAndChallenge.push(this.selectedChallenge.selected[0][0]);
       console.log(groupAndChallenge);
-      this.setGroupChallengeService.postAPIdata(groupAndChallenge).subscribe((res) => {
-        DataService.setChallengeName(String(res));
+      this.challengeService.postGroupChallengedata(groupAndChallenge).subscribe((res) => {
       });
     }
   }

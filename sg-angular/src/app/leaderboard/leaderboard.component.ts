@@ -2,9 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {GroupService} from "../services/group.service";
 import {forEach} from "@angular/router/src/utils/collection";
 import {HttpClient} from "@angular/common/http";
-import {GetUsersService} from "../services/get-users.service";
 import {MatTableDataSource} from "@angular/material";
-import {ResultsService} from "../results/results.service";
+import {ResultsService} from "../services/results.service";
 import {UserService} from "../services/user.service";
 
 export interface groupLeaderboardElement {
@@ -37,7 +36,6 @@ export class LeaderboardComponent implements OnInit {
 
   constructor(
     private groupService: GroupService,
-    private getUsersService: GetUsersService,
     private resultsService: ResultsService,
     private userService: UserService
   ) {  }
@@ -107,7 +105,7 @@ export class LeaderboardComponent implements OnInit {
 
 
 
-    this.getUsersService.getAllUsers().subscribe((res) => {
+    this.userService.getAllUsers().subscribe((res) => {
       let allUsers = res as Array<any>;
       //console.log(allUsers);
       //console.log(GLOBAL_DATA);

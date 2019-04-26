@@ -81,4 +81,9 @@ export class UserService {
     this.user.weight = weight;
     this.setUserData(this.user);
   }
+
+  getAllUsers() {
+    return this.httpClient.get(environment.fireStoreURL + '/getAllUsers')
+  }
+
 }

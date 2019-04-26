@@ -5,8 +5,8 @@ import { ChallengeInfo } from './challengeinfo';
 import { ExerciseReps } from './exercisereps';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-import { ResultsService } from '../results/results.service';
-import { ResultObj } from '../results/results.classes';
+import { ResultsService } from '../services/results.service';
+import { ResultObj } from '../services/results.classes';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
