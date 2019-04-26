@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ExerciseListService {
-  url: string = ''
+  url: string = '';
   
   constructor(private httpClient: HttpClient) { }
   
