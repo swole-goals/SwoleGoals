@@ -46,7 +46,6 @@ export function getAuthServiceConfigs() {
     UserProfileComponent,
     ExerciseListComponent,
     SplashComponent,
-    ResultsComponent,
     ChallengeCreationMenuComponent,
     ExerciseTableComponent,
     ExerciseCurrentComponent,
@@ -99,10 +98,6 @@ export function getAuthServiceConfigs() {
       {
         path: 'app-splash',
         component: SplashComponent
-      },
-      {
-        path: 'results',
-        component: ResultsComponent
       },
       {
         path: '',
