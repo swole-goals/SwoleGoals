@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseListService } from './exercise-list.service';
 import { ExerciseInfo } from './exerciseinfo';
+import {ExerciseService} from "../services/exercise.service";
 
 
 
@@ -26,7 +27,7 @@ export class ExerciseListComponent implements OnInit {
   public selectedExercise = null;
   public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   
-  constructor(private exerciseService: ExerciseListService) { 
+  constructor(private exerciseService: ExerciseService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
       this.exercisesList = res;
       this.selectedExercise = res[0];

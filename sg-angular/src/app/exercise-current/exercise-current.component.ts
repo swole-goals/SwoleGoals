@@ -6,6 +6,7 @@ import { ExerciseInfo } from '../exercise-list/exerciseinfo';
 import { MapService } from '../map/map.service';
 import { ChallengeInfo } from '../map/challengeinfo';
 import { UserService } from '../services/user.service';
+import {ExerciseService} from "../services/exercise.service";
 
 
 @Component({
@@ -27,7 +28,9 @@ export class ExerciseCurrentComponent implements OnInit {
   public mapUrl: string = '/app-map';
   public userEmail: string = '';
   private route: ActivatedRoute;
-  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService, private router: Router, private userService: UserService, private mapService: MapService) {
+  constructor(private activatedRoute: ActivatedRoute, private currentService: ExerciseCurrentService,
+              private router: Router, private userService: UserService, private mapService: MapService,
+              private exerciseService: ExerciseService) {
   }
   backToMap() {
     this.router.navigate(['/app-map']); 	
@@ -50,7 +53,7 @@ export class ExerciseCurrentComponent implements OnInit {
     }
     formattedChallenge = formattedChallenge.slice(0, formattedChallenge.length - 3);
     this.resultsUrl = `/app-exercise-result/` + this.challenge + `/` + this.name;
-    this.currentService.getExercise(formattedExercise).subscribe(res => {
+    this.exerciseService.getExercise(formattedExercise).subscribe(res => {
       this.exercisesCurrent = res;
       this.description = res[0].instructions;
       this.image1Url = res[0].image1;

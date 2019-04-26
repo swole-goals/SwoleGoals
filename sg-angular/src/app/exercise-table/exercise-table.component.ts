@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExerciseTableService } from './exercise-table.service';
 import { StrengthInfo } from './strengthInfo';
+import {ExerciseService} from "../services/exercise.service";
 
 @Component({
   selector: 'app-exercise-table',
@@ -12,8 +13,8 @@ export class ExerciseTableComponent implements OnInit {
 	public strengthInformation: Array<StrengthInfo>;
 	public filteredInformation: Array<StrengthInfo> = [];
 	public selectedExercise: StrengthInfo;
-	constructor(private tableService: ExerciseTableService) { 
-		this.tableService.getStrengthLevelDataUnfiltered().subscribe(res => {
+	constructor(private exerciseService: ExerciseService) {
+		this.exerciseService.getStrengthLevelDataUnfiltered().subscribe(res => {
 			this.strengthInformation = res;
 			console.log(this.strengthInformation[0]);
 			this.onChange('Barbell');

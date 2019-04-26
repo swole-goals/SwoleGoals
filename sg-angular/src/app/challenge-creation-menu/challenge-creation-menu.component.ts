@@ -5,6 +5,7 @@ import { SelectionModel} from "@angular/cdk/collections";
 import {Challenge} from "../services/challenge";
 import { UserService } from '../services/user.service';
 import {ChallengeService} from '../services/challenge.service'
+import {ExerciseService} from "../services/exercise.service";
 
 export interface PeriodicElement {
   name: string;
@@ -36,7 +37,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
   ans: Challenge;
 
 
-  constructor(private exerciseService: ExerciseListService,
+  constructor(private exerciseService: ExerciseService,
               private challengeService: ChallengeService,
               private userService: UserService) {
     this.exerciseService.getExerciseListUnfiltered().subscribe(res => {
