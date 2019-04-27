@@ -10,6 +10,7 @@ import { ChallengeInfo } from '../map/challengeinfo';
   templateUrl: './exercise-result.component.html',
   styleUrls: ['./exercise-result.component.css']
 })
+
 export class ExerciseResultComponent implements OnInit {
   public repsTotal = 20;
   public baseReps = 20;
@@ -18,42 +19,44 @@ export class ExerciseResultComponent implements OnInit {
   public challenge: string = '';
   public name: string = '';
   public unformattedName: string = '';
+
   constructor(private userService : UserService, private router: Router, private resultsComponent: ResultsService, private activatedRoute: ActivatedRoute, private mapService: MapService) { }
+  
   increaseReps() {
-  	if(this.repsTotal < (this.baseReps * 2)) 
-  		this.repsTotal++;
+    if(this.repsTotal < (this.baseReps * 2)) 
+      this.repsTotal++;
   }
+  
   decreaseReps() { 
-  	if(this.repsTotal > 0)
-  		this.repsTotal--;
+    if(this.repsTotal > 0)
+      this.repsTotal--;
   }
+  
   submitReps() {
-  	console.log(String(this.repsTotal));
-  	this.resultsComponent.updateChallengeResultsUserExercise(this.unformattedName, String(this.repsTotal), this.userEmail)
-  	this.router.navigate(['/app-map']);
+    this.resultsComponent.updateChallengeResultsUserExercise(this.unformattedName, String(this.repsTotal), this.userEmail)
+    this.router.navigate(['/app-map']);
   }
+  
   ngOnInit() {
-	this.userEmail = this.userService.getUserEmail();
-	this.groupName = this.userService.getUserGroup();
-	this.challenge = this.activatedRoute.snapshot.paramMap.get('challenge');
-	this.name = this.activatedRoute.snapshot.paramMap.get('exercise');
-	this.mapService.getChallenge(this.userEmail).subscribe(res => {
-		let c = (res as ChallengeInfo);
-		console.log(res);
-		for(let exercise of c.exercises) {
-        		let nameBegin = exercise.indexOf('[') + 1;
-			let nameEnd = exercise.indexOf(']');
-			let repsBegin = exercise.indexOf('{') + 1;
-			let repsEnd = exercise.indexOf('}');
-			let n = exercise.substring(nameBegin, nameEnd);
-			if(this.name == n) {
-				this.repsTotal = Number(exercise.substring(repsBegin, repsEnd));
-				this.baseReps = this.repsTotal;
-				this.unformattedName = exercise;
-				console.log("Exercise (component): " + exercise);
-			}
-		}
-	});
+    this.userEmail = this.userService.getUserEmail();
+    this.groupName = this.userService.getUserGroup();
+    this.challenge = this.activatedRoute.snapshot.paramMap.get('challenge');
+    this.name = this.activatedRoute.snapshot.paramMap.get('exercise');
+    this.mapService.getChallenge(this.userEmail).subscribe(res => {
+      let c = (res as ChallengeInfo);
+      for(let exercise of c.exercises) {
+        let nameBegin = exercise.indexOf('[') + 1;
+	let nameEnd = exercise.indexOf(']');
+	let repsBegin = exercise.indexOf('{') + 1;
+	let repsEnd = exercise.indexOf('}');
+	let n = exercise.substring(nameBegin, nameEnd);
+	if(this.name == n) {
+	  this.repsTotal = Number(exercise.substring(repsBegin, repsEnd));
+	  this.baseReps = this.repsTotal;
+	  this.unformattedName = exercise;
+	}
+      }
+    });
   }
 
 }

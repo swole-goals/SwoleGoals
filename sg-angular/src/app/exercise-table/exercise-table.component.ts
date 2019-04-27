@@ -10,39 +10,38 @@ import {ExerciseService} from "../services/exercise.service";
   providers: [ExerciseTableService]
 })
 export class ExerciseTableComponent implements OnInit {
-	public strengthInformation: Array<StrengthInfo>;
-	public filteredInformation: Array<StrengthInfo> = [];
-	public selectedExercise: StrengthInfo;
-	constructor(private exerciseService: ExerciseService) {
-		this.exerciseService.getStrengthLevelDataUnfiltered().subscribe(res => {
-			this.strengthInformation = res;
-			console.log(this.strengthInformation[0]);
-			this.onChange('Barbell');
-			this.selectedExercise = this.strengthInformation[0];
-		});
-	}
+  public strengthInformation: Array<StrengthInfo>;
+  public filteredInformation: Array<StrengthInfo> = [];
+  public selectedExercise: StrengthInfo;
+	
+  constructor(private exerciseService: ExerciseService) {
+    this.exerciseService.getStrengthLevelDataUnfiltered().subscribe(res => {
+      this.strengthInformation = res;
+      this.onChange('Barbell');
+      this.selectedExercise = this.strengthInformation[0];
+    });
+  }
           
-	onChange(value: string) {
-		console.log(value);
-		this.filteredInformation = [];
-		let i = 0;
-		for(let exercise of this.strengthInformation) {
-			if (exercise.exercise_family === value) {
-				this.filteredInformation[i++] = exercise;
-			}
-		}	
+  onChange(value: string) {
+    this.filteredInformation = [];
+    let i = 0;
+    for(let exercise of this.strengthInformation) {
+      if (exercise.exercise_family === value) {
+	this.filteredInformation[i++] = exercise;
+      }
+    }	
+  }
+	
+  onChangeExercise(value: number) {
+    for(let exercise of this.filteredInformation) {
+      if (exercise.exercise_id == value) {
+	this.selectedExercise = exercise;
+	  break;
 	}
-	onChangeExercise(value: number) {
-		console.log(value);
-		for(let exercise of this.filteredInformation) {
-			if (exercise.exercise_id == value) {
-				this.selectedExercise = exercise;
-				console.log(exercise);
-				break;
-			}
-		}
-	}	
-  	ngOnInit() {
-  	}
+      }
+    }	
+	
+  ngOnInit() {
+  }
 
 }
