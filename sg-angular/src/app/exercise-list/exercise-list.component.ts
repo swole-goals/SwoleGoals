@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ExerciseListService } from './exercise-list.service';
 import { ExerciseInfo } from './exerciseinfo';
 import {ExerciseService} from "../services/exercise.service";
 
@@ -13,8 +12,8 @@ import {ExerciseService} from "../services/exercise.service";
   selector: 'app-exercise-list',
   templateUrl: './exercise-list.component.html',
   styleUrls: ['./exercise-list.component.css'],
-  providers: [ExerciseListService]
 })
+
 export class ExerciseListComponent implements OnInit {
   public exercisesList: Array<ExerciseInfo>;
   public filteredList: Array<ExerciseInfo>;	

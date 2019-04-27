@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ResultsService } from '../services/results.service';
+import { ChallengeService } from '../services/challenge.service';
 import { MapService } from '../map/map.service';
 import { ChallengeInfo } from '../map/challengeinfo';
 
@@ -20,7 +21,7 @@ export class ExerciseResultComponent implements OnInit {
   public name: string = '';
   public unformattedName: string = '';
 
-  constructor(private userService : UserService, private router: Router, private resultsComponent: ResultsService, private activatedRoute: ActivatedRoute, private mapService: MapService) { }
+  constructor(private userService : UserService, private router: Router, private resultsComponent: ResultsService, private activatedRoute: ActivatedRoute, private challengeService: ChallengeService) { }
   
   increaseReps() {
     if(this.repsTotal < (this.baseReps * 2)) 
@@ -42,7 +43,7 @@ export class ExerciseResultComponent implements OnInit {
     this.groupName = this.userService.getUserGroup();
     this.challenge = this.activatedRoute.snapshot.paramMap.get('challenge');
     this.name = this.activatedRoute.snapshot.paramMap.get('exercise');
-    this.mapService.getChallenge(this.userEmail).subscribe(res => {
+    this.challengeService.getChallengeData().subscribe(res => {
       let c = (res as ChallengeInfo);
       for(let exercise of c.exercises) {
         let nameBegin = exercise.indexOf('[') + 1;

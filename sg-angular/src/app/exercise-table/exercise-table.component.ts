@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ExerciseTableService } from './exercise-table.service';
 import { StrengthInfo } from './strengthInfo';
 import {ExerciseService} from "../services/exercise.service";
 
@@ -7,7 +6,6 @@ import {ExerciseService} from "../services/exercise.service";
   selector: 'app-exercise-table',
   templateUrl: './exercise-table.component.html',
   styleUrls: ['./exercise-table.component.css'],
-  providers: [ExerciseTableService]
 })
 export class ExerciseTableComponent implements OnInit {
   public strengthInformation: Array<StrengthInfo>;
