@@ -1,5 +1,7 @@
 export interface GithubFactory {
   getAccount(accountName: string): Account;
+  getAll(): Array<Account>;  
+  getAllCommits(): number;
 }
 
 export class SwoleGoalsFactory implements GithubFactory{
@@ -25,6 +27,26 @@ export class SwoleGoalsFactory implements GithubFactory{
     }
     return null;
   }
+  public getAll() : Array<Account>{
+    let result = [];
+    result.push(Vivian.getInstance());
+    result.push(Kaibo.getInstance());
+    result.push(Nicole.getInstance());
+    result.push(Michael.getInstance());
+    result.push(Nick.getInstance());
+    result.push(Rohan.getInstance());
+    return result;
+  }
+  public getAllCommits(): number{
+    let total = 0;
+    total += Number(Vivian.getInstance().commits);
+    total += Number(Kaibo.getInstance().commits);
+    total += Number(Nicole.getInstance().commits);
+    total += Number(Michael.getInstance().commits);
+    total += Number(Nick.getInstance().commits);
+    total += Number(Rohan.getInstance().commits);
+    return total;
+  }
 }
 
 export interface Account {
@@ -35,6 +57,7 @@ export interface Account {
   bio: string;
   image: string;
   responsibilities: string;
+  increment(): void;
 }
 
 export class Vivian implements Account {
@@ -61,6 +84,11 @@ export class Vivian implements Account {
   public static getInstance() : Account {
     return Vivian.instance;
   }
+  public increment(): void {
+    let total = Number(this.commits);
+    total++;
+    this.commits = String(total);
+  }
 }
 
 export class Rohan implements Account {
@@ -85,6 +113,11 @@ export class Rohan implements Account {
   }    
   public static getInstance() : Account {
     return Rohan.instance;
+  }
+  public increment(): void {
+    let total = Number(this.commits);
+    total++;
+    this.commits = String(total);
   }
 }
 
@@ -111,6 +144,11 @@ export class Michael implements Account {
   public static getInstance() : Account {
     return Michael.instance;
   }
+  public increment(): void {
+    let total = Number(this.commits);
+    total++;
+    this.commits = String(total);
+  }
 }
 export class Nick implements Account {
   public user: string;
@@ -135,6 +173,11 @@ export class Nick implements Account {
   }
   public static getInstance() : Account {
     return Nick.instance;
+  }
+  public increment(): void {
+    let total = Number(this.commits);
+    total++;
+    this.commits = String(total);
   }
 }
 export class Kaibo implements Account {
@@ -161,6 +204,11 @@ export class Kaibo implements Account {
   public static getInstance() : Account {
     return Kaibo.instance;
   }
+  public increment(): void {
+    let total = Number(this.commits);
+    total++;
+    this.commits = String(total);
+  }
 }
 export class Nicole implements Account {
   public user: string;
@@ -185,5 +233,10 @@ export class Nicole implements Account {
   }
   public static getInstance() : Account {
     return Nicole.instance;
+  }
+  public increment(): void {
+    let total = Number(this.commits);
+    total++;
+    this.commits = String(total);
   }
 }
