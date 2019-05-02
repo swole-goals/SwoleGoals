@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { GithubStatsComponent } from './github-stats/github-stats.component';
+import { AboutComponent } from './about/about';
 import { MapComponent } from './map/map.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ExerciseListComponent } from './exercise-list/exercise-list.component';
@@ -41,7 +41,7 @@ export function getAuthServiceConfigs() {
 @NgModule({
   declarations: [
     AppComponent,
-    GithubStatsComponent,
+    AboutComponent,
     MapComponent,
     UserProfileComponent,
     ExerciseListComponent,
@@ -68,8 +68,8 @@ export function getAuthServiceConfigs() {
     ChartModule,
     RouterModule.forRoot([
       {
-        path: 'app-github-stats',
-        component: GithubStatsComponent
+        path: 'app-about',
+        component: AboutComponent
       },
       {
         path: 'app-user-profile',

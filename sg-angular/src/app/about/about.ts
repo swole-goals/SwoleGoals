@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { GithubService } from '../github-stats/github.service';
+import { GithubService } from './github.service';
 import { GithubFactory, SwoleGoalsFactory, Account, Vivian, Kaibo, Nick, Nicole, Rohan, Michael } from './GithubFactory';
 
 
 @Component({
-	selector: 'app-github-stats',
-	templateUrl: './github-stats.component.html',
-	styleUrls: ['./github-stats.component.css']
+	selector: 'app-about',
+	templateUrl: './about.html',
+	styleUrls: ['./about.css']
 })
-export class GithubStatsComponent implements OnInit {
+export class AboutComponent implements OnInit {
   public factory: GithubFactory = new SwoleGoalsFactory();
   public gitAccountList: Array<Account> = [];
 	public totalCommits: number = 0;
