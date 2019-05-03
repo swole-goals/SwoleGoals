@@ -1,17 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel} from "@angular/cdk/collections";
-import {Challenge} from "../services/challenge";
 import { UserService } from '../services/user.service';
 import {ChallengeService} from '../services/challenge.service'
 import {ExerciseService} from "../services/exercise.service";
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
 @Component({
   selector: 'app-challenge-creation-menu',
@@ -33,7 +25,6 @@ export class ChallengeCreationMenuComponent implements OnInit {
   currentFilter: string;
   challengeName = '';
   groupName: String;
-  ans: Challenge;
 
 
   constructor(private exerciseService: ExerciseService,
@@ -59,7 +50,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
