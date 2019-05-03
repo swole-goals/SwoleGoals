@@ -75,13 +75,19 @@ export class LeaderboardComponent implements OnInit {
           }
 
         }
-        console.log(listOfUserScores);
+        //console.log(listOfUserScores);
 
         let numberUsers = this.groupService.getGroupMembers().length;
-        let index = 0;
+        /*let index = 0;
         for (let score in listOfUserScores){
-          addedScores[index%numberUsers] = addedScores[index%numberUsers] + +score;
+          console.log(score);
+          addedScores[index%numberUsers] = addedScores[index%numberUsers] + Number(score);
           index++;
+        }*/
+
+        for (let i = 0; i < listOfUserScores.length; i++){
+          //console.log(listOfUserScores[i]);
+          addedScores[i%numberUsers] = addedScores[i%numberUsers] + listOfUserScores[i];
         }
 
         /*for (let user of groupMembers) {
@@ -90,6 +96,8 @@ export class LeaderboardComponent implements OnInit {
         GROUP_DATA.sort(function (a, b) {
           return <any>b.score - <any>a.score;
         });*/
+
+       // console.log(addedScores);
 
         for (let i = 0; i < groupMembers.length; i++){
           GROUP_DATA.push({userName: groupMembers[i], score: String(addedScores[i])});
