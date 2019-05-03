@@ -79,7 +79,9 @@ export class Vivian implements Account {
     this.image = '../../assets/headshots/vivian.jpg';
     this.responsibilities = "Initialize CloudSQL database. Load web-scraped exercise data into database. " +
     "Write notes for local database development. " +
-    "Write a script for automatically loading web-scraped text files. Phase 2: ";
+    "Write a script for automatically loading web-scraped text files. Phase 2: " + 
+    "Tested backend firestore service for adding members to a group. " + 
+    "Set up backend API used by GameMap and Leaderboard for creating a challenge results object containing the number of repetitions the user completes. ";
   }
   public static getInstance() : Account {
     return Vivian.instance;
@@ -229,7 +231,7 @@ export class Nicole implements Account {
     this.image = '../../assets/headshots/nicole.jpg';
     this.responsibilities = "Create profile page using Bootstrap 4. Create basic aesthetic design to be " +
     "used throughout front end. Standardization of css files. " +
-    "Correction of general front-end functionality errors. Phase 2:. Phase 3: ";
+    "Correction of general front-end functionality errors. Phase 2: Countinued to modify the User Profile Page. Phase 3: Worked on formatting the Map page. Added a home page for the website. Fixed errors caused by html sytax that shut down the login capbabilities.  ";
   }
   public static getInstance() : Account {
     return Nicole.instance;

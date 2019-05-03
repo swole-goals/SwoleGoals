@@ -38,24 +38,6 @@ var cors = require('cors');//cors is used to allow cross platform services
 app.use(cors());
 app.use(bodyparser.json());
 
-/*
-var mongoose = require('mongoose');
-var expressSession = require('express-session');
-var MongoStore = require('connect-mongo');
-
-mongoose.connect(db_url, function (err) {
-    if (err) {
-        console.log(err);
-    }
-});
-
-app.use(expressSession({
-    secret: process.env.SESSION_SECRET || 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
-*/
 
 app.get('/', (req, res) => {
   res.send("Hello from Firestore!");
@@ -100,9 +82,6 @@ app.post('/getResultScores', bodyparser.json(), (req, res) => {
   const userRef = db.collection('Results').doc(req.body.groupName);
   userRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
-      /*docSnapshot.get('docData').resultList.forEach(function(doc) {
-        data.push(doc.data());
-      });*/
       data.push(docSnapshot.get('docData').resultList);
       console.log('Returned ResultObj');
       res.json(data);
@@ -166,12 +145,6 @@ app.post('/updateChallengeResults', bodyparser.json(), (req, res) => {
         exerciseName: 'exerciseName',
         userObj: []
       };
-
-      /*for (let k=0; k<req.body.groupUsers.length;k++) {
-        groupRef.update({
-          arrOfUserObj: admin.firestore.FieldValue.arrayUnion(req.body.userEmail)
-        })
-      } */
 
       for (let k=0; k<req.body.groupUsers.length;k++) {
         arrOfUserObj.push(req.body.groupUsers[k]);
@@ -277,24 +250,6 @@ app.post('/updateGroup', bodyparser.json(), (req, res) => {
   const groupRef = db.collection('groups').doc(req.body.groupName);
   const userRef = db.collection('users').doc(req.body.userEmail);
 
-  //removing user from previous group
-/*  userRef.get().then((doc) => {
-    const previousGroupRef = db.collection('groups').doc(doc.get('groupID'));
-    if(previousGroupRef != null) {
-      previousGroupRef.get().then((doc) => {
-        if (doc.exists) {
-          previousGroupRef.update({
-            users: admin.firestore.FieldValue.arrayRemove(req.body.userEmail)
-          });
-        }
-      }).catch((err) => {
-        console.log('got an error:', err);
-      });
-    }
-  }).catch((err) => {
-    console.log('got and error:', err);
-  }) ;*/
-
   //adding user to group or creating new group
   groupRef.get().then((docSnapshot) => {
     if (docSnapshot.exists) {
@@ -356,35 +311,6 @@ app.get('/getChallengeExercises/:name', bodyparser.json(), (req, res) => {
     }
   });
 });
-
-// app.post('/addClgtoGroup', bodyparser.json(), (req, res) => {
-//   console.log(req.body);
-//   //res.json(req.body);
-//   const clgRef = db.collection('groups').doc(req.body.gname);
-//   clgRef.get().then((docSnapshot) => {
-//     if (docSnapshot.get('challenge') != null) {
-//       console.log('challenge already exist in your group');
-//       //res.json('exists');
-//       clgRef.set({
-//         challenge: 'exists'
-//       }).then(() => clgRef.get().then((docSnapshot) => {
-//         res.json(docSnapshot.data())
-//       })).catch((err) => {
-//         console.log('get an error:', err);
-//       })
-//     } else {
-//       clgRef.set({
-//         challenge: req.body.cname
-//       }).then(() => {
-//         console.log('creat challenge in this group');
-//       }).then(() => clgRef.get().then((docSnapshot) => {
-//         res.json(docSnapshot.data())
-//       })).catch((err) => {
-//         console.log('get an error:', err);
-//       });
-//     }
-//   });
-// });
 
 app.post('/addChallenge', bodyparser.json(), (req, res) => {
     console.log(req.body);
@@ -510,23 +436,6 @@ app.get('/getEx/:challenge', bodyparser.json(), (req, res) => {
     }
   })
 })
-
-
-
-  //findUser info
-
-  // app.post('/findUser', bodyparser.json(), (req, res) => {
-  //     console.log(req.body);
-  //     res.json(req.body);
-  //     const userRef = db.collection('users').doc(req.body.email);
-  //     userRef.get().then((docSnapshot) => {
-  //         if (docSnapshot.exists){
-  //             res.send('documents exists');
-  //         }else{
-  //             res.send('documents not exists');
-  //         }
-  //     });
-  // });
 
   // set up the listening port
   const PORT = process.env.PORT || 4202;
