@@ -39,8 +39,7 @@ export class AboutComponent implements OnInit {
 			}
 			
 			else {//done
-				var commitCounts = [0, 0, 0, 0, 0, 0];
-
+				this.factory.clearAllCommits();
 				this.commits.forEach(commit => {
 				        var user = 'rkoripalli';
 					

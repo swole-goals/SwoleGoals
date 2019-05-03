@@ -2,6 +2,7 @@ export interface GithubFactory {
   getAccount(accountName: string): Account;
   getAll(): Array<Account>;  
   getAllCommits(): number;
+  clearAllCommits(): void;  
 }
 
 export class SwoleGoalsFactory implements GithubFactory{
@@ -47,6 +48,14 @@ export class SwoleGoalsFactory implements GithubFactory{
     total += Number(Rohan.getInstance().commits);
     return total;
   }
+  public clearAllCommits(): void {
+    Vivian.getInstance().clearCommits();  
+    Kaibo.getInstance().clearCommits();  
+    Nicole.getInstance().clearCommits();  
+    Michael.getInstance().clearCommits();  
+    Nick.getInstance().clearCommits();  
+    Rohan.getInstance().clearCommits();  
+  }
 }
 
 export interface Account {
@@ -58,6 +67,7 @@ export interface Account {
   image: string;
   responsibilities: string;
   increment(): void;
+  clearCommits(): void;
 }
 
 export class Vivian implements Account {
@@ -91,6 +101,9 @@ export class Vivian implements Account {
     total++;
     this.commits = String(total);
   }
+  public clearCommits(): void {
+    this.commits = '0';
+  }
 }
 
 export class Rohan implements Account {
@@ -120,6 +133,9 @@ export class Rohan implements Account {
     let total = Number(this.commits);
     total++;
     this.commits = String(total);
+  }
+  public clearCommits(): void {
+    this.commits = '0';
   }
 }
 
@@ -151,6 +167,9 @@ export class Michael implements Account {
     total++;
     this.commits = String(total);
   }
+  public clearCommits(): void {
+    this.commits = '0';
+  }
 }
 export class Nick implements Account {
   public user: string;
@@ -180,6 +199,9 @@ export class Nick implements Account {
     let total = Number(this.commits);
     total++;
     this.commits = String(total);
+  }
+  public clearCommits(): void {
+    this.commits = '0';
   }
 }
 export class Kaibo implements Account {
@@ -211,6 +233,9 @@ export class Kaibo implements Account {
     total++;
     this.commits = String(total);
   }
+  public clearCommits(): void {
+    this.commits = '0';
+  }
 }
 export class Nicole implements Account {
   public user: string;
@@ -240,5 +265,8 @@ export class Nicole implements Account {
     let total = Number(this.commits);
     total++;
     this.commits = String(total);
+  }
+  public clearCommits(): void {
+    this.commits = '0';
   }
 }
