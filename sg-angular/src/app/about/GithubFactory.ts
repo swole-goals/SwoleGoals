@@ -81,7 +81,7 @@ export class Vivian implements Account {
     "Write notes for local database development. " +
     "Write a script for automatically loading web-scraped text files. Phase 2: " + 
     "Tested backend firestore service for adding members to a group. " + 
-    "Set up backend API used by GameMap and Leaderboard for creating a challenge results object containing the number of repetitions the user completes. ";
+    "Phase 3: Set up backend API used by GameMap and Leaderboard for creating a challenge results object containing the number of repetitions the user completes. ";
   }
   public static getInstance() : Account {
     return Vivian.instance;
