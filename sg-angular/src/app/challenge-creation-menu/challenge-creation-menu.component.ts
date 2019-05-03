@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ExerciseListService} from "../exercise-list/exercise-list.service";
 import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel} from "@angular/cdk/collections";
 import {Challenge} from "../services/challenge";
