@@ -2,6 +2,7 @@ export interface GithubFactory {
   getAccount(accountName: string): Account;
   getAll(): Array<Account>;  
   getAllCommits(): number;
+  clearAllCommits(): void;  
 }
 
 export class SwoleGoalsFactory implements GithubFactory{
@@ -47,6 +48,14 @@ export class SwoleGoalsFactory implements GithubFactory{
     total += Number(Rohan.getInstance().commits);
     return total;
   }
+  public clearAllCommits(): void {
+    Vivian.getInstance().clearCommits();  
+    Kaibo.getInstance().clearCommits();  
+    Nicole.getInstance().clearCommits();  
+    Michael.getInstance().clearCommits();  
+    Nick.getInstance().clearCommits();  
+    Rohan.getInstance().clearCommits();  
+  }
 }
 
 export interface Account {
@@ -58,6 +67,7 @@ export interface Account {
   image: string;
   responsibilities: string;
   increment(): void;
+  clearCommits(): void;
 }
 
 export class Vivian implements Account {
@@ -81,7 +91,7 @@ export class Vivian implements Account {
     "Write notes for local database development. " +
     "Write a script for automatically loading web-scraped text files. Phase 2: " + 
     "Tested backend firestore service for adding members to a group. " + 
-    "Set up backend API used by GameMap and Leaderboard for creating a challenge results object containing the number of repetitions the user completes. ";
+    "Phase 3: Set up backend API used by GameMap and Leaderboard for creating a challenge results object containing the number of repetitions the user completes. ";
   }
   public static getInstance() : Account {
     return Vivian.instance;
@@ -90,6 +100,9 @@ export class Vivian implements Account {
     let total = Number(this.commits);
     total++;
     this.commits = String(total);
+  }
+  public clearCommits(): void {
+    this.commits = '0';
   }
 }
 
@@ -121,6 +134,9 @@ export class Rohan implements Account {
     total++;
     this.commits = String(total);
   }
+  public clearCommits(): void {
+    this.commits = '0';
+  }
 }
 
 export class Michael implements Account {
@@ -150,6 +166,9 @@ export class Michael implements Account {
     let total = Number(this.commits);
     total++;
     this.commits = String(total);
+  }
+  public clearCommits(): void {
+    this.commits = '0';
   }
 }
 export class Nick implements Account {
@@ -181,6 +200,9 @@ export class Nick implements Account {
     total++;
     this.commits = String(total);
   }
+  public clearCommits(): void {
+    this.commits = '0';
+  }
 }
 export class Kaibo implements Account {
   public user: string;
@@ -211,6 +233,9 @@ export class Kaibo implements Account {
     total++;
     this.commits = String(total);
   }
+  public clearCommits(): void {
+    this.commits = '0';
+  }
 }
 export class Nicole implements Account {
   public user: string;
@@ -240,5 +265,8 @@ export class Nicole implements Account {
     let total = Number(this.commits);
     total++;
     this.commits = String(total);
+  }
+  public clearCommits(): void {
+    this.commits = '0';
   }
 }
