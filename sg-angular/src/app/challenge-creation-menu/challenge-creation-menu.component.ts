@@ -5,6 +5,13 @@ import { UserService } from '../services/user.service';
 import {ChallengeService} from '../services/challenge.service'
 import {ExerciseService} from "../services/exercise.service";
 
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
 @Component({
   selector: 'app-challenge-creation-menu',
   templateUrl: './challenge-creation-menu.component.html',
@@ -50,7 +57,7 @@ export class ChallengeCreationMenuComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?): string {
+  checkboxLabel(row?: PeriodicElement): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
